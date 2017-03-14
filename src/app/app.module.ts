@@ -7,9 +7,10 @@ import {RouterModule, Routes} from '@angular/router';
 
 import {AngularFireModule} from 'angularfire2';
 
-import {AppComponent} from './app.component';
-import {PodcastComponent} from './podcast.component';
-import {NewsComponent} from './news.component';
+import {AppComponent} from './components/app/app.component';
+import {PodcastsComponent} from './components/podcasts/podcast.component';
+import {NewsComponent} from './components/news/news.component';
+import {ProfileComponent} from './components/profile/profile.component';
 
 import {firebaseConfig} from './configs/firebaseConfig';
 import {myFirebaseAuthConfig} from './configs/firebaseAuthConfig';
@@ -17,7 +18,8 @@ import {myFirebaseAuthConfig} from './configs/firebaseAuthConfig';
 
 
 export const appRoutes: Routes = [
-    {path: 'podcasts', component: PodcastComponent},
+    {path: 'podcasts', component: PodcastsComponent},
+    {path: 'user', component: ProfileComponent},
     {path: '**', component: NewsComponent}
 ];
 
@@ -27,8 +29,9 @@ export const appRoutes: Routes = [
 @NgModule({
     declarations: [
         AppComponent,
-        PodcastComponent,
-        NewsComponent
+        PodcastsComponent,
+        NewsComponent,
+        ProfileComponent
     ],
     imports: [
         BrowserModule,

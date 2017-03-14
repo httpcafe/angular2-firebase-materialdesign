@@ -23,7 +23,7 @@
 
     </md-toolbar>
 
-    <md-sidenav #sidenav class="sidenav">
+    <md-sidenav #sidenav class="sidenav" opened="true">
 
         <img [src]="(af.auth | async)?.google.photoURL" style="width: 100%; float: left">
         <div class="imageoverlay">
@@ -38,11 +38,10 @@
 
         <div>
             <button (click)="logout()">Logout</button>
-
         </div>
 
         <div>
-
+            <a routerLink="user" (click)="sidenav.close()">Mijn account</a>
         </div>
 
     </md-sidenav>

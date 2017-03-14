@@ -3,8 +3,8 @@ import {AngularFire, FirebaseListObservable} from 'angularfire2';
 
 @Component({
     selector: 'news',
-    templateUrl: './news.component.html',
-    styleUrls: ['./news.component.css']
+    templateUrl: 'news.component.html',
+    styleUrls: ['news.component.css']
 })
 export class NewsComponent {
     title = 'Newss!';

@@ -3,10 +3,10 @@ import {AngularFire, FirebaseListObservable} from 'angularfire2';
 
 @Component({
     selector: 'podcasts',
-    templateUrl: './podcast.component.html',
-    styleUrls: ['./podcast.component.css']
+    templateUrl: 'podcast.component.html',
+    styleUrls: ['podcast.component.css']
 })
-export class PodcastComponent {
+export class PodcastsComponent {
     title = 'Podcasts!';
     items: FirebaseListObservable<any[]>;
 
