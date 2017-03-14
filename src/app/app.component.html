@@ -1,9 +1,9 @@
-<md-sidenav-container class="example-container">
+<md-sidenav-container class="container">
     <md-toolbar color="accent">
         <button md-icon-button (click)="sidenav.open()">
             <md-icon>menu</md-icon>
         </button>
-        <span class="example-spacer">
+        <span class="spacer">
             HTTP Café
         </span>
 
@@ -23,17 +23,32 @@
 
     </md-toolbar>
 
-    <md-sidenav #sidenav class="example-sidenav">
+    <md-sidenav #sidenav class="sidenav">
 
-        <img [src]="(af.auth | async)?.google.photoURL" style="width: 100%">
-        <h1>{{ (af.auth | async)?.google.displayName }} </h1>
+        <img [src]="(af.auth | async)?.google.photoURL" style="width: 100%; float: left">
+        <div class="imageoverlay">
+            <strong>{{ (af.auth | async)?.google.displayName }} </strong><br>
+            <span>{{ (af.auth | async)?.google.email }}</span>
+        </div>
 
-        <button (click)="login()">Login</button>
-        <button (click)="logout()">Logout</button>
+        <div>
+            <button (click)="login()">Login</button>
+        </div>
+
+
+        <div>
+            <button (click)="logout()">Logout</button>
+
+        </div>
+
+        <div>
+
+        </div>
+
     </md-sidenav>
 
-    <div class="example-sidenav-content" flex="">
-            <router-outlet></router-outlet>
+    <div class="sidenav-content" flex="">
+        <router-outlet></router-outlet>
     </div>
 
 </md-sidenav-container>

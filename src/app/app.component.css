@@ -1,15 +1,15 @@
-.example-container {
+.container {
     width: 100vw;
     height: 100vh;
     border: 1px solid rgba(0, 0, 0, 0.5);
 }
 
-.example-sidenav-content > div {
+.sidenav-content > div {
     margin: auto;
     width: 90% !important;
 }
 
-.example-sidenav-content {
+.sidenav-content {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -17,16 +17,37 @@
     padding: 0 20px 20px 20px;
 }
 
-.example-sidenav {
-    padding: 20px;
-    width: 240px;
+.sidenav {
+    padding: 0;
+    width: 280px;
     background: #ffffff;
 }
 
+md-sidenav div {
+    width: 240px;
+    padding: 10px 20px 10px 20px;
+    border-bottom: solid 1px #eeeeee;
+    float: left;
+}
+
+.imageoverlay {
+    padding: 20px 20px 5px 20px !important;
+    margin: -65px 0 0px 0;
+    height: 40px;
+    overflow: hidden;
+    color: #ffffff;
+    background-color: rgba(0,0,0,0.6);
+    z-index: 200;
+    float: left;
+    font-family: Arial;
+}
+.imageoverlay span {
+    color: #cccccc;
+}
 .podcast {
     display: list-item;
 }
 
-.example-spacer {
+.spacer {
     flex: 1 1 auto;
 }
