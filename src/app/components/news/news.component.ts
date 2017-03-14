@@ -14,9 +14,10 @@ export class NewsComponent {
         this.items = af.database.list('/news', {
             query: {
                 orderByChild: 'datetime',
-                limitToLast: 5
+                limitToLast: 20
             }
-        });
+        })
+
         console.log(this.items);
     }
 }

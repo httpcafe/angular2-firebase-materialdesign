@@ -7,7 +7,6 @@ import {AngularFire, FirebaseObjectObservable} from 'angularfire2';
     styleUrls: ['profile.component.css']
 })
 export class ProfileComponent {
-    title = 'Profile!';
     userdata: FirebaseObjectObservable<any[]>;
 
     constructor(public af: AngularFire) {

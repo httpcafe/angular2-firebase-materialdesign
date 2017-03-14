@@ -1,80 +1,85 @@
 <h1>
-    {{ title }}
+    {{ (userdata | async)?.voornaam }} {{ (userdata | async)?.familienaam }}
 </h1>
 
 <form class="profile-form">
     <table>
         <tr>
             <td style="vertical-align: top">
-                <img [src]="(af.auth | async)?.google.photoURL" style="max-width: 200px; margin-right: 20px; padding: 5px; background-color: #ffffff; border: solid 1px #cccccc"></td>
+                <md-card style="padding: 5px 5px 2px 5px; margin-right: 10px">
+                <img [src]="(af.auth | async)?.google.photoURL"
+                     style="max-width: 200px;">
+                </md-card>
+            </td>
             <td>
 
+                <md-card>
+                    <p>
+                        <md-input-container class="profile-full-width">
+                            <input mdInput placeholder="email" [value]="(userdata | async)?.email">
+                        </md-input-container>
+                    </p>
+                    <table class="profile-full-width" cellspacing="0">
+                        <tr>
+                            <td>
+                                <md-input-container class="profile-full-width">
+                                    <input mdInput placeholder="voornaam" [value]="(userdata | async)?.voornaam">
+                                </md-input-container>
+                            </td>
+                            <td>
+                                <md-input-container class="profile-full-width">
+                                    <input mdInput placeholder="familienaam" [value]="(userdata | async)?.familienaam">
+                                </md-input-container>
+                            </td>
+                        </tr>
+                    </table>
 
-                <p>
-                    <md-input-container class="profile-full-width">
-                        <input mdInput placeholder="email" [value]="(userdata | async)?.email">
-                    </md-input-container>
-                </p>
-                <table class="profile-full-width" cellspacing="0">
-                    <tr>
-                        <td>
-                            <md-input-container class="profile-full-width">
-                                <input mdInput placeholder="voornaam" [value]="(userdata | async)?.voornaam">
-                            </md-input-container>
-                        </td>
-                        <td>
-                            <md-input-container class="profile-full-width">
-                                <input mdInput placeholder="familienaam" [value]="(userdata | async)?.familienaam">
-                            </md-input-container>
-                        </td>
-                    </tr>
-                </table>
 
-
-                <table class="profile-full-width" cellspacing="0">
-                    <tr>
-                        <td>
-                            <md-input-container class="profile-full-width">
-                                <input mdInput placeholder="straat" #straat [value]="(userdata | async)?.adres.straat"
-                                       (blur)="updateAdres(straat.value, huisnummer.value, postcode.value, gemeente.value, land.value)">
-                            </md-input-container>
-                        </td>
-                        <td>
-                            <md-input-container class="profile-full-width">
-                                <input mdInput placeholder="huisnummer" #huisnummer
-                                       [value]="(userdata | async)?.adres.huisnummer"
-                                       (blur)="updateAdres(straat.value, huisnummer.value, postcode.value, gemeente.value, land.value)">
-                            </md-input-container>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <md-input-container class="profile-full-width">
-                                <input mdInput placeholder="postcode" #postcode
-                                       [value]="(userdata | async)?.adres.postcode"
-                                       (blur)="updateAdres(straat.value, huisnummer.value, postcode.value, gemeente.value, land.value)">
-                            </md-input-container>
-                        </td>
-                        <td>
-                            <md-input-container class="profile-full-width">
-                                <input mdInput placeholder="gemeente" #gemeente
-                                       [value]="(userdata | async)?.adres.gemeente"
-                                       (blur)="updateAdres(straat.value, huisnummer.value, postcode.value, gemeente.value, land.value)">
-                            </md-input-container>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <md-input-container class="profile-full-width">
-                                <input mdInput placeholder="land" #land [value]="(userdata | async)?.adres.land"
-                                       (blur)="updateAdres(straat.value, huisnummer.value, postcode.value, gemeente.value, land.value)">
-                            </md-input-container>
-                        </td>
-                        <td>
-                        </td>
-                    </tr>
-                </table>
-
+                    <table class="profile-full-width" cellspacing="0">
+                        <tr>
+                            <td>
+                                <md-input-container class="profile-full-width">
+                                    <input mdInput placeholder="straat" #straat
+                                           [value]="(userdata | async)?.adres.straat"
+                                           (blur)="updateAdres(straat.value, huisnummer.value, postcode.value, gemeente.value, land.value)">
+                                </md-input-container>
+                            </td>
+                            <td>
+                                <md-input-container class="profile-full-width">
+                                    <input mdInput placeholder="huisnummer" #huisnummer
+                                           [value]="(userdata | async)?.adres.huisnummer"
+                                           (blur)="updateAdres(straat.value, huisnummer.value, postcode.value, gemeente.value, land.value)">
+                                </md-input-container>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <md-input-container class="profile-full-width">
+                                    <input mdInput placeholder="postcode" #postcode
+                                           [value]="(userdata | async)?.adres.postcode"
+                                           (blur)="updateAdres(straat.value, huisnummer.value, postcode.value, gemeente.value, land.value)">
+                                </md-input-container>
+                            </td>
+                            <td>
+                                <md-input-container class="profile-full-width">
+                                    <input mdInput placeholder="gemeente" #gemeente
+                                           [value]="(userdata | async)?.adres.gemeente"
+                                           (blur)="updateAdres(straat.value, huisnummer.value, postcode.value, gemeente.value, land.value)">
+                                </md-input-container>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <md-input-container class="profile-full-width">
+                                    <input mdInput placeholder="land" #land [value]="(userdata | async)?.adres.land"
+                                           (blur)="updateAdres(straat.value, huisnummer.value, postcode.value, gemeente.value, land.value)">
+                                </md-input-container>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                    </table>
+                </md-card>
                 <p>
                     <md-input-container class="profile-full-width">
                         <textarea mdInput placeholder="Address">1600 Amphitheatre Pkwy</textarea>
