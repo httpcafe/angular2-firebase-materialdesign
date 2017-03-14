@@ -2,4 +2,113 @@
     {{ title }}
 </h1>
 
-<img [src]="(af.auth | async)?.google.photoURL" style="width: 100%; float: left">
+<form class="profile-form">
+    <table>
+        <tr>
+            <td style="vertical-align: top">
+                <img [src]="(af.auth | async)?.google.photoURL" style="max-width: 200px; margin-right: 20px; padding: 5px; background-color: #ffffff; border: solid 1px #cccccc"></td>
+            <td>
+
+
+                <p>
+                    <md-input-container class="profile-full-width">
+                        <input mdInput placeholder="email" [value]="(userdata | async)?.email">
+                    </md-input-container>
+                </p>
+                <table class="profile-full-width" cellspacing="0">
+                    <tr>
+                        <td>
+                            <md-input-container class="profile-full-width">
+                                <input mdInput placeholder="voornaam" [value]="(userdata | async)?.voornaam">
+                            </md-input-container>
+                        </td>
+                        <td>
+                            <md-input-container class="profile-full-width">
+                                <input mdInput placeholder="familienaam" [value]="(userdata | async)?.familienaam">
+                            </md-input-container>
+                        </td>
+                    </tr>
+                </table>
+
+
+                <table class="profile-full-width" cellspacing="0">
+                    <tr>
+                        <td>
+                            <md-input-container class="profile-full-width">
+                                <input mdInput placeholder="straat" #straat [value]="(userdata | async)?.adres.straat"
+                                       (blur)="updateAdres(straat.value, huisnummer.value, postcode.value, gemeente.value, land.value)">
+                            </md-input-container>
+                        </td>
+                        <td>
+                            <md-input-container class="profile-full-width">
+                                <input mdInput placeholder="huisnummer" #huisnummer
+                                       [value]="(userdata | async)?.adres.huisnummer"
+                                       (blur)="updateAdres(straat.value, huisnummer.value, postcode.value, gemeente.value, land.value)">
+                            </md-input-container>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <md-input-container class="profile-full-width">
+                                <input mdInput placeholder="postcode" #postcode
+                                       [value]="(userdata | async)?.adres.postcode"
+                                       (blur)="updateAdres(straat.value, huisnummer.value, postcode.value, gemeente.value, land.value)">
+                            </md-input-container>
+                        </td>
+                        <td>
+                            <md-input-container class="profile-full-width">
+                                <input mdInput placeholder="gemeente" #gemeente
+                                       [value]="(userdata | async)?.adres.gemeente"
+                                       (blur)="updateAdres(straat.value, huisnummer.value, postcode.value, gemeente.value, land.value)">
+                            </md-input-container>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <md-input-container class="profile-full-width">
+                                <input mdInput placeholder="land" #land [value]="(userdata | async)?.adres.land"
+                                       (blur)="updateAdres(straat.value, huisnummer.value, postcode.value, gemeente.value, land.value)">
+                            </md-input-container>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                </table>
+
+                <p>
+                    <md-input-container class="profile-full-width">
+                        <textarea mdInput placeholder="Address">1600 Amphitheatre Pkwy</textarea>
+                    </md-input-container>
+                    <md-input-container class="profile-full-width">
+                        <textarea mdInput placeholder="Address 2"></textarea>
+                    </md-input-container>
+                </p>
+
+                <table class="profile-full-width" cellspacing="0">
+                    <tr>
+                        <td>
+                            <md-input-container class="profile-full-width">
+                                <input mdInput placeholder="City">
+                            </md-input-container>
+                        </td>
+                        <td>
+                            <md-input-container class="profile-full-width">
+                                <input mdInput placeholder="State">
+                            </md-input-container>
+                        </td>
+                        <td>
+                            <md-input-container class="profile-full-width">
+                                <input mdInput #postalCode maxlength="5" placeholder="Postal Code" value="94043">
+                                <md-hint align="end">{{postalCode.value.length}} / 5</md-hint>
+                            </md-input-container>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+</form>
+
+
+<div>{{ userdata | async | json }}</div>

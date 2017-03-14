@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {AngularFire, FirebaseListObservable} from 'angularfire2';
+import {AngularFire, FirebaseObjectObservable} from 'angularfire2';
 
 @Component({
     selector: 'profile',
@@ -8,10 +8,33 @@ import {AngularFire, FirebaseListObservable} from 'angularfire2';
 })
 export class ProfileComponent {
     title = 'Profile!';
-    items: FirebaseListObservable<any[]>;
+    userdata: FirebaseObjectObservable<any[]>;
 
-    constructor(af: AngularFire) {
-        this.items = af.database.list('/users/', {});
-        console.log(this.items);
+    constructor(public af: AngularFire) {
+
+        this.af.auth.subscribe(auth => {
+            if (auth) {
+                console.log('You are authenticated', auth);
+
+                this.userdata = af.database.object('/users/' + auth.uid);
+                console.log(this.userdata);
+            } else {
+                console.log('You are not authenticated')
+            }
+        });
+    }
+
+    updateAdres(straat, huisnummer, postcode, gemeente, land) {
+
+        this.userdata.update({
+            adres: {
+                straat: straat,
+                huisnummer: huisnummer,
+                postcode: postcode,
+                gemeente: gemeente,
+                land: land
+            }
+        })
+
     }
 }

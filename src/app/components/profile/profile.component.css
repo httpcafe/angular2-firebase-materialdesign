@@ -1,13 +1,7 @@
-
-md-card {
-    margin-bottom: 20px;
-    margin-right: 20px;
-    overflow: hidden;
-    max-width: 400px;
-    height: 400px;
-    float: left;
+.profile-form {
+    width: 100%;
 }
 
-md-card-title {
-    font-weight: bold;
+.profile-full-width {
+    width: 100%;
 }
