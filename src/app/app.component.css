@@ -1,0 +1,32 @@
+.example-container {
+    width: 100vw;
+    height: 100vh;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.example-sidenav-content > div {
+    margin: auto;
+    width: 90% !important;
+}
+
+.example-sidenav-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 0 20px 20px 20px;
+}
+
+.example-sidenav {
+    padding: 20px;
+    width: 240px;
+    background: #ffffff;
+}
+
+.podcast {
+    display: list-item;
+}
+
+.example-spacer {
+    flex: 1 1 auto;
+}

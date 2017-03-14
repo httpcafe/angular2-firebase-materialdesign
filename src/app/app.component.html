@@ -1,0 +1,39 @@
+<md-sidenav-container class="example-container">
+    <md-toolbar color="accent">
+        <button md-icon-button (click)="sidenav.open()">
+            <md-icon>menu</md-icon>
+        </button>
+        <span class="example-spacer">
+            HTTP Café
+        </span>
+
+        <button md-icon-button routerLink="/news">
+            <md-icon>home</md-icon>
+        </button>
+        <button md-icon-button routerLink="/podcasts" routerLinkActive="active">
+            <md-icon>record_voice_over</md-icon>
+        </button>
+        <button md-icon-button>
+            <md-icon>live_tv</md-icon>
+        </button>
+        <button md-icon-button>
+            <md-icon>inbox</md-icon>
+        </button>
+
+
+    </md-toolbar>
+
+    <md-sidenav #sidenav class="example-sidenav">
+
+        <img [src]="(af.auth | async)?.google.photoURL" style="width: 100%">
+        <h1>{{ (af.auth | async)?.google.displayName }} </h1>
+
+        <button (click)="login()">Login</button>
+        <button (click)="logout()">Logout</button>
+    </md-sidenav>
+
+    <div class="example-sidenav-content" flex="">
+            <router-outlet></router-outlet>
+    </div>
+
+</md-sidenav-container>

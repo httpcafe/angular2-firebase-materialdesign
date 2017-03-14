@@ -1,0 +1,13 @@
+
+md-card {
+    margin-bottom: 20px;
+    margin-right: 20px;
+    overflow: hidden;
+    max-width: 400px;
+    height: 400px;
+    float: left;
+}
+
+md-card-title {
+    font-weight: bold;
+}
