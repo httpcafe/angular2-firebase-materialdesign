@@ -13,8 +13,8 @@ export class NewsComponent {
     constructor(af: AngularFire) {
         this.items = af.database.list('/news', {
             query: {
-                orderByChild: 'datetime',
-                limitToLast: 20
+                orderByChild: 'published',
+                limitToLast: 200
             }
         })
 

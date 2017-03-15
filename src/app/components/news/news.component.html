@@ -1,15 +1,15 @@
 <h1>
     {{ title }}
 </h1>
-<md-card class="podcast" class="text" *ngFor="let item of items | async ">
+<div class="podcast" class="text" *ngFor="let item of items | async ">
+    <md-card *ngIf="item.published">
+        <md-card-header>
+            <md-card-title>{{item.title}}</md-card-title>
+        </md-card-header>
 
-    <md-card-header>
-        <md-card-title>{{item.title}}</md-card-title>
-    </md-card-header>
-
-    <md-card-content>
-        <p>{{ (0 - item.datetime) | date }}</p>
-        <p>{{item.content }}</p>
-    </md-card-content>
-
-</md-card>
+        <md-card-content>
+            <p>{{ (0 - item.published) | date }}</p>
+            <p>{{item.content }}</p>
+        </md-card-content>
+    </md-card>
+</div>

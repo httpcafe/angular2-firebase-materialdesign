@@ -25,23 +25,24 @@
 
     <md-sidenav #sidenav class="sidenav" opened="true">
 
-        <img [src]="(af.auth | async)?.google.photoURL" style="width: 100%; float: left">
-        <div class="imageoverlay">
+        <img *ngIf="(af.auth | async)?.google.photoURL" [src]="(af.auth | async)?.google.photoURL" style="width: 100%; float: left">
+        <div *ngIf="!(af.auth | async)?.google.photoURL" style="width: 100%; float: left; background-color: rgba(0,0,0,0.5); height: 280px"></div>
+        <div *ngIf="(af.auth | async)?.uid" class="imageoverlay">
             <strong>{{ (af.auth | async)?.google.displayName }} </strong><br>
             <span>{{ (af.auth | async)?.google.email }}</span>
         </div>
 
-        <div>
-            <button (click)="login()">Login</button>
-        </div>
-
-
-        <div>
-            <button (click)="logout()">Logout</button>
-        </div>
-
-        <div>
+        <div *ngIf="(af.auth | async)?.uid">
             <a routerLink="user" (click)="sidenav.close()">Mijn account</a>
+        </div>
+
+        <div *ngIf="!(af.auth | async)?.uid">
+            <a routerLink="user" (click)="login()">Inloggen</a>
+        </div>
+
+
+        <div *ngIf="(af.auth | async)?.uid">
+            <a routerLink="home" (click)="logout()">Uitloggen</a>
         </div>
 
     </md-sidenav>
