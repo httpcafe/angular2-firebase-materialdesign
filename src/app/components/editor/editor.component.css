@@ -1,0 +1,56 @@
+md-list {
+  margin-top: 10px;
+  padding: 0;
+  width: 30%;
+  float: left;
+}
+
+md-list-item {
+  border-bottom: solid 1px #eeeeee;
+  overflow: hidden;
+  cursor: pointer;
+  margin: 0;
+}
+
+.mat-list-item-content {
+  height: 32px;
+}
+
+md-list-item:last-of-type {
+  padding-top: 30px;
+  border-bottom: none;
+}
+
+div.editorcontent {
+  margin-top: 10px;
+  width: 68%;
+  float: right;
+}
+
+.full-width {
+  width: 100%;
+}
+
+table {
+  width: 100%;
+}
+
+table.linktable {
+  margin: 20px 0 0 0;
+  width: 100%;
+  border-left: 3px solid #cccccc;
+}
+
+td.meta {
+  font-size: 0.7em;
+  color: #999999;
+}
+
+.alert {
+  background: red;
+  color: #ffffff;
+}
+
+a {
+  text-decoration: none;
+}

@@ -5,12 +5,11 @@ import {ActivatedRoute} from '@angular/router';
 
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: 'profile.component.html',
-  styleUrls: ['profile.component.css'],
-  providers: [UserService]
+  selector: 'app-subscription',
+  templateUrl: 'subscription.component.html',
+  styleUrls: ['subscription.component.css']
 })
-export class ProfileComponent {
+export class SubscriptionComponent {
 
   userdataStream: any;
   uid: string;

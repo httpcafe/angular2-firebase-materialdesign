@@ -1,0 +1,22 @@
+<div>
+  <span *ngFor="let url of urlArray">
+
+
+<!--
+      <a md-raised-button *ngIf="url.url.includes('youtu')" href="{{url.url}}" target="_blank">
+        <md-icon>play_arrow</md-icon>
+        {{url.name}}
+      </a>
+-->
+      <a *ngIf="url.url.includes('http')" href="{{url.url}}" target="_blank">
+        <md-icon>attachment</md-icon>
+        {{url.name}}
+      </a>
+
+      <a *ngIf="!url.url.includes('http')" href="#" routerLink="{{url.url}}">
+        <md-icon>attachment</md-icon>
+        {{url.name}}
+      </a>
+
+  </span>
+</div>

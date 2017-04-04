@@ -1,54 +1,64 @@
 <md-sidenav-container class="container">
-    <md-toolbar color="accent">
-        <button md-icon-button (click)="sidenav.open()">
-            <md-icon>menu</md-icon>
-        </button>
-        <span class="spacer">
+  <md-toolbar color="accent">
+    <button md-icon-button (click)="sidenav.open()">
+      <md-icon>menu</md-icon>
+    </button>
+    <span class="spacer">
             HTTP Café
         </span>
 
-        <button md-icon-button routerLink="/news">
-            <md-icon>home</md-icon>
-        </button>
-        <button md-icon-button routerLink="/podcasts" routerLinkActive="active">
-            <md-icon>record_voice_over</md-icon>
-        </button>
-        <button md-icon-button>
-            <md-icon>live_tv</md-icon>
-        </button>
-        <button md-icon-button>
-            <md-icon>inbox</md-icon>
-        </button>
+    <button md-icon-button routerLink="/news">
+      <md-icon>home</md-icon>
+    </button>
+    <button md-icon-button routerLink="/podcasts" routerLinkActive="active">
+      <md-icon>record_voice_over</md-icon>
+    </button>
+    <button md-icon-button>
+      <md-icon>live_tv</md-icon>
+    </button>
+    <button md-icon-button>
+      <md-icon>inbox</md-icon>
+    </button>
 
+  </md-toolbar>
 
-    </md-toolbar>
+  <md-sidenav #sidenav class="sidenav" opened="false">
 
-    <md-sidenav #sidenav class="sidenav" opened="true">
-
-        <img *ngIf="(af.auth | async)?.google.photoURL" [src]="(af.auth | async)?.google.photoURL" style="width: 100%; float: left">
-        <div *ngIf="!(af.auth | async)?.google.photoURL" style="width: 100%; float: left; background-color: rgba(0,0,0,0.5); height: 280px"></div>
-        <div *ngIf="(af.auth | async)?.uid" class="imageoverlay">
-            <strong>{{ (af.auth | async)?.google.displayName }} </strong><br>
-            <span>{{ (af.auth | async)?.google.email }}</span>
-        </div>
-
-        <div *ngIf="(af.auth | async)?.uid">
-            <a routerLink="user" (click)="sidenav.close()">Mijn account</a>
-        </div>
-
-        <div *ngIf="!(af.auth | async)?.uid">
-            <a routerLink="user" (click)="login()">Inloggen</a>
-        </div>
-
-
-        <div *ngIf="(af.auth | async)?.uid">
-            <a routerLink="home" (click)="logout()">Uitloggen</a>
-        </div>
-
-    </md-sidenav>
-
-    <div class="sidenav-content" flex="">
-        <router-outlet></router-outlet>
+    <img *ngIf="(userdata | async)?.avatar" [src]="(userdata | async)?.avatar" style="width: 100%; float: left">
+    <div *ngIf="!(userdata | async)?.avatar"
+         style="width: 100%; float: left; background-color: rgba(0,0,0,0.5); height: 280px"></div>
+    <div *ngIf="(userdata | async)?.voornaam" class="imageoverlay">
+      <strong>{{ (userdata | async)?.voornaam }} {{ (userdata | async)?.familienaam }} </strong><br>
+      <span>{{ (userdata | async)?.private.email }}</span>
     </div>
+
+
+
+
+    <div *ngIf="!(userdata | async)?.private.email">
+      <a routerLink="user" (click)="login()">Inloggen</a>
+    </div>
+
+    <div *ngIf="(userdata | async)?.private.email">
+      <a routerLink="user" (click)="sidenav.close()">Mijn account</a>
+    </div>
+
+    <div>
+      <a routerLink="abonnement" (click)="sidenav.close()">Mijn Abonnement</a>
+    </div>
+
+    <div *ngIf="(userdata | async)?.private.email">
+      <a routerLink="mijn-artikelen" (click)="sidenav.close()">Mijn artikelen</a>
+    </div>
+
+    <div *ngIf="(userdata | async)?.private.email">
+      <a routerLink="home" (click)="logout()">Uitloggen</a>
+    </div>
+
+  </md-sidenav>
+
+  <div class="sidenav-content" flex="">
+    <router-outlet></router-outlet>
+  </div>
 
 </md-sidenav-container>

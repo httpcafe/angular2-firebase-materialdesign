@@ -1,19 +1,21 @@
+<app-magazine></app-magazine>
 
 <h1>
-    {{ title }}
+  {{ title }}
 </h1>
 <md-card class="podcast" class="text" *ngFor="let item of items | async">
-    <md-card-header>
-        <md-card-title>{{item.title}}</md-card-title>
-    </md-card-header>
+  <md-card-header>
+    <md-card-title>{{item.title}}
+      <span class="datetime">{{ (0 - item.datetime) | date }}</span>
+    </md-card-title>
+  </md-card-header>
 
-    <md-card-content>
-        <p>{{- item.datetime | date }}</p>
-        <p>{{item.content }}</p>
-    </md-card-content>
+  <md-card-content>
+    <p>{{item.content }}</p>
+  </md-card-content>
 
-    <audio md-card-image controls preload="none">
-        <source src="{{item.audio}}" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
+  <audio md-card-image controls preload="none">
+    <source src="{{item.audio}}" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
 </md-card>

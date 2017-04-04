@@ -1,0 +1,70 @@
+<table>
+
+  <tr>
+    <td></td>
+    <td>Persoon</td>
+    <td>Adres</td>
+    <td>Bezigheden</td>
+    <td>
+      <span class="magazine">magazine</span> /
+      <span class="podcast">podcast</span>
+    </td>
+    <td>Inhoud <span class="wel">wel</span>/<span class="niet">niet</span></td>
+    <td>Sponsors / vacatures</td>
+    <td></td>
+  </tr>
+  <tr *ngFor="let user of users">
+    <td>
+      <div *ngIf="user.private.membership">
+        <md-icon *ngIf="user.private.membership.membership2017">face</md-icon>
+      </div>
+    </td>
+    <td>
+      <b>
+        <a routerLink="/user/{{user.key}}">{{ user.voornaam }} {{ user.familienaam }}</a>
+      </b><br>
+      <a href="mailto:{{user.email}}?subject=HTTP Café">{{user.email}}</a>
+      <ul>
+        <li *ngIf="user.private.job.amateur">Liefhebber</li>
+        <li *ngIf="user.private.job.commercial">Commercieel</li>
+        <li *ngIf="user.private.job.devop">Devop</li>
+        <li *ngIf="user.private.job.hrrecruiter">HR</li>
+        <li *ngIf="user.private.job.projectmanager">Project manager</li>
+        <li *ngIf="user.private.job.softwarearchitect">Software architect</li>
+        <li *ngIf="user.private.job.webdesigner">Web designer</li>
+        <li *ngIf="user.private.job.webdeveloper">Web developer</li>
+        <li *ngIf="user.private.job.job_other_value">{{ user.private.job.job_other_value }}</li>
+      </ul>
+
+      <span *ngIf="user.private.company.name"> {{ user.private.company.name }}</span>
+      <span *ngIf="user.private.company.id"> {{ user.private.company.id }} </span><br>
+
+    </td>
+
+    <td>{{ user.private.address.street}} {{ user.private.address.number}},<br>{{ user.private.address.zip}} {{ user.private.address.city}},<br>{{
+      user.private.address.country}}
+    </td>
+
+    <td>
+      <div *ngIf="user.private.job.job_occupation">{{ user.private.job.job_occupation }}</div>
+      <div *ngIf="user.private.hobby" class="hobby">{{ user.private.hobby }}</div>
+    </td>
+    <td>
+      <div *ngIf="user.private.magazine.auteurs" class="magazine">{{user.private.magazine.auteurs}}</div>
+      <div *ngIf="user.private.magazine.sprekers" class="podcast">{{user.private.magazine.sprekers}}</div>
+    </td>
+    <td>
+      <div *ngIf="user.private.magazine.mustwrite" class="wel"> {{user.private.magazine.mustwrite}}</div>
+      <div *ngIf="user.private.magazine.mustnotwrite" class="niet"> {{user.private.magazine.mustnotwrite}}</div>
+    </td>
+
+
+    <td>
+      <div *ngIf="user.private.magazine.sponsors">Sponsor: {{user.private.magazine.sponsors}}</div>
+      <div *ngIf="user.private.magazine.vacatures">Vacatures: {{user.private.magazine.vacatures}}</div>
+    </td>
+  </tr>
+
+</table>
+
+

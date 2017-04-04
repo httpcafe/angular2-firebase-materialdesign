@@ -1,0 +1,29 @@
+div {
+  width: 100%;
+  float: left;
+}
+
+md-card {
+  overflow: auto;
+  width: 80vw;
+  max-width: 400px;
+  float: left;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  clear: both;
+}
+
+md-card-title {
+  font-weight: bold;
+}
+
+app-urls {
+  border-top: solid 1px #cccccc;
+}
+
+
+.datetime {
+  color: #bbbbbb !important;
+  padding-left: 30px;
+  font-weight: normal;
+}

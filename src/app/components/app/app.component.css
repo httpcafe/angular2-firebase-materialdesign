@@ -1,59 +1,60 @@
 .container {
-    width: 100vw;
-    height: 100vh;
-    border: 1px solid rgba(0, 0, 0, 0.5);
-}
-
-.sidenav-content > div {
-    margin: auto;
-    width: 90% !important;
+  width: 100vw;
+  height: 100vh;
+  border: 1px solid rgba(0, 0, 0, 0.5);
 }
 
 .sidenav-content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    padding: 0 20px 20px 20px;
+  display: flex;
+  align-items: center;
+  width: 94vw;
+  margin: 0 3vw 20px 3vw;
 }
 
 .sidenav {
-    padding: 0;
-    width: 280px;
-    background: #ffffff;
+  padding: 0;
+  width: 280px;
+  background: #ffffff;
 }
 
 md-sidenav div {
-    width: 240px;
-    padding: 10px 20px 10px 20px;
-    border-bottom: solid 1px #eeeeee;
-    float: left;
-    font-family: Arial;
+  width: 240px;
+  padding: 10px 20px 10px 20px;
+  border-bottom: solid 1px #eeeeee;
+  float: left;
+  font-family: Arial;
 }
+
 md-sidenav div a {
-    color: #666666;
-    text-transform: uppercase;
-    text-decoration: none;
-    font-size: 0.8em;
+  color: #666666;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-size: 0.8em;
 }
 
 .imageoverlay {
-    padding: 20px 20px 5px 20px !important;
-    margin: -65px 0 0px 0;
-    height: 40px;
-    overflow: hidden;
-    color: #ffffff;
-    background-color: rgba(0,0,0,0.6);
-    z-index: 200;
-    float: left;
+  padding: 20px 20px 5px 20px !important;
+  margin: -65px 0 0 0;
+  height: 40px;
+  overflow: hidden;
+  color: #ffffff;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 200;
+  float: left;
 }
+
 .imageoverlay span {
-    color: #cccccc;
+  color: #cccccc;
 }
+
 .podcast {
-    display: list-item;
+  display: list-item;
 }
 
 .spacer {
-    flex: 1 1 auto;
+  flex: 1 1 auto;
+}
+
+html {
+  font-family: Arial;
 }

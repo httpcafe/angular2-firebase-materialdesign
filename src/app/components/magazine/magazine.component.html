@@ -1,25 +1,18 @@
-<app-magazine></app-magazine>
-
-<div class="newsitem" *ngFor="let item of items | async ">
-
-
+<div *ngFor="let item of items | async ">
   <md-card *ngIf="item.published">
-
-    <img md-card-image src="../../../assets/images/placeholder.png">
-    <div class="datetime">{{ (0 - item.published) | date }}</div>
     <md-card-header>
       <md-card-title>
         {{item.title}}
+        <span class="datetime">{{ (0 - item.published) | date }}</span>
       </md-card-title>
     </md-card-header>
 
     <md-card-content>
       <p [innerHTML]="item.content"></p>
-    </md-card-content>
 
 
-    <md-card-content *ngIf="item.urls">
       <app-urls [(urls)]="item.urls"></app-urls>
     </md-card-content>
   </md-card>
 </div>
+

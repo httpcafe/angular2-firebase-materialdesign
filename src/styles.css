@@ -4,3 +4,9 @@ body {
     margin: 0px;
     padding: 0px;
 }/* You can add global styles to this file, and also import other style files */
+
+
+app-profile, app-editor {
+  float: left;
+  width: 100%;
+}

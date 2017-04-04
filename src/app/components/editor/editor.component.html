@@ -1,0 +1,99 @@
+<md-list *ngIf="articleStream">
+  <md-list-item *ngFor="let article of (articleStream | async)">
+    <table>
+      <tr>
+        <td colspan="2" (click)="selectItem(article)">{{article.title}}</td>
+      </tr>
+      <tr>
+        <td class="meta" (click)="selectDeleteItem(article)">verwijderen</td>
+        <td class="meta" align="right">{{ since(article.timestamp) }}</td>
+      </tr>
+    </table>
+  </md-list-item>
+  <md-list-item style="margin-left: 0; margin-right: 0">
+    <button md-raised-button (click)="createItem()">
+      <md-icon>add_circle</md-icon>
+      Schrijf nieuw artikel
+    </button>
+
+  </md-list-item>
+</md-list>
+
+
+<div class="editorcontent" *ngIf="selecteditem">
+
+  <md-input-container class="full-width">
+    <input mdInput #title placeholder="title" [(ngModel)]="selecteditem.title" (change)="saveItem(selecteditem)">
+  </md-input-container>
+
+
+  <ckeditor
+    [(ngModel)]="selecteditem.content"
+    [config]="{uiColor: '#bbbbbb'}"
+    (change)="saveItem(selecteditem)"
+    (ready)="onReady($event)"
+    (focus)="onFocus($event)"
+    debounce="2000">
+  </ckeditor>
+
+  <table class="linktable" *ngIf="selecteditem.urlArray">
+    <tr>
+      <td colspan="3" align="right">
+        <button md-raised-button (click)="addUrl(selecteditem, '', 'http://')">
+          <md-icon>add_circle</md-icon>
+          voeg bron / link toe
+        </button>
+      </td>
+    </tr>
+    <tr *ngFor="let url of selecteditem.urlArray">
+      <td>
+        <md-input-container class="full-width">
+          <input mdInput placeholder="naam" [(ngModel)]="url.name" (change)="saveItem(selecteditem)">
+        </md-input-container>
+      </td>
+      <td>
+        <md-input-container class="full-width">
+          <input mdInput placeholder="url" [(ngModel)]="url.url" (change)="saveItem(selecteditem)">
+        </md-input-container>
+      </td>
+      <td align="right">
+        <a href="{{url.url}}" target="_blank">
+          <button md-mini-fab>
+            <md-icon>launch</md-icon>
+          </button>
+        </a>
+        <button md-mini-fab (click)="removeUrl(selecteditem, url.key)">
+          <md-icon>delete</md-icon>
+        </button>
+      </td>
+    </tr>
+  </table>
+
+
+</div>
+
+<div class="editorcontent" *ngIf="deleteItem">
+  <md-card *ngIf="deleteItem.title">
+    <h1>{{deleteItem.title}}</h1>
+    <div [innerHTML]="deleteItem.content"></div>
+    <app-urls *ngIf="deleteItem.urls" [(urls)]="deleteItem.urls"></app-urls>
+  </md-card>
+  <br><br>
+  <button class="alert" style="float: right" md-raised-button (click)="delete(deleteItem)">Verwijder dit artikel
+    definitief
+  </button>
+
+</div>
+
+
+<div class="editorcontent" *ngIf="!deleteItem && !selecteditem">
+  <md-card>
+    <h1>Werk mee aan HTTP Café.</h1>
+    <br><br>
+    HTTP Café is voor en door webdevelopers.<br><br>
+    Ben je in een bepaald onderwerp een beetje tot heel erg onderlegd, schrijf er een artikel over. Anderen kunnen
+    van jouw kennis bijleren, net zoals jij bijleert van andermans kennis.
+
+    <br><br>Geen schrik, elk artikel wordt nagelezen op taal én inhoud voor het gepubliceerd wordt.
+  </md-card>
+</div>

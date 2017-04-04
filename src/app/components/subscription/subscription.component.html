@@ -1,0 +1,138 @@
+<h1>
+  {{ (userdataStream | async)?.voornaam }} {{ (userdataStream | async)?.familienaam }}
+</h1>
+
+<form class="profile-form">
+
+  <div class="profile-image">
+    <md-card *ngIf="(userdataStream | async)?.avatar">
+      <img [src]="(userdataStream | async)?.avatar"
+           style="max-width: 200px;">
+    </md-card>
+    <p><span class="public">Wij respecteren jullie privacy en vertrouwen. </span> Aerypton bvba, eigenaar van HTTP Café
+      deelt jouw data - <span class="public">met uitzondering van de groene velden</span> - op geen enkele wijze met
+      derden.</p>
+    <p class="public">Groene velden zijn publieke.</p>
+
+    <textarea style="width: 200px; height: 700px;"
+              *ngIf="userdataStream | async">{{userdataStream | async | json }}</textarea>
+
+  </div>
+
+
+  <md-card class="profile-content" *ngIf="(userdataStream | async)?.private">
+    <table class="profile-full-width" cellspacing="0">
+      <tr>
+        <td colspan="2"><p style="margin: 0px 0 15px 0; font-weight: bold">Stuur HTTP Café Magazine naar...</p></td>
+      </tr>
+      <tr>
+        <td>
+          <md-input-container class="profile-full-width">
+            <input mdInput placeholder="straat" #street
+                   [value]="(userdataStream | async)?.private.address.street"
+                   (blur)="updateAddress(street.value, number.value, zip.value, city.value, country.value)">
+          </md-input-container>
+        </td>
+        <td>
+          <md-input-container class="profile-full-width">
+            <input mdInput placeholder="huisnummer" #number
+                   [value]="(userdataStream | async)?.private.address.number"
+                   (blur)="updateAddress(street.value, number.value, zip.value, city.value, country.value)">
+          </md-input-container>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <md-input-container class="profile-full-width">
+            <input mdInput placeholder="postcode" #zip
+                   [value]="(userdataStream | async)?.private.address.zip"
+                   (blur)="updateAddress(street.value, number.value, zip.value, city.value, country.value)">
+          </md-input-container>
+        </td>
+        <td>
+          <md-input-container class="profile-full-width">
+            <input mdInput placeholder="gemeente" #city
+                   [value]="(userdataStream | async)?.private.address.city"
+                   (blur)="updateAddress(street.value, number.value, zip.value, city.value, country.value)">
+          </md-input-container>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <md-input-container class="profile-full-width">
+            <input mdInput placeholder="land" #country [value]="(userdataStream | async)?.private.address.country"
+                   (blur)="updateAddress(street.value, number.value, zip.value, city.value, country.value)">
+          </md-input-container>
+        </td>
+        <td>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <md-input-container class="profile-full-width">
+            <input mdInput placeholder="bedrijfsnaam" #bedrijfsnaam
+                   [value]="(userdataStream | async)?.private.company.name"
+                   (blur)="updateBedrijfNaam(bedrijfsnaam.value)">
+          </md-input-container>
+        </td>
+        <td>
+          <md-input-container class="profile-full-width">
+            <input mdInput placeholder="ondernemingsnummer" #ondernemingsnummer
+                   [value]="(userdataStream | async)?.private.company.id"
+                   (blur)="updateOndernemingsnummer(ondernemingsnummer.value)">
+          </md-input-container>
+        </td>
+      </tr>
+    </table>
+  </md-card>
+
+  <md-card class="profile-content" *ngIf="(userdataStream | async)?.private">
+    <table class="profile-full-width" cellspacing="0">
+      <tr>
+        <td><p style="margin: 0px 0 15px 0; font-weight: bold">De inhoud van HTTP Café...</p></td>
+      </tr>
+      <tr>
+        <td>
+          <md-input-container class="profile-full-width">
+                <textarea mdInput
+                          placeholder="Wat wil je wel lezen?">{{(userdataStream | async)?.magazine.mustwrite}}</textarea>
+          </md-input-container>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <md-input-container class="profile-full-width">
+                <textarea mdInput
+                          placeholder="Wat wil je niet lezen?">{{(userdataStream | async)?.magazine.mustnotwrite}}</textarea>
+          </md-input-container>
+        </td>
+      </tr>
+    </table>
+  </md-card>
+
+
+  <md-card class="profile-content" *ngIf="(userdataStream | async)?.private">
+    <table class="profile-full-width" cellspacing="0">
+      <tr>
+        <td><p style="margin: 0px 0 15px 0; font-weight: bold">Mee helpen met HTTP Café...</p></td>
+      </tr>
+      <tr>
+        <td>
+          <md-input-container class="profile-full-width">
+            <textarea mdInput placeholder="Waarover zou jij een artikel of een blogpost willen/kunnen schrijven?">{{(userdataStream | async)?.magazine.auteurs}}</textarea>
+          </md-input-container>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <md-input-container class="profile-full-width">
+                <textarea mdInput
+                          placeholder="Waarover zou je wel eens willen (mee)praten tijdens de podcast?">{{(userdataStream | async)?.magazine.sprekers}}</textarea>
+          </md-input-container>
+        </td>
+      </tr>
+    </table>
+  </md-card>
+
+
+</form>

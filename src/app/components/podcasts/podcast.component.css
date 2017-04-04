@@ -1,12 +1,17 @@
-
 md-card {
-    margin-bottom: 20px;
-    overflow: hidden;
-    width: 90%;
-    max-width: 600px;
-    padding-bottom: 0px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  width: 80%;
+  max-width: 400px;
+  padding-bottom: 0;
 }
 
 md-card-title {
-    font-weight: bold;
+  font-weight: bold;
+}
+
+.datetime {
+  color: #bbbbbb !important;
+  padding-left: 30px;
+  font-weight: normal;
 }

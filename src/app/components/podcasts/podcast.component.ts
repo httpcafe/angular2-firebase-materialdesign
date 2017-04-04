@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {AngularFire, FirebaseListObservable} from 'angularfire2';
 
 @Component({
-    selector: 'podcasts',
+    selector: 'app-podcasts',
     templateUrl: 'podcast.component.html',
     styleUrls: ['podcast.component.css']
 })
@@ -17,6 +17,6 @@ export class PodcastsComponent {
                 limitToLast: 50
             }
         });
-        console.log(this.items);
+        // console.log(this.items);
     }
 }

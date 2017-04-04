@@ -1,15 +1,68 @@
-div {
-    width: 440px;
-    float: left;
+.newsitem {
+  width: 28vw !important;
+  max-width: 400px !important;
+  float: left;
+  margin-right: 3vw;
 }
+
 md-card {
-    overflow: auto;
-    height: 400px;
-    width: 380px;
-    float: left;
-    margin-bottom: 20px;
+  overflow: auto;
+  width: 90%;
+  float: left;
+  margin-bottom: 20px;
 }
 
 md-card-title {
-    font-weight: bold;
+  font-weight: bold;
+}
+
+.datetime {
+  color: #bbbbbb !important;
+  text-align: right;
+  font-weight: normal;
+  height: 25px;
+  font-size: 0.8em;
+}
+
+app-urls {
+  margin-top: 30px;
+  padding-top: 5px;
+  float: left;
+  width: 100%;
+  border-top: solid 1px #cccccc;
+}
+
+@media only screen and (max-width: 960px) {
+
+  .newsitem {
+    width: 43vw !important;
+    max-width: 480px !important;
+    float: left;
+    margin-right: 4vw;
+  }
+
+  md-card {
+    overflow: auto;
+    width: 90%;
+    float: left;
+    margin-bottom: 20px;
+  }
+
+}
+
+@media only screen and (max-width: 480px) {
+
+  .newsitem {
+    width: 90vw !important;
+    max-width: 460px !important;
+    float: left;
+    margin-right: 2vw;
+  }
+
+  md-card {
+    overflow: auto;
+    width: 90%;
+    float: left;
+    margin-bottom: 20px;
+  }
 }

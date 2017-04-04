@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {AngularFire, FirebaseListObservable} from 'angularfire2';
 
 @Component({
-    selector: 'news',
+    selector: 'app-news',
     templateUrl: 'news.component.html',
     styleUrls: ['news.component.css']
 })
@@ -16,8 +16,6 @@ export class NewsComponent {
                 orderByChild: 'published',
                 limitToLast: 200
             }
-        })
-
-        console.log(this.items);
+        });
     }
 }
