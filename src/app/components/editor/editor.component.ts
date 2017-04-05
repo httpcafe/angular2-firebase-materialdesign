@@ -1,7 +1,6 @@
 import {Component} from '@angular/core';
 import {AngularFire, FirebaseListObservable} from 'angularfire2';
 import {AuthService} from '../../services/auth.service';
-import {forEach} from "@angular/router/src/utils/collection";
 
 
 @Component({
@@ -79,21 +78,23 @@ export class EditorComponent {
   since(timestamp) {
     const passed = Math.round((new Date().getTime() + timestamp) / 1000);
 
-    if (passed < 60) {
+    if (timestamp === undefined) {
+      return '';
+    } else if (passed < 60) {
       return 'minder dan een minuut';
     } else if (passed < 3600) {
       return Math.round(passed / 60) + 1 + ' minuten geleden';
-    } else if (passed < 86400) {
+    } else if (passed < 82800) {
       return Math.round(passed / 3600) + 1 + ' uur geleden';
     } else {
-      return Math.round(passed / 86400) + 1 + ' dagen geleden';
+      return Math.round(passed / 86400) + ' dagen geleden';
     }
   }
 
   createItem() {
     this.articleStream.push({
-      title: 'een nieuw artikel',
-      content: 'probeer het boeiend te houden!',
+      title: 'De titel van een sprankelend nieuw artikel',
+      content: 'Schrijf een goeie inleiding en een goed slot.<br>Probeer het boeiend te houden!<br>Links en bronnen apart invoeren onder deze editor.',
       type: 'blog'
     });
   }
@@ -118,7 +119,7 @@ export class EditorComponent {
 
   removeUrl(selecteditem, urlkey) {
 
-    selecteditem.urlArray = selecteditem.urlArray.filter(function( obj ) {
+    selecteditem.urlArray = selecteditem.urlArray.filter(function (obj) {
       return obj.key !== urlkey;
     });
     this.saveItem(selecteditem);

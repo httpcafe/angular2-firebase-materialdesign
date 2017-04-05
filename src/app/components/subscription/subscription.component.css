@@ -5,6 +5,15 @@
 .public {
   color: #86b517;
 }
+
+.error {
+  color: red;
+}
+
+.confirmation {
+  color: #444444;
+}
+
 .profile-image {
   padding: 0;
   width: 210px;
@@ -37,7 +46,7 @@
 
 md-card {
   float: left;
-  margin: 5px;
+  margin: 0;
   width: 70vw;
   max-width: 372px;
 }
@@ -52,12 +61,50 @@ h1 {
   font-family: Arial;
 }
 
-
 input.jobother {
   border: 0;
   border-bottom: solid 1px #cccccc;
-  font-family: Roboto,"Helvetica Neue",sans-serif;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
   font-size: 1em;
   width: 80%;
-  margin-left: 0px;
+  margin-left: 0;
+}
+
+md-radio-button {
+  margin-bottom: 15px;
+}
+
+.mat-radio-label {
+  white-space: normal !important;
+}
+
+table {
+  margin-top: 20px;
+}
+
+.result {
+  margin: 10px -24px 10px -24px;
+  padding: 0 24px 12px 24px;
+  background: #f8f8f8;
+  border-top: solid 1px #cccccc;
+  border-bottom: solid 1px #cccccc;
+  float: right;
+}
+
+@media (max-width: 600px) {
+  .result {
+    margin-left: -16px;
+    margin-right: -16px;
+    padding: 0 16px 24px 16px;
+  }
+}
+
+@media (max-width: 800px) {
+  md-card {
+    float: left;
+    margin: 0;
+    width: 85vw;
+    max-width: none;
+  }
+
 }

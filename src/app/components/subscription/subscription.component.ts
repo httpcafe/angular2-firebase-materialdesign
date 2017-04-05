@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {UserService} from '../../services/user.service';
 import {ActivatedRoute} from '@angular/router';
-
+import {AngularFire, FirebaseObjectObservable, FirebaseListObservable} from 'angularfire2';
 
 @Component({
   selector: 'app-subscription',
@@ -11,30 +11,36 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class SubscriptionComponent {
 
-  userdataStream: any;
   uid: string;
   private sub: any;
 
+  codesStream: FirebaseListObservable<any>;
+  subscriptionStream: FirebaseObjectObservable<any>;
+  userdataStream: FirebaseObjectObservable<any>;
 
-  constructor(private authService: AuthService, private userService: UserService, private route: ActivatedRoute) {
+  kortingscode: string;
+  subscriptiontype: any;
+  betaalplan;
+
+
+  constructor(private authService: AuthService, public userService: UserService, private route: ActivatedRoute, private af: AngularFire) {
     const self = this;
-    this.sub = this.route.params.subscribe(params => {
-      self.uid = params['uid'];
+
+
+    this.authService.isAuthenticated().subscribe(authData => {
+      if (authData) {
+        self.uid = authData.uid;
+        self.userdataStream = this.userService.getUserdata(self.uid);
+
+        self.codesStream = this.af.database.list('/administration/reductioncodes/');
+        self.subscriptionStream = this.af.database.object('/administration/subscriptions/' + self.uid);
+      } else {
+        self.uid = '';
+        self.userdataStream = this.userService.getUserdata(0);
+      }
     });
 
-    if (self.uid === undefined) {
-      this.authService.isAuthenticated().subscribe(authData => {
-        if (authData) {
-          self.uid = authData.uid;
-          this.userdataStream = this.userService.getUserdata(self.uid);
-        } else {
-          self.uid = '';
-          this.userdataStream = {};
-        }
-      });
-    } else {
-      this.userdataStream = this.userService.getUserdata(self.uid);
-    }
+    self.unsetPrice();
   }
 
 
@@ -48,23 +54,6 @@ export class SubscriptionComponent {
     });
   }
 
-
-  updateVoornaam(voornaam) {
-    this.userService.updatePublicUserdata(this.userdataStream, 'voornaam', voornaam);
-  }
-
-  updateFamilienaam(familienaam) {
-    this.userService.updatePublicUserdata(this.userdataStream, 'familienaam', familienaam);
-  }
-
-  updateEmail(email) {
-    this.userService.updatePrivateUserdata(this.userdataStream, 'email', email);
-  }
-
-  updateTwitter(twitter) {
-    this.userService.updatePublicUserdata(this.userdataStream, 'twitter', twitter);
-  }
-
   updateBedrijfNaam(name) {
     this.userService.updateCompany(this.userdataStream, 'name', name);
   }
@@ -73,25 +62,66 @@ export class SubscriptionComponent {
     this.userService.updateCompany(this.userdataStream, 'id', id);
   }
 
-  updateJob(key, value) {
-    switch (key) {
-      case 'frontend':
-      case 'backend':
-      case 'webdesigner':
-      case 'devop':
-      case 'architect':
-      case 'pm':
-      case 'hr':
-      case 'commercial':
-      case 'amateur':
-        if (value === false) {
-          value = true;
-        } else {
-          value = false;
-        }
+  unsetPrice() {
+    this.betaalplan = {};
+  }
+
+  getPrice(type: string) {
+    const self = this;
+
+    switch (type) {
+
+      case 'free':
+        self.kortingscode = '';
+        self.betaalplan = {
+          price: 0
+        };
         break;
+
+      case 'reduction':
+        this.codesStream.take(1).subscribe(snapshot => {
+          const betaalplan = snapshot.filter(function (code) {
+            return code.code === self.kortingscode;
+          });
+
+          if (betaalplan.length === 1) {
+            self.betaalplan = betaalplan[0];
+          } else {
+            self.betaalplan = {
+              error: 'Deze code is niet gekend.',
+              price: 60
+            };
+          }
+        });
+        break;
+
+      default:
+        self.kortingscode = '';
+        self.betaalplan = {
+          price: 60
+        };
     }
-    this.userService.updateJob(this.userdataStream, key, value);
+  }
+
+  subscribe() {
+    const self = this;
+
+    if (self.kortingscode) {
+      this.subscriptionStream.set({
+        uid: this.uid,
+        price: this.betaalplan.price,
+        datetime: new Date().toDateString(),
+        code: self.kortingscode,
+        referentie: 'jaarabonnement HTTP Café ' + this.userService.getFirstname(this.uid) + ' ' + this.userService.getLastname(this.uid)
+      });
+    } else {
+      this.subscriptionStream.set({
+        uid: this.uid,
+        price: this.betaalplan.price,
+        datetime: new Date().toDateString(),
+        referentie: 'jaarabonnement HTTP Café ' + this.userService.getFirstname(this.uid) + ' ' + this.userService.getLastname(this.uid)
+      });
+    }
   }
 }
 

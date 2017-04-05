@@ -81,6 +81,30 @@ export class UserService {
     }
   }
 
+  getFirstname(uid) {
+    let firstname = '';
+    this.af.database.object('/users/' + uid).take(1).subscribe(snapshot => {
+      firstname = snapshot.voornaam;
+    });
+    return firstname;
+  }
+
+  getPrivateData(uid) {
+    let privateData = {};
+    this.af.database.object('/users/' + uid).take(1).subscribe(snapshot => {
+      privateData = snapshot.private;
+    });
+    return privateData;
+  }
+
+  getLastname(uid) {
+    let lastname = '';
+    this.af.database.object('/users/' + uid).take(1).subscribe(snapshot => {
+      lastname = snapshot.familienaam;
+    });
+    return lastname;
+  }
+
 
   updatePublicUserdata(userdataStream, key, value) {
     switch (key) {

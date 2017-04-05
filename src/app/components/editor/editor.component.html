@@ -1,23 +1,25 @@
-<md-list *ngIf="articleStream">
-  <md-list-item *ngFor="let article of (articleStream | async)">
-    <table>
-      <tr>
-        <td colspan="2" (click)="selectItem(article)">{{article.title}}</td>
-      </tr>
-      <tr>
-        <td class="meta" (click)="selectDeleteItem(article)">verwijderen</td>
-        <td class="meta" align="right">{{ since(article.timestamp) }}</td>
-      </tr>
-    </table>
-  </md-list-item>
-  <md-list-item style="margin-left: 0; margin-right: 0">
-    <button md-raised-button (click)="createItem()">
-      <md-icon>add_circle</md-icon>
-      Schrijf nieuw artikel
-    </button>
+<md-card class="menu">
+  <md-list *ngIf="articleStream">
+    <md-list-item *ngFor="let article of (articleStream | async)">
+      <table>
+        <tr>
+          <td colspan="2"><a (click)="selectItem(article)">{{article.title}}</a></td>
+        </tr>
+        <tr>
+          <td class="meta"><a (click)="selectDeleteItem(article)">verwijderen</a></td>
+          <td class="meta" align="right">{{ since(article.timestamp) }}</td>
+        </tr>
+      </table>
+    </md-list-item>
+    <md-list-item style="margin-left: 0; margin-right: 0">
+      <button md-raised-button (click)="createItem()">
+        <md-icon>add_circle</md-icon>
+        Schrijf nieuw artikel
+      </button>
 
-  </md-list-item>
-</md-list>
+    </md-list-item>
+  </md-list>
+</md-card>
 
 
 <div class="editorcontent" *ngIf="selecteditem">
@@ -87,13 +89,13 @@
 
 
 <div class="editorcontent" *ngIf="!deleteItem && !selecteditem">
-  <md-card>
-    <h1>Werk mee aan HTTP Café.</h1>
-    <br><br>
-    HTTP Café is voor en door webdevelopers.<br><br>
-    Ben je in een bepaald onderwerp een beetje tot heel erg onderlegd, schrijf er een artikel over. Anderen kunnen
-    van jouw kennis bijleren, net zoals jij bijleert van andermans kennis.
 
-    <br><br>Geen schrik, elk artikel wordt nagelezen op taal én inhoud voor het gepubliceerd wordt.
-  </md-card>
+  <h1>Werk mee aan HTTP Café.</h1>
+  <br><br>
+  HTTP Café is voor en door webdevelopers.<br><br>
+  Ben je in een bepaald onderwerp een beetje tot heel erg onderlegd, schrijf er een artikel over. Anderen kunnen
+  van jouw kennis bijleren, net zoals jij bijleert van andermans kennis.
+
+  <br><br>Geen schrik, elk artikel wordt nagelezen op taal én inhoud voor het gepubliceerd wordt.
+
 </div>
