@@ -46,7 +46,7 @@
 
 md-card {
   float: left;
-  margin: 0;
+  margin: 0 15px 0 0;
   width: 70vw;
   max-width: 372px;
 }
@@ -102,7 +102,7 @@ table {
 @media (max-width: 800px) {
   md-card {
     float: left;
-    margin: 0;
+    margin: 0 15px 0 0;
     width: 85vw;
     max-width: none;
   }

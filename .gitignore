@@ -1,5 +1,8 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
+#configs
+/src/app/configs/*
+
 # compiled output
 /dist
 /tmp
@@ -39,3 +42,4 @@ testem.log
 #System Files
 .DS_Store
 Thumbs.db
+src/assets/images/httpcafe.png

@@ -6,11 +6,48 @@
   <base href="/">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Material Design -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!-- WYSIWYG editor -->
   <script src="https://cdn.ckeditor.com/4.5.11/full/ckeditor.js"></script>
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+
+  <!-- Web Application Manifest -->
+  <link rel="manifest" href="manifest.json">
+
+
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="HTTP Café">
+  <link rel="icon" sizes="192x192" href="assets/images/httpcafe.png">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="HTTP Café">
+  <link rel="apple-touch-icon" href="assets/images/httpcafe.png">
+
+  <!-- Tile icon for Win8 (144x144 + tile color) -->
+  <meta name="msapplication-TileImage" content="assets/images/httpcafe.png">
+  <meta name="msapplication-TileColor" content="#2F3BA2">
+
+  <!-- Color the status bar on mobile devices -->
+  <meta name="theme-color" content="#2F3BA2">
+
+
+  <!-- Color the status bar on mobile devices -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js', {scope: '/'}).then(function (r) {
+        console.debug('service worker started!');
+      });
+    }
+  </script>
+
 </head>
 <body>
-  <app-root>Loading...</app-root>
+<app-root>Loading...</app-root>
 </body>
 </html>

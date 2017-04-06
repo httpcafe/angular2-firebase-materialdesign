@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {UserService} from '../../services/user.service';
 import {ActivatedRoute} from '@angular/router';
+import {AngularFire, FirebaseObjectObservable} from 'angularfire2';
 
 
 @Component({
@@ -14,27 +15,29 @@ export class ProfileComponent {
 
   userdataStream: any;
   uid: string;
+  subscriptionStream: FirebaseObjectObservable<any>;
   private sub: any;
 
 
-  constructor(private authService: AuthService, private userService: UserService, private route: ActivatedRoute) {
+  constructor(private authService: AuthService, private userService: UserService, private route: ActivatedRoute, private af: AngularFire) {
     const self = this;
-    this.sub = this.route.params.subscribe(params => {
+    self.sub = self.route.params.subscribe(params => {
       self.uid = params['uid'];
     });
 
     if (self.uid === undefined) {
-      this.authService.isAuthenticated().subscribe(authData => {
+      self.authService.isAuthenticated().subscribe(authData => {
         if (authData) {
           self.uid = authData.uid;
-          this.userdataStream = this.userService.getUserdata(self.uid);
+          self.userdataStream = self.userService.getUserdata(self.uid);
+          self.subscriptionStream = self.af.database.object('/administration/subscriptions/' + self.uid);
         } else {
           self.uid = '';
-          this.userdataStream = {};
+          self.userdataStream = {};
         }
       });
     } else {
-      this.userdataStream = this.userService.getUserdata(self.uid);
+      self.userdataStream = self.userService.getUserdata(self.uid);
     }
   }
 
