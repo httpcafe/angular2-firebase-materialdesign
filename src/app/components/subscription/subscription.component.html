@@ -15,12 +15,12 @@
 
 <md-card *ngIf="(subscriptionStream | async)?.datetime && !(subscriptionStream | async)?.price">
   <h1>Dank voor uw interesse!</h1>
-  Dank om een gratis exemplaar van ons tijdschrift te hebben besteld.<br>
+  Dank om een gratis exemplaar van ons tijdschrift te hebben besteld.
   Wij hopen natuurlijk dat het je zo erg bevalt dat je investeert in een jaarabonnement.<br>
   <br>
-  Een jaarabonnement is niet alleen een investering in ons, waardoor we podcasts, tutorials, nieuws,... kunnen brengen.<br><br>
+  Een jaarabonnement is niet alleen een investering in ons, waardoor we podcasts, tutorials, nieuws,... kunnen maken.<br><br>
   <span class="public">Het is ook een investering in jezelf.</span> In onze wereld van snelle verandering is het heel belangrijk om steeds up to
-  date te blijven. Als je onze kanalen volgt, blijf je vanzelf op de hoogte. Dat is ons inziens zeker die kleine kost
+  date te blijven. Via onze kanalen loopt dat een stuk makkelijker en onspannender. Dat is ons inziens zeker die kleine kost
   van het jaarabonnement waard.
 </md-card>
 
@@ -36,7 +36,7 @@
     {{(userdataStream | async)?.familienaam}}</b>".
   </p>
   <br><br>
-  Jouw exemplaren worden gestuurd naar:
+  Jouw magazine wordt gestuurd naar:
   <br><br>
   <b>
     {{ (userdataStream | async)?.voornaam }}
@@ -210,13 +210,18 @@
       Aerypton bvba met als referentie: "<b>jaarabonnement HTTP Café {{(userdataStream | async)?.voornaam}}
       {{(userdataStream | async)?.familienaam}}</b>".
     </p>
+    <div *ngIf="betaalplan.price">
+      <button class="right" md-raised-button (click)="subscribe()">Bevestigen</button>
+    </div>
 
     <p *ngIf="!betaalplan.price">
       Ik betaal niet voor het exemplaar dat mij zal toegestuurd worden. Ik besef dat er veel tijd en liefde in gekropen
       is, en ik beloof dat ik het met evenveel liefde lees. Ik overweeg om nadien een jaarabonnement te nemen.
     </p>
+    <div *ngIf="!betaalplan.price">
+      <button class="right" md-raised-button (click)="subscribe()">Bevestigen</button>
+    </div>
 
-    <button class="right" md-raised-button (click)="subscribe()">Bevestigen</button>
 
   </div>
 

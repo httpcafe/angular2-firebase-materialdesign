@@ -122,6 +122,7 @@ export class SubscriptionComponent {
         referentie: 'jaarabonnement HTTP Café ' + this.userService.getFirstname(this.uid) + ' ' + this.userService.getLastname(this.uid)
       });
     }
+    self.unsetPrice();
   }
 }
 

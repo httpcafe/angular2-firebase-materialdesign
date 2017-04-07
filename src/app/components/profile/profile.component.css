@@ -42,7 +42,7 @@ md-card {
   max-width: 372px;
 }
 
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 750px) {
   .profile-image {
     margin-bottom: 10px;
   }

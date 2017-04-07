@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {AngularFire, FirebaseObjectObservable} from 'angularfire2';
+import {AuthService} from './auth.service';
 
 @Injectable()
 export class UserService {
@@ -7,15 +8,15 @@ export class UserService {
   userdataStream: FirebaseObjectObservable<any[]>;
 
 
-  constructor(public af: AngularFire) {
+  constructor(public af: AngularFire, private authService: AuthService) {
   }
 
-  login() {
-    this.af.auth.login();
+  login(provider: string) {
+    this.authService.login(provider);
   }
 
   logout() {
-    this.af.auth.logout();
+    this.authService.logout();
   }
 
   getUserdata(uid): FirebaseObjectObservable<any[]> {

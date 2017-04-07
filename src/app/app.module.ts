@@ -10,7 +10,6 @@ import {RouterModule, Routes} from '@angular/router';
 import {CKEditorModule} from 'ng2-ckeditor';
 import 'hammerjs';
 import 'rxjs/add/operator/take';
-
 import {AngularFireModule} from 'angularfire2';
 
 
@@ -26,6 +25,8 @@ import {UsersComponent} from './components/users/users.component';
 import {UrlsComponent} from './components/urls/urls.component';
 import {EditorComponent} from './components/editor/editor.component';
 import {SubscriptionComponent} from './components/subscription/subscription.component';
+import {SnackbarComponent} from './components/snackbar/snackbar.component';
+import {LoginComponent} from './components/login/login.component';
 
 /*
  Configs
@@ -55,7 +56,9 @@ export const appRoutes: Routes = [
     UrlsComponent,
     UsersComponent,
     EditorComponent,
-    SubscriptionComponent
+    SubscriptionComponent,
+    SnackbarComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -67,8 +70,12 @@ export const appRoutes: Routes = [
     CKEditorModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    SnackbarComponent
+  ]
 })
 export class AppModule {
 
 }
+

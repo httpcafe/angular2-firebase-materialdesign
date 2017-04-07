@@ -33,11 +33,11 @@
     </div>
 
 
-    <div *ngIf="!(userdata | async)?.private.email">
-      <a routerLink="user" (click)="login()">Inloggen</a>
+    <div *ngIf="!(userdata | async)">
+      <a routerLink="user" (click)="sidenav.close()">Inloggen</a>
     </div>
 
-    <div *ngIf="(userdata | async)?.private.email">
+    <div *ngIf="(userdata | async)">
       <a routerLink="user" (click)="sidenav.close()">Mijn account</a>
     </div>
 
@@ -45,11 +45,11 @@
       <a routerLink="abonnement" (click)="sidenav.close()">Mijn Abonnement</a>
     </div>
 
-    <div *ngIf="(userdata | async)?.private.email">
+    <div>
       <a routerLink="mijn-artikelen" (click)="sidenav.close()">Mijn artikelen</a>
     </div>
 
-    <div *ngIf="(userdata | async)?.private.email">
+    <div *ngIf="(userdata | async)">
       <a routerLink="home" (click)="logout()">Uitloggen</a>
     </div>
 
@@ -60,7 +60,6 @@
     <div>
       <a href="https://twitter.com/httpcafepodcast" target="_blank">Twitter</a>
     </div>
-
   </md-sidenav>
 
   <div class="sidenav-content" flex="">

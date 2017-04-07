@@ -1,6 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {UserService} from '../../services/user.service';
+import {MessagingService} from '../../services/messaging.service';
 import {Subscription} from 'rxjs/Subscription';
 import {FirebaseObjectObservable} from 'angularfire2';
 
@@ -8,7 +9,7 @@ import {FirebaseObjectObservable} from 'angularfire2';
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.css'],
-  providers: [AuthService, UserService]
+  providers: [AuthService, UserService, MessagingService]
 })
 export class AppComponent implements OnInit, OnDestroy {
   userdata: FirebaseObjectObservable<any[]>;
@@ -25,7 +26,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
 
-  constructor(private authService: AuthService, private userService: UserService) {
+  constructor(private authService: AuthService, private userService: UserService, private messagingService: MessagingService) {
     this.authService.isAuthenticated().subscribe(authData => {
       if (authData) {
         this.uid = authData.uid;
@@ -37,7 +38,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   login() {
-    this.authService.login();
+    this.authService.login('google');
   }
 
   logout() {

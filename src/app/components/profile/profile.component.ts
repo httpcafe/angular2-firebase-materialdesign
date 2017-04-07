@@ -13,32 +13,32 @@ import {AngularFire, FirebaseObjectObservable} from 'angularfire2';
 })
 export class ProfileComponent {
 
-  userdataStream: any;
+  userdataStream: FirebaseObjectObservable<any>;
   uid: string;
   subscriptionStream: FirebaseObjectObservable<any>;
-  private sub: any;
 
 
   constructor(private authService: AuthService, private userService: UserService, private route: ActivatedRoute, private af: AngularFire) {
     const self = this;
-    self.sub = self.route.params.subscribe(params => {
-      self.uid = params['uid'];
-    });
 
-    if (self.uid === undefined) {
-      self.authService.isAuthenticated().subscribe(authData => {
-        if (authData) {
+    self.authService.isAuthenticated().subscribe(authData => {
+      console.log(authData);
+
+
+      if (authData) {
+        console.log(self.uid);
+
+        if ((self.uid === undefined) || (self.uid === null) || (self.uid === '')) {
           self.uid = authData.uid;
-          self.userdataStream = self.userService.getUserdata(self.uid);
-          self.subscriptionStream = self.af.database.object('/administration/subscriptions/' + self.uid);
-        } else {
-          self.uid = '';
-          self.userdataStream = {};
         }
-      });
-    } else {
-      self.userdataStream = self.userService.getUserdata(self.uid);
-    }
+        self.userdataStream = self.userService.getUserdata(self.uid);
+        self.subscriptionStream = self.af.database.object('/administration/subscriptions/' + self.uid);
+      } else {
+        console.log(self.uid);
+        self.uid = '';
+        delete self.userdataStream;
+      }
+    });
   }
 
 

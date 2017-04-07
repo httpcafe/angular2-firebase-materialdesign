@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {AngularFire} from 'angularfire2';
+import {AngularFire, AuthProviders, AuthMethods} from 'angularfire2';
 import {Observable} from 'rxjs/Rx';
 
 @Injectable()
@@ -48,8 +48,17 @@ export class AuthService {
             };
             userStream.update({private: privateData});
           }
-          if (!snapshot.hasOwnProperty('avatar')) {
-            userStream.update({avatar: auth.google.photoURL});
+          if ((!snapshot.hasOwnProperty('avatar')) || (snapshot.avatar === '')) {
+            if (auth.hasOwnProperty('google')) {
+              userStream.update({avatar: auth.google.photoURL});
+            } else if (auth.hasOwnProperty('twitter')) {
+              console.log(auth);
+              userStream.update({avatar: auth.twitter.photoURL.replace('_normal', '')});
+            } else if (auth.hasOwnProperty('facebook')) {
+              userStream.update({avatar: auth.facebook.photoURL});
+            } else if (auth.hasOwnProperty('github')) {
+              userStream.update({avatar: auth.github.photoURL});
+            }
           }
           if (!snapshot.hasOwnProperty('voornaam')) {
             userStream.update({voornaam: ''});
@@ -77,12 +86,33 @@ export class AuthService {
     return this.uid;
   }
 
-  login() {
-    return this.af.auth.login();
-  }
+  login(provider: string) {
 
-  loginUserObservable(email, password) {
-    return Observable.fromPromise(<Promise<any>> this.af.auth.login({email, password}));
+    switch (provider) {
+      case 'twitter':
+        this.af.auth.login({
+          provider: AuthProviders.Twitter,
+          method: AuthMethods.Popup
+        });
+        break;
+      case 'github':
+        this.af.auth.login({
+          provider: AuthProviders.Github,
+          method: AuthMethods.Popup
+        });
+        break;
+      case 'facebook':
+        this.af.auth.login({
+          provider: AuthProviders.Facebook,
+          method: AuthMethods.Popup
+        });
+        break;
+      default:
+        this.af.auth.login({
+          provider: AuthProviders.Google,
+          method: AuthMethods.Popup
+        });
+    }
   }
 
   logout() {
