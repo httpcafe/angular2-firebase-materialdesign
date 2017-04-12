@@ -1,0 +1,49 @@
+.newsitem {
+  max-width: 480px;
+  float: left;
+  margin-right: 3vw;
+}
+
+md-card {
+  overflow: auto;
+  width: 90%;
+  float: left;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+md-card-title {
+  font-weight: bold;
+}
+
+.datetime {
+  color: #bbbbbb !important;
+  text-align: right;
+  font-weight: normal;
+  height: 25px;
+  font-size: 0.8em;
+  display: inline-block;
+  width: 100px;
+  float: right;
+}
+
+app-urls {
+  margin-top: 30px;
+  padding-top: 5px;
+  float: left;
+  width: 100%;
+  border-top: solid 1px #cccccc;
+}
+
+figure {
+  padding: 0;
+  margin: 0 0 24px -24px;
+  display: flex;
+  flex-direction: row;
+  height: 155px;
+  width: calc(100% + 48px);
+}
+
+img {
+  width: 100%;
+}

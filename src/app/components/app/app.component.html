@@ -24,20 +24,28 @@
 
   <md-sidenav #sidenav class="sidenav" opened="false">
 
-    <img *ngIf="(userdata | async)?.avatar" [src]="(userdata | async)?.avatar" style="width: 100%; float: left">
-    <div *ngIf="!(userdata | async)?.avatar"
-         style="width: 100%; float: left; background-color: rgba(0,0,0,0.5); height: 280px"></div>
-    <div *ngIf="(userdata | async)?.voornaam" class="imageoverlay">
-      <strong>{{ (userdata | async)?.voornaam }} {{ (userdata | async)?.familienaam }} </strong><br>
-      <span>{{ (userdata | async)?.private.email }}</span>
+
+    <img *ngIf="(publicUserdata | async)?.avatar" [src]="(publicUserdata | async)?.avatar"
+         style="width: 100%; float: left">
+    <div *ngIf="(publicUserdata | async)?.voornaam" class="imageoverlay">
+      <strong>{{ (publicUserdata | async)?.voornaam }} {{ (publicUserdata | async)?.familienaam }} </strong><br>
+      <span>{{ (privateUserdata | async)?.email }}</span>
     </div>
 
 
-    <div *ngIf="!(userdata | async)">
+    <img *ngIf="!(publicUserdata | async)?.avatar" src="../../../assets/images/httpcafe.png"
+         style="width: 100%; float: left">
+
+    <div *ngIf="!(publicUserdata | async)?.avatar" class="imageoverlay">
+      <strong>HTTP Café</strong>
+    </div>
+
+
+    <div *ngIf="!(privateUserdata | async)">
       <a routerLink="user" (click)="sidenav.close()">Inloggen</a>
     </div>
 
-    <div *ngIf="(userdata | async)">
+    <div *ngIf="(privateUserdata | async)">
       <a routerLink="user" (click)="sidenav.close()">Mijn account</a>
     </div>
 
@@ -49,7 +57,7 @@
       <a routerLink="mijn-artikelen" (click)="sidenav.close()">Mijn artikelen</a>
     </div>
 
-    <div *ngIf="(userdata | async)">
+    <div *ngIf="(privateUserdata | async)">
       <a routerLink="home" (click)="logout()">Uitloggen</a>
     </div>
 
@@ -60,6 +68,7 @@
     <div>
       <a href="https://twitter.com/httpcafepodcast" target="_blank">Twitter</a>
     </div>
+
   </md-sidenav>
 
   <div class="sidenav-content" flex="">

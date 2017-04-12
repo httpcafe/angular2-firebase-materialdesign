@@ -12,6 +12,13 @@ import 'hammerjs';
 import 'rxjs/add/operator/take';
 import {AngularFireModule} from 'angularfire2';
 
+/*
+Services
+ */
+import { WindowRefService } from './services/window-ref.service';
+
+
+
 
 /*
  Components
@@ -19,14 +26,18 @@ import {AngularFireModule} from 'angularfire2';
 import {AppComponent} from './components/app/app.component';
 import {PodcastsComponent} from './components/podcasts/podcast.component';
 import {NewsComponent} from './components/news/news.component';
+import {NewsitemComponent} from './components/newsitem/newsitem.component';
 import {ProfileComponent} from './components/profile/profile.component';
 import {MagazineComponent} from './components/magazine/magazine.component';
 import {UsersComponent} from './components/users/users.component';
+import {UserComponent} from './components/user/user.component';
 import {UrlsComponent} from './components/urls/urls.component';
 import {EditorComponent} from './components/editor/editor.component';
 import {SubscriptionComponent} from './components/subscription/subscription.component';
 import {SnackbarComponent} from './components/snackbar/snackbar.component';
 import {LoginComponent} from './components/login/login.component';
+import {FeedbackComponent} from './components/feedback/feedback.component';
+import {SourcesComponent} from './components/sources/sources.component';
 
 /*
  Configs
@@ -42,6 +53,8 @@ export const appRoutes: Routes = [
   {path: 'user', component: ProfileComponent},
   {path: 'mijn-artikelen', component: EditorComponent},
   {path: 'abonnement', component: SubscriptionComponent},
+  {path: 'news', component: NewsComponent},
+  {path: 'news/:title/:id', component: NewsitemComponent},
   {path: '**', component: NewsComponent}
 ];
 
@@ -51,14 +64,18 @@ export const appRoutes: Routes = [
     AppComponent,
     PodcastsComponent,
     NewsComponent,
+    NewsitemComponent,
     ProfileComponent,
     MagazineComponent,
     UrlsComponent,
     UsersComponent,
+    UserComponent,
     EditorComponent,
     SubscriptionComponent,
     SnackbarComponent,
-    LoginComponent
+    LoginComponent,
+    FeedbackComponent,
+    SourcesComponent
   ],
   imports: [
     BrowserModule,
@@ -69,7 +86,7 @@ export const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     CKEditorModule
   ],
-  providers: [],
+  providers: [WindowRefService],
   bootstrap: [AppComponent],
   entryComponents: [
     SnackbarComponent

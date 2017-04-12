@@ -1,0 +1,10 @@
+<div class="newsitem">
+
+
+  <md-list-item *ngFor="let item of items | async" class="flex-container column">
+
+    <app-user class="flex-item" uid="{{item.author.id}}"></app-user>
+    <div class="flex-item">{{item.text}}</div>
+
+  </md-list-item>
+</div>

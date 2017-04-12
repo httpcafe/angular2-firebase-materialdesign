@@ -7,7 +7,7 @@ import {AngularFire, FirebaseListObservable} from 'angularfire2';
   styleUrls: ['users.component.css']
 })
 export class UsersComponent {
-  userdata: FirebaseListObservable<any[]>;
+  publicUserdataStream: FirebaseListObservable<any[]>;
   users: any;
 
   constructor(public af: AngularFire) {
@@ -17,7 +17,7 @@ export class UsersComponent {
       if (auth) {
         console.log('You are authenticated');
 
-        af.database.list('/users/', {
+        af.database.list('/users/public/', {
           query: {
             orderByChild: 'familienaam'
           }

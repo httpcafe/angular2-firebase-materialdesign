@@ -1,15 +1,17 @@
 <app-magazine></app-magazine>
 
 <div class="newsitem" *ngFor="let item of items | async ">
+  <nav>
+  <a class="link" (click)="gototop()" style="display: block; margin-top: 10px" *ngIf="item.published && listOnly" routerLink="/news/{{urlify(item.title)}}/{{item.$key}}">{{item.title}}</a>
+  </nav>
 
+  <md-card *ngIf="item.published && !listOnly">
 
-  <md-card *ngIf="item.published">
-
-    <img md-card-image src="../../../assets/images/placeholder.png">
+    <img style="cursor: pointer" (click)="gototop()" routerLink="/news/{{urlify(item.title)}}/{{item.$key}}" md-card-image src="../../../assets/images/placeholder.png">
     <div class="datetime">{{ (0 - item.published) | date }}</div>
     <md-card-header>
       <md-card-title>
-        {{item.title}}
+        <a routerLink="/news/{{urlify(item.title)}}/{{item.$key}}">{{item.title}}</a>
       </md-card-title>
     </md-card-header>
 
@@ -20,6 +22,10 @@
 
     <md-card-content *ngIf="item.urls">
       <app-urls [(urls)]="item.urls"></app-urls>
+    </md-card-content>
+
+    <md-card-content>
+      <app-user uid="{{item.author.uid}}"></app-user>
     </md-card-content>
   </md-card>
 </div>

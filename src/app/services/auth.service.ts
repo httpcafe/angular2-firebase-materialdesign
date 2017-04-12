@@ -14,65 +14,37 @@ export class AuthService {
 
         self.uid = auth.uid;
 
-        const userStream = self.af.database.object('/users/' + self.uid);
-
-        userStream.take(1).subscribe(snapshot => {
-
-          if (!snapshot.hasOwnProperty('private')) {
-            const privateData = {
-              address: {
-                street: '',
-                number: '',
-                zip: '',
-                city: '',
-                country: ''
-              },
-              job: {
-                frontend: false,
-                backend: false,
-                webdesigner: false,
-                devop: false,
-                architect: false,
-                pm: false,
-                hr: false,
-                commercial: false,
-                amateur: false,
-                other: '',
-                technologies: ''
-              },
-              email: '',
-              company: {
-                name: '',
-                id: ''
-              }
-            };
-            userStream.update({private: privateData});
-          }
+        const publicUserdataStream = self.af.database.object('/users/public/' + self.uid);
+        publicUserdataStream.take(1).subscribe(snapshot => {
           if ((!snapshot.hasOwnProperty('avatar')) || (snapshot.avatar === '')) {
             if (auth.hasOwnProperty('google')) {
-              userStream.update({avatar: auth.google.photoURL});
+              publicUserdataStream.update({avatar: auth.google.photoURL});
             } else if (auth.hasOwnProperty('twitter')) {
               console.log(auth);
-              userStream.update({avatar: auth.twitter.photoURL.replace('_normal', '')});
+              publicUserdataStream.update({avatar: auth.twitter.photoURL.replace('_normal', '')});
             } else if (auth.hasOwnProperty('facebook')) {
-              userStream.update({avatar: auth.facebook.photoURL});
+              publicUserdataStream.update({avatar: auth.facebook.photoURL});
             } else if (auth.hasOwnProperty('github')) {
-              userStream.update({avatar: auth.github.photoURL});
+              publicUserdataStream.update({avatar: auth.github.photoURL});
             }
           }
           if (!snapshot.hasOwnProperty('voornaam')) {
-            userStream.update({voornaam: ''});
+            publicUserdataStream.update({voornaam: ''});
           }
           if (!snapshot.hasOwnProperty('familienaam')) {
-            userStream.update({familienaam: ''});
-          }
-          if (!snapshot.hasOwnProperty('email')) {
-            userStream.update({email: ''});
+            publicUserdataStream.update({familienaam: ''});
           }
           if (!snapshot.hasOwnProperty('twitter')) {
-            userStream.update({twitter: ''});
+            publicUserdataStream.update({twitter: ''});
           }
+        });
 
+
+        const privateUserdataStream = self.af.database.object('/users/private/' + self.uid);
+        privateUserdataStream.take(1).subscribe(snapshot => {
+          if (!snapshot.hasOwnProperty('email')) {
+            privateUserdataStream.update({email: ''});
+          }
         });
       } else {
         console.log('You are not authenticated');

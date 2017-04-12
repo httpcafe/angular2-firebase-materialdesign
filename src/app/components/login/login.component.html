@@ -1,3 +1,23 @@
-<button md-raised-button (click)="login('twitter')">Twitter</button>
-<button md-raised-button (click)="login('google')">Google</button>
-<button md-raised-button (click)="login('github')">Github</button>
+<md-card flex>
+  <md-grid-list cols="4" rowHeight="350px">
+
+
+    <md-grid-tile colspan="1" style="vertical-align: top">
+      <img src="../../../assets/images/login.png" style="width: 100%">
+    </md-grid-tile>
+
+
+    <md-grid-tile colspan="3">
+      <div style="width: 100%; padding-left: 20px">
+        <h1>Gelieve in te loggen...</h1>
+        met een provider naar keuze<br><br>
+        <button md-raised-button (click)="login('twitter')">Twitter</button>
+        <button md-raised-button (click)="login('google')">Google</button>
+        <button md-raised-button (click)="login('github')">Github</button>
+      </div>
+    </md-grid-tile>
+
+  </md-grid-list>
+
+
+</md-card>

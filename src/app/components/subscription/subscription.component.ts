@@ -16,27 +16,34 @@ export class SubscriptionComponent {
 
   codesStream: FirebaseListObservable<any>;
   subscriptionStream: FirebaseObjectObservable<any>;
-  userdataStream: FirebaseObjectObservable<any>;
+  privateUserdataStream: FirebaseObjectObservable<any>;
+  publicUserdataStream: FirebaseObjectObservable<any>;
 
   kortingscode: string;
   subscriptiontype: any;
   betaalplan;
 
 
-  constructor(private authService: AuthService, public userService: UserService, private route: ActivatedRoute, private af: AngularFire) {
+  constructor(private authService: AuthService,
+              public userService: UserService,
+              private route: ActivatedRoute,
+              private af: AngularFire) {
     const self = this;
 
 
     this.authService.isAuthenticated().subscribe(authData => {
       if (authData) {
+        console.log(authData.uid);
         self.uid = authData.uid;
-        self.userdataStream = this.userService.getUserdata(self.uid);
+        self.privateUserdataStream = this.userService.getPrivateUserdata(self.uid);
+        self.publicUserdataStream = this.userService.getPublicUserdata(self.uid);
 
         self.codesStream = this.af.database.list('/administration/reductioncodes/');
         self.subscriptionStream = this.af.database.object('/administration/subscriptions/' + self.uid);
       } else {
         self.uid = '';
-        self.userdataStream = this.userService.getUserdata(0);
+        self.privateUserdataStream = this.userService.getPrivateUserdata(0);
+        self.publicUserdataStream = this.userService.getPublicUserdata(0);
       }
     });
 
@@ -45,21 +52,16 @@ export class SubscriptionComponent {
 
 
   updateAddress(street, number, zip, city, country) {
-    this.userService.updatePrivateUserdata(this.userdataStream, 'address', {
-      street: street,
-      number: number,
-      zip: zip,
-      city: city,
-      country: country
-    });
+    this.userService.updateAddress(this.privateUserdataStream, street, number, zip, city, country);
   }
 
-  updateBedrijfNaam(name) {
-    this.userService.updateCompany(this.userdataStream, 'name', name);
+
+  updateCompanyName(name) {
+    this.userService.updateCompany(this.privateUserdataStream, 'name', name);
   }
 
-  updateOndernemingsnummer(id) {
-    this.userService.updateCompany(this.userdataStream, 'id', id);
+  updateCompanyId(id) {
+    this.userService.updateCompany(this.privateUserdataStream, 'id', id);
   }
 
   unsetPrice() {
@@ -105,21 +107,20 @@ export class SubscriptionComponent {
 
   subscribe() {
     const self = this;
+    const publicData = this.userService.getPublicDataAsObject(self.publicUserdataStream);
 
     if (self.kortingscode) {
       this.subscriptionStream.set({
-        uid: this.uid,
         price: this.betaalplan.price,
         datetime: new Date().toDateString(),
         code: self.kortingscode,
-        referentie: 'jaarabonnement HTTP Café ' + this.userService.getFirstname(this.uid) + ' ' + this.userService.getLastname(this.uid)
+        referentie: 'jaarabonnement HTTP Café ' + publicData.voornaam + ' ' + publicData.familienaam
       });
     } else {
       this.subscriptionStream.set({
-        uid: this.uid,
         price: this.betaalplan.price,
         datetime: new Date().toDateString(),
-        referentie: 'jaarabonnement HTTP Café ' + this.userService.getFirstname(this.uid) + ' ' + this.userService.getLastname(this.uid)
+        referentie: 'jaarabonnement HTTP Café ' + publicData.voornaam + ' ' + publicData.familienaam
       });
     }
     self.unsetPrice();

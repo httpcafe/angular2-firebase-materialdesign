@@ -16,9 +16,13 @@ export class UrlsComponent implements OnInit {
   ngOnInit() {
     const self = this;
 
-    Object.keys(self.urls).forEach(function (key) {
-      self.urlArray.push(self.urls[key]);
-      // console.log(key, self.urls[key]);
-    });
+    if (self.urls) {
+      console.log(self.urls);
+      Object.keys(self.urls).forEach(function (key) {
+        self.urlArray.push(self.urls[key]);
+        // console.log(key, self.urls[key]);
+      });
+    }
+
   }
 }

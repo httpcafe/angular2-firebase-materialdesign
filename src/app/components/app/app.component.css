@@ -58,3 +58,8 @@ md-sidenav div a {
 html {
   font-family: Arial;
 }
+
+md-toolbar {
+  background: #DD0050 !important;
+  color: #ffffff !important;
+}

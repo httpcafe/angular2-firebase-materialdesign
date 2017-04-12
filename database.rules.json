@@ -1,0 +1,82 @@
+{
+  "rules": {
+    "users": {
+      "private": {
+        "$user_id": {
+          ".read": "auth !== null && ($user_id === auth.uid || auth.uid === 'skfLy7Uhifgjg9rDEI1DJyvSKhM2')",
+          ".write": "auth !== null && ($user_id === auth.uid || auth.uid === 'skfLy7Uhifgjg9rDEI1DJyvSKhM2')"
+        }
+      },
+      "public": {
+        "$user_id": {
+          ".read": true,
+          ".write": "auth !== null && ($user_id === auth.uid || auth.uid === 'skfLy7Uhifgjg9rDEI1DJyvSKhM2')"
+        }
+      }
+    },
+    "sources": {
+      ".read": true,
+      ".write": "auth != null",
+    },
+    "feedback": {
+      ".read": true,
+      ".write": "auth != null",
+    },
+    "news": {
+      ".read": true,
+      ".write": "auth != null",
+      ".indexOn": [
+        "published",
+        "type",
+        "datetime"
+      ],
+      "$key": {
+        "reactions": {
+          ".indexOn": [
+            "datetime"
+          ],
+          ".read": "auth != null",
+          ".write": "auth != null"
+        },
+        "images": {
+          ".read": true,
+          ".write": "auth != null"
+        }
+      }
+    },
+    "feed": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      ".indexOn": [
+        "datetime"
+      ]
+    },
+    "podcast": {
+      ".read": true,
+      ".write": "auth != null",
+      ".indexOn": [
+        "datetime"
+      ]
+    },
+    "subscriptions": {
+      ".indexOn": [
+        "zip"
+      ],
+      ".read": "auth !== null && auth.provider === 'password'",
+      ".write": "auth != null"
+    },
+    "sandbox": {
+      ".read": true,
+      ".write": true
+    },
+    "administration": {
+      "reductioncodes": {
+        ".read": true
+      },
+      "subscriptions": {
+        ".read": true,
+        ".write": true
+      }
+    }
+  }
+}

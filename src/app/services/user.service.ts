@@ -5,9 +5,6 @@ import {AuthService} from './auth.service';
 @Injectable()
 export class UserService {
 
-  userdataStream: FirebaseObjectObservable<any[]>;
-
-
   constructor(public af: AngularFire, private authService: AuthService) {
   }
 
@@ -19,24 +16,44 @@ export class UserService {
     this.authService.logout();
   }
 
-  getUserdata(uid): FirebaseObjectObservable<any[]> {
+  /*
+   Get
+   */
+
+  getPublicUserdata(uid): FirebaseObjectObservable<any[]> {
     if (uid !== '') {
       try {
-        // console.log(uid);
-        const userStream = this.af.database.object('/users/' + uid);
+        const stream = this.af.database.object('/users/public/' + uid);
+        stream.take(1).subscribe(snapshot => {
+          if (!snapshot.hasOwnProperty('avatar')) {
+            stream.update({avatar: ''});
+          }
+        });
 
-        userStream.take(1).subscribe(snapshot => {
-          //  console.log(snapshot);
+        return stream;
+      } catch (err) {
+        return new FirebaseObjectObservable;
+      }
+    }
+  }
 
-          if (!snapshot.hasOwnProperty('private')) {
-            const privateData = {
-              address: {
-                street: '',
-                number: '',
-                zip: '',
-                city: '',
-                country: ''
-              },
+  getPublicDataAsObject(publicUserdataStream) {
+    let publicData;
+    publicUserdataStream.take(1).subscribe(snapshot => {
+      publicData = snapshot;
+    });
+    return publicData;
+  }
+
+  getPrivateUserdata(uid): FirebaseObjectObservable<any[]> {
+    if (uid !== '') {
+      try {
+        const stream = this.af.database.object('/users/private/' + uid);
+
+        stream.take(1).subscribe(snapshot => {
+
+          if (!snapshot.hasOwnProperty('job')) {
+            stream.update({
               job: {
                 frontend: false,
                 backend: false,
@@ -49,102 +66,104 @@ export class UserService {
                 amateur: false,
                 other: '',
                 technologies: ''
-              },
-              email: '',
+              }
+            });
+          }
+          if (!snapshot.hasOwnProperty('company')) {
+            stream.update({
               company: {
                 name: '',
                 id: ''
               }
-            };
-            userStream.update({private: privateData});
+            });
           }
-          if (!snapshot.hasOwnProperty('avatar')) {
-            userStream.update({avatar: ''});
-          }
-          if (!snapshot.hasOwnProperty('voornaam')) {
-            userStream.update({voornaam: ''});
-          }
-          if (!snapshot.hasOwnProperty('familienaam')) {
-            userStream.update({familienaam: ''});
+          if (!snapshot.hasOwnProperty('address')) {
+            stream.update({
+              address: {
+                street: '',
+                number: '',
+                zip: '',
+                city: '',
+                country: ''
+              }
+            });
           }
           if (!snapshot.hasOwnProperty('email')) {
-            userStream.update({email: ''});
+            stream.update({email: ''});
           }
-          if (!snapshot.hasOwnProperty('twitter')) {
-            userStream.update({twitter: ''});
-          }
-        });
-
-        return userStream;
+        })
+        return stream;
       } catch (err) {
         return new FirebaseObjectObservable;
       }
     }
   }
 
-  getFirstname(uid) {
-    let firstname = '';
-    this.af.database.object('/users/' + uid).take(1).subscribe(snapshot => {
-      firstname = snapshot.voornaam;
-    });
-    return firstname;
-  }
-
-  getPrivateData(uid) {
-    let privateData = {};
-    this.af.database.object('/users/' + uid).take(1).subscribe(snapshot => {
-      privateData = snapshot.private;
+  getPrivateDataAsObject(privateUserdataStream) {
+    let privateData;
+    privateUserdataStream.take(1).subscribe(snapshot => {
+      privateData = snapshot;
     });
     return privateData;
   }
 
-  getLastname(uid) {
-    let lastname = '';
-    this.af.database.object('/users/' + uid).take(1).subscribe(snapshot => {
-      lastname = snapshot.familienaam;
-    });
-    return lastname;
-  }
+  /*
+   Update
+   */
 
-
-  updatePublicUserdata(userdataStream, key, value) {
+  updatePublicUserdata(publicUserdataStream, key, value) {
     switch (key) {
       case 'twitter':
-        userdataStream.update({twitter: value});
+        publicUserdataStream.update({twitter: value});
         break;
       case 'voornaam':
-        userdataStream.update({voornaam: value});
+        publicUserdataStream.update({voornaam: value});
         break;
       case 'familienaam':
-        userdataStream.update({familienaam: value});
+        publicUserdataStream.update({familienaam: value});
         break;
     }
   }
 
-  updatePrivateUserdata(userdataStream, key, value) {
-    const privateData = this.getPrivateDataAsObject(userdataStream);
+  updatePrivateUserdata(privateUserdataStream, key, value) {
+    const privateData = this.getPrivateDataAsObject(privateUserdataStream);
     privateData[key] = value;
-    userdataStream.update({'private': privateData});
+    console.log(key, value);
+    privateUserdataStream.update(key, value);
   }
 
-  updateJob(userdataStream, key, value) {
-    const privateData = this.getPrivateDataAsObject(userdataStream);
-    privateData['job'][key] = value;
-    userdataStream.update({'private': privateData});
+
+  updateEmail(privateUserdataStream, value) {
+    privateUserdataStream.update({'email': value});
   }
 
-  updateCompany(userdataStream, key, value) {
-    const privateData = this.getPrivateDataAsObject(userdataStream);
-    privateData['company'][key] = value;
-    userdataStream.update({'private': privateData});
-  }
 
-  getPrivateDataAsObject(userdataStream) {
-    let privateData;
-    userdataStream.take(1).subscribe(snapshot => {
-      privateData = snapshot['private'];
+  updateAddress(privateUserdataStream, street, number, zip, city, country) {
+    console.log(privateUserdataStream, street, number, zip, city, country);
+    privateUserdataStream.update({
+      'address': {
+        street: street,
+        number: number,
+        zip: zip,
+        city: city,
+        country: country
+      }
     });
-    return privateData;
   }
+
+
+  updateJob(privateUserdataStream, key, value) {
+    const privateData = this.getPrivateDataAsObject(privateUserdataStream);
+    console.log(privateData);
+    privateData['job'][key] = value;
+    privateUserdataStream.update({'job': privateData['job']});
+  }
+
+  updateCompany(privateUserdataStream, key, value) {
+    const privateData = this.getPrivateDataAsObject(privateUserdataStream);
+    privateData['company'][key] = value;
+    privateUserdataStream.update({'company': privateData['company']});
+  }
+
 
 }

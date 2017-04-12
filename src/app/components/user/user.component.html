@@ -1,0 +1,15 @@
+<table>
+  <tr>
+    <td>
+      <div *ngIf="(publicUserdataStream | async)?.avatar">
+        <a routerLink="/user/{{(publicUserdataStream | async)?.key}}"><img [src]="(publicUserdataStream | async)?.avatar" class="profile"></a>
+      </div>
+    </td>
+    <td>
+      <a routerLink="/user/{{(publicUserdataStream | async)?.key}}">{{ (publicUserdataStream | async)?.voornaam }} {{ (publicUserdataStream | async)?.familienaam }}</a><br>
+    </td>
+  </tr>
+
+</table>
+
+

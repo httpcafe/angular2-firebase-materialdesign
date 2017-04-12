@@ -9,7 +9,8 @@ md-card {
   overflow: auto;
   width: 90%;
   float: left;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+  margin-top: 10px;
 }
 
 md-card-title {
@@ -66,3 +67,13 @@ app-urls {
     margin-bottom: 20px;
   }
 }
+
+
+div.link {
+  color: #444444;
+  text-decoration: none;
+}
+div.link:hover {
+   color: #222222;
+   text-decoration: underline;
+ }

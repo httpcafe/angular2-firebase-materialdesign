@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {UserService} from '../../services/user.service';
 import {ActivatedRoute} from '@angular/router';
@@ -13,68 +13,71 @@ import {AngularFire, FirebaseObjectObservable} from 'angularfire2';
 })
 export class ProfileComponent {
 
-  userdataStream: FirebaseObjectObservable<any>;
   uid: string;
+  error: string;
+  privateUserdataStream: FirebaseObjectObservable<any>;
+  publicUserdataStream: FirebaseObjectObservable<any>;
   subscriptionStream: FirebaseObjectObservable<any>;
 
 
-  constructor(private authService: AuthService, private userService: UserService, private route: ActivatedRoute, private af: AngularFire) {
+  constructor(private authService: AuthService,
+              private userService: UserService,
+              private activatedRoute: ActivatedRoute,
+              private af: AngularFire) {
+
     const self = this;
+    self.activatedRoute.params.subscribe(params => {
+      self.uid = params['uid'];
+    });
 
     self.authService.isAuthenticated().subscribe(authData => {
-      console.log(authData);
-
 
       if (authData) {
-        console.log(self.uid);
-
         if ((self.uid === undefined) || (self.uid === null) || (self.uid === '')) {
           self.uid = authData.uid;
         }
-        self.userdataStream = self.userService.getUserdata(self.uid);
-        self.subscriptionStream = self.af.database.object('/administration/subscriptions/' + self.uid);
+        try {
+          self.privateUserdataStream = self.userService.getPrivateUserdata(self.uid);
+          self.publicUserdataStream = self.userService.getPublicUserdata(self.uid);
+          self.subscriptionStream = self.af.database.object('/administration/subscriptions/' + self.uid);
+        } catch (err) {
+          self.error = 'geen toegang';
+        }
       } else {
-        console.log(self.uid);
         self.uid = '';
-        delete self.userdataStream;
+        delete self.privateUserdataStream;
       }
     });
   }
 
 
   updateAddress(street, number, zip, city, country) {
-    this.userService.updatePrivateUserdata(this.userdataStream, 'address', {
-      street: street,
-      number: number,
-      zip: zip,
-      city: city,
-      country: country
-    });
+    this.userService.updateAddress(this.privateUserdataStream, street, number, zip, city, country);
   }
 
 
-  updateVoornaam(voornaam) {
-    this.userService.updatePublicUserdata(this.userdataStream, 'voornaam', voornaam);
+  updateFirstname(voornaam) {
+    this.userService.updatePublicUserdata(this.publicUserdataStream, 'voornaam', voornaam);
   }
 
-  updateFamilienaam(familienaam) {
-    this.userService.updatePublicUserdata(this.userdataStream, 'familienaam', familienaam);
+  updateFamilyname(familienaam) {
+    this.userService.updatePublicUserdata(this.publicUserdataStream, 'familienaam', familienaam);
   }
 
   updateEmail(email) {
-    this.userService.updatePrivateUserdata(this.userdataStream, 'email', email);
+    this.userService.updateEmail(this.privateUserdataStream, email);
   }
 
   updateTwitter(twitter) {
-    this.userService.updatePublicUserdata(this.userdataStream, 'twitter', twitter);
+    this.userService.updatePublicUserdata(this.publicUserdataStream, 'twitter', twitter);
   }
 
-  updateBedrijfNaam(name) {
-    this.userService.updateCompany(this.userdataStream, 'name', name);
+  updateCompanyName(name) {
+    this.userService.updateCompany(this.privateUserdataStream, 'name', name);
   }
 
-  updateOndernemingsnummer(id) {
-    this.userService.updateCompany(this.userdataStream, 'id', id);
+  updateCompanyId(id) {
+    this.userService.updateCompany(this.privateUserdataStream, 'id', id);
   }
 
   updateJob(key, value) {
@@ -95,7 +98,7 @@ export class ProfileComponent {
         }
         break;
     }
-    this.userService.updateJob(this.userdataStream, key, value);
+    this.userService.updateJob(this.privateUserdataStream, key, value);
   }
 }
 

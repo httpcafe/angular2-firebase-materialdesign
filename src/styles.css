@@ -10,6 +10,9 @@ app-profile, app-editor, app-subscription {
   float: left;
   width: 100%;
 }
+app-user {
+  display: inline-block;
+}
 
 
 .mat-radio-label {
@@ -23,4 +26,13 @@ app-profile, app-editor, app-subscription {
 
 h1 {
   font-size: 1.4em;
+}
+
+a {
+  color: #BB0050;
+  text-decoration: none;
+}
+a:hover {
+  color: #FF0090;
+  text-decoration: underline;
 }

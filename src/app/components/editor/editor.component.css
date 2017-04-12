@@ -22,7 +22,7 @@ md-list-item:last-of-type {
 
 div.editorcontent {
   margin-top: 10px;
-  width: 68%;
+  width: 60%;
   float: right;
 }
 
@@ -64,4 +64,13 @@ md-card.menu {
   padding: 20px 0 20px 0;
   margin-left: -20px;
   min-width: 350px;
+}
+
+
+@media only screen and (max-width: 900px) {
+  div.editorcontent {
+    margin-top: 10px;
+    width: 100%;
+    float: right;
+  }
 }

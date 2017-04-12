@@ -12,7 +12,8 @@ import {FirebaseObjectObservable} from 'angularfire2';
   providers: [AuthService, UserService, MessagingService]
 })
 export class AppComponent implements OnInit, OnDestroy {
-  userdata: FirebaseObjectObservable<any[]>;
+  privateUserdata: FirebaseObjectObservable<any[]>;
+  publicUserdata: FirebaseObjectObservable<any[]>;
   public uid: string;
   private sub: Subscription;
 
@@ -30,9 +31,10 @@ export class AppComponent implements OnInit, OnDestroy {
     this.authService.isAuthenticated().subscribe(authData => {
       if (authData) {
         this.uid = authData.uid;
-        this.userdata = this.userService.getUserdata(authData.uid);
+        this.privateUserdata = this.userService.getPrivateUserdata(authData.uid);
+        this.publicUserdata = this.userService.getPublicUserdata(authData.uid);
       } else {
-        this.userdata = this.userService.getUserdata('');
+        this.privateUserdata = this.userService.getPrivateUserdata('');
       }
     });
   }
@@ -42,7 +44,8 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   logout() {
-    this.userdata = this.userService.getUserdata('');
+    this.privateUserdata = this.userService.getPrivateUserdata('');
+    this.publicUserdata = this.userService.getPublicUserdata('');
     this.authService.logout();
   }
 }
