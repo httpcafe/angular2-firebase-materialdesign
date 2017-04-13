@@ -16,11 +16,11 @@
     },
     "sources": {
       ".read": true,
-      ".write": "auth != null",
+      ".write": "auth != null"
     },
     "feedback": {
       ".read": true,
-      ".write": "auth != null",
+      ".write": "auth != null"
     },
     "news": {
       ".read": true,

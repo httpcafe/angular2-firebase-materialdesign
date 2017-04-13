@@ -73,7 +73,16 @@ div.link {
   color: #444444;
   text-decoration: none;
 }
+a {
+  display: inline-block;
+  width: calc(100% - 100px);
+}
 div.link:hover {
    color: #222222;
    text-decoration: underline;
  }
+
+
+nav {
+  width: 100%
+}

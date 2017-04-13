@@ -4,12 +4,13 @@ import {UserService} from '../../services/user.service';
 import {MessagingService} from '../../services/messaging.service';
 import {Subscription} from 'rxjs/Subscription';
 import {FirebaseObjectObservable} from 'angularfire2';
+import {FeedbackService} from "../../services/feedback.service";
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.css'],
-  providers: [AuthService, UserService, MessagingService]
+  providers: [AuthService, UserService, MessagingService, FeedbackService]
 })
 export class AppComponent implements OnInit, OnDestroy {
   privateUserdata: FirebaseObjectObservable<any[]>;

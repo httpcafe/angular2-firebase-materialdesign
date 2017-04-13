@@ -1,23 +1,24 @@
-import {Component} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {AngularFire, FirebaseListObservable} from 'angularfire2';
+import {Component, Input, OnInit} from '@angular/core';
+import {FirebaseListObservable} from 'angularfire2';
+import {FeedbackService} from '../../services/feedback.service';
 
 @Component({
   selector: 'app-feedback',
   templateUrl: 'feedback.component.html',
   styleUrls: ['feedback.component.css']
 })
-export class FeedbackComponent {
+export class FeedbackComponent implements OnInit {
   items: FirebaseListObservable<any[]>;
 
-  constructor(af: AngularFire,
-              private activatedRoute: ActivatedRoute) {
 
-    const self = this;
-    self.activatedRoute.params.subscribe(params => {
-      console.log(params);
-      this.items = af.database.list('/feedback/' + params['id']);
-    });
+  @Input()
+  feedback: string;
 
+  ngOnInit() {
+    console.log(this.feedback);
+    this.items = this.feedbackService.getFeedback(this.feedback);
+  }
+
+  constructor(private feedbackService: FeedbackService) {
   }
 }

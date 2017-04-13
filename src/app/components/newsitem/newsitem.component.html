@@ -7,9 +7,9 @@
       <app-user uid="{{(newsItem | async)?.author.uid}}"></app-user>
       <div class="datetime">{{ (0 - (newsItem | async)?.published) | date }}</div>
     </md-card-content>
-    <figure>
-    <img src="../../../assets/images/placeholder.png">
-    </figure>
+
+    <img md-card-image src="../../../assets/images/placeholder.png">
+
     <md-card-header>
       <md-card-title>
         {{(newsItem | async)?.title}}
@@ -29,12 +29,20 @@
       <app-sources id="{{(newsItem | async)?.$key}}"></app-sources>
     </md-card-content>
 
-
     <md-card-content>
-      <app-feedback id="{{(newsItem | async)?.$key}}"></app-feedback>
+      <a target='_blank' class="share"
+         href="https://www.facebook.com/sharer/sharer.php?u=httpcafemagazine.firebaseapp.com/news/{{urlify((newsItem | async)?.title)}}/{{(newsItem | async)?.$key}}&caption={{(newsItem | async)?.title}}&description={{(newsItem | async)?.content}}&picture=https://httpcafemagazine.firebaseapp.com/assets/images/placeholder.png">
+        <img src="../../../assets/images/facebook-logo.png" style='height: 20px; width: 20px;'> Please share</a>
+
+      <a class="share" target='_blank'
+         href="https://twitter.com/home?status={{(newsItem | async)?.title}} %23httpcafe https%3A//httpcafemagazine.firebaseapp.com/news/{{urlify((newsItem | async)?.title)}}/{{(newsItem | async)?.$key}}">
+        <img src="../../../assets/images/twitter-logo.png" style='height: 20px; width: 20px;'> Please share</a>
+
     </md-card-content>
 
-
+    <md-card-content>
+      <app-feedback feedback="{{(newsItem | async)?.$key}}"></app-feedback>
+    </md-card-content>
   </md-card>
 </article>
-<app-news [listOnly]="true"></app-news>
+<app-news [listOnly]="true" style="display: inline-block;"></app-news>

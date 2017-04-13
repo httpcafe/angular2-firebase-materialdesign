@@ -21,7 +21,7 @@ export class NewsComponent {
   constructor(af: AngularFire, windowRef: WindowRefService) {
     this._window = windowRef.nativeWindow;
     if (!this.limit) {
-      this.limit = 50;
+      this.limit = 70;
     }
 
     this.items = af.database.list('/news', {
@@ -33,11 +33,11 @@ export class NewsComponent {
   }
 
   urlify(str) {
-    return str.replace(new RegExp(' ', 'g'), '-');
+    return str.replace(new RegExp(' ', 'g'), '-').substring(0, 30);
   }
 
   gototop(): void {
-    console.log('yep');
+    console.log('should have scrolled to top');
     this._window.scrollTo(0, 0);
   }
 }

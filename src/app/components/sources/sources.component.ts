@@ -15,7 +15,6 @@ export class SourcesComponent {
 
     const self = this;
     self.activatedRoute.params.subscribe(params => {
-      console.log(params);
       this.items = af.database.list('/sources/' + params['id']);
     });
 

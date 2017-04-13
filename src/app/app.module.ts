@@ -11,13 +11,12 @@ import {CKEditorModule} from 'ng2-ckeditor';
 import 'hammerjs';
 import 'rxjs/add/operator/take';
 import {AngularFireModule} from 'angularfire2';
+import {MetaModule} from '@nglibs/meta';
 
 /*
-Services
+ Services
  */
-import { WindowRefService } from './services/window-ref.service';
-
-
+import {WindowRefService} from './services/window-ref.service';
 
 
 /*
@@ -54,7 +53,15 @@ export const appRoutes: Routes = [
   {path: 'mijn-artikelen', component: EditorComponent},
   {path: 'abonnement', component: SubscriptionComponent},
   {path: 'news', component: NewsComponent},
-  {path: 'news/:title/:id', component: NewsitemComponent},
+  {
+    path: 'news/:title/:id',
+    component: NewsitemComponent,
+    data: {
+      'title': 'Home page',
+      'description': 'Description of the dashboard page',
+      'og:image': 'https://httpcafemagazine.firebaseapp.com/assets/images/placeholder.png'
+    }
+  },
   {path: '**', component: NewsComponent}
 ];
 
@@ -84,6 +91,7 @@ export const appRoutes: Routes = [
     AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig),
     MaterialModule,
     RouterModule.forRoot(appRoutes),
+    MetaModule.forRoot(),
     CKEditorModule
   ],
   providers: [WindowRefService],

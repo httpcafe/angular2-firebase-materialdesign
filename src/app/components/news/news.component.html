@@ -1,13 +1,19 @@
 <app-magazine></app-magazine>
 
-<div class="newsitem" *ngFor="let item of items | async ">
-  <nav>
-  <a class="link" (click)="gototop()" style="display: block; margin-top: 10px" *ngIf="item.published && listOnly" routerLink="/news/{{urlify(item.title)}}/{{item.$key}}">{{item.title}}</a>
-  </nav>
+<nav>
+  <div *ngFor="let item of items | async ">
+    <div  *ngIf="item.published && listOnly">
+      <span>{{ (0 - item.published) | date:'dd.MM.yy' }} &nbsp;&nbsp;</span>
+      <a (click)="gototop()" routerLink="/news/{{urlify(item.title)}}/{{item.$key}}"> {{item.title}}</a>
+    </div>
+  </div>
+</nav>
 
+<div *ngFor="let item of items | async " class="newsitem">
   <md-card *ngIf="item.published && !listOnly">
 
-    <img style="cursor: pointer" (click)="gototop()" routerLink="/news/{{urlify(item.title)}}/{{item.$key}}" md-card-image src="../../../assets/images/placeholder.png">
+    <img style="cursor: pointer" (click)="gototop()" routerLink="/news/{{urlify(item.title)}}/{{item.$key}}"
+         md-card-image src="../../../assets/images/placeholder.png">
     <div class="datetime">{{ (0 - item.published) | date }}</div>
     <md-card-header>
       <md-card-title>
