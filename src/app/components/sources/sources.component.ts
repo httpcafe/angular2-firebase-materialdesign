@@ -1,22 +1,31 @@
-import {Component} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {AngularFire, FirebaseListObservable} from 'angularfire2';
+import {Component, Input, OnInit, OnChanges} from '@angular/core';
+import {SourcesService} from '../../services/sources.service';
+import {FirebaseListObservable} from 'angularfire2';
 
 @Component({
   selector: 'app-sources',
   templateUrl: 'sources.component.html',
-  styleUrls: ['sources.component.css']
+  styleUrls: ['sources.component.css'],
+  providers: [SourcesService]
 })
-export class SourcesComponent {
+export class SourcesComponent implements OnInit, OnChanges {
+
+
   items: FirebaseListObservable<any[]>;
+  af;
+  @Input()
+  sources: string;
 
-  constructor(af: AngularFire,
-              private activatedRoute: ActivatedRoute) {
+  ngOnInit() {
+    console.log(this.sources);
+    this.items = this.sourcesService.getSources(this.sources);
+  }
 
-    const self = this;
-    self.activatedRoute.params.subscribe(params => {
-      this.items = af.database.list('/sources/' + params['id']);
-    });
+  ngOnChanges(changes) {
+    this.sources = changes.sources.currentValue;
+    this.items = this.sourcesService.getSources(this.sources);
+  }
 
+  constructor(private sourcesService: SourcesService) {
   }
 }

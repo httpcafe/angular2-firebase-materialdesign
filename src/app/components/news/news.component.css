@@ -48,14 +48,12 @@ app-urls {
     float: left;
     margin-bottom: 20px;
   }
-
 }
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 750px) {
 
   .newsitem {
-    width: 90vw !important;
-    max-width: 460px !important;
+    width: 94vw !important;
     float: left;
     margin-right: 2vw;
   }
@@ -68,20 +66,20 @@ app-urls {
   }
 }
 
-
 div.link {
   color: #444444;
   text-decoration: none;
 }
-a {
+
+a.list {
   display: inline-block;
   width: calc(100% - 100px);
 }
-div.link:hover {
-   color: #222222;
-   text-decoration: underline;
- }
 
+div.link:hover {
+  color: #222222;
+  text-decoration: underline;
+}
 
 nav {
   width: 100%

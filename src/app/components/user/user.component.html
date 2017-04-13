@@ -1,4 +1,4 @@
-<table>
+<table *ngIf="!imageOnly">
   <tr>
     <td>
       <div *ngIf="(publicUserdataStream | async)?.avatar">
@@ -9,7 +9,8 @@
       <a routerLink="/user/{{(publicUserdataStream | async)?.key}}">{{ (publicUserdataStream | async)?.voornaam }} {{ (publicUserdataStream | async)?.familienaam }}</a><br>
     </td>
   </tr>
-
 </table>
+
+<img *ngIf="imageOnly" [src]="(publicUserdataStream | async)?.avatar" class="profile">
 
 

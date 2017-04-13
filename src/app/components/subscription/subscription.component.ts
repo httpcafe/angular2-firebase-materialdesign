@@ -107,7 +107,7 @@ export class SubscriptionComponent {
 
   subscribe() {
     const self = this;
-    const publicData = this.userService.getPublicDataAsObject(self.publicUserdataStream);
+    const publicData = this.userService.getPublicDataAsObject(self.uid);
 
     if (self.kortingscode) {
       this.subscriptionStream.set({

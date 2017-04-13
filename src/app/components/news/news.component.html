@@ -4,7 +4,7 @@
   <div *ngFor="let item of items | async ">
     <div  *ngIf="item.published && listOnly">
       <span>{{ (0 - item.published) | date:'dd.MM.yy' }} &nbsp;&nbsp;</span>
-      <a (click)="gototop()" routerLink="/news/{{urlify(item.title)}}/{{item.$key}}"> {{item.title}}</a>
+      <a (click)="gototop()" routerLink="/news/{{urlify(item.title)}}/{{item.$key}}" class="list"> {{item.title}}</a>
     </div>
   </div>
 </nav>
@@ -15,11 +15,10 @@
     <img style="cursor: pointer" (click)="gototop()" routerLink="/news/{{urlify(item.title)}}/{{item.$key}}"
          md-card-image src="../../../assets/images/placeholder.png">
     <div class="datetime">{{ (0 - item.published) | date }}</div>
-    <md-card-header>
-      <md-card-title>
+
+      <md-card-content>
         <a routerLink="/news/{{urlify(item.title)}}/{{item.$key}}">{{item.title}}</a>
-      </md-card-title>
-    </md-card-header>
+      </md-card-content>
 
     <md-card-content>
       <p [innerHTML]="item.content"></p>

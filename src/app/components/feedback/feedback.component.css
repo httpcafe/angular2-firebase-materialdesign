@@ -1,3 +1,8 @@
+
+.full-width {
+  width: 100%;
+}
+
 .newsitem {
   max-width: 480px;
   float: left;
@@ -32,7 +37,6 @@ app-urls {
   border-top: solid 1px #cccccc;
 }
 
-
 .flex-container {
   padding: 0;
   margin: 0;
@@ -47,15 +51,16 @@ app-urls {
   display: flex;
 }
 
-.row            {
+.row {
   -webkit-flex-direction: row;
   flex-direction: row;
 }
 
-.row-reverse    {
+.row-reverse {
   -webkit-flex-direction: row-reverse;
   flex-direction: row-reverse;
 }
+
 .row-reverse li {
   background: gold;
 }
@@ -65,6 +70,7 @@ app-urls {
   flex-direction: column;
   float: left;
 }
+
 .column li {
   background: deepskyblue;
 }
@@ -74,6 +80,7 @@ app-urls {
   flex-direction: column-reverse;
   float: right;
 }
+
 .column-reverse li {
   background: lightgreen;
 }

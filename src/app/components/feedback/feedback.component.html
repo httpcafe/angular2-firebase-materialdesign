@@ -1,9 +1,28 @@
-<div class="newsitem">
+<table style="width: 100%">
+  <tr *ngFor="let item of items | async">
+    <td valign="top">
+      <app-user imageonly="true" class="flex-item" uid="{{item.author.id}}"></app-user>
+    </td>
 
-  <md-list-item *ngFor="let item of items | async" class="flex-container column">
-
-    <app-user class="flex-item" uid="{{item.author.id}}"></app-user>
-    <div class="flex-item">{{item.text}}</div>
-
-  </md-list-item>
-</div>
+    <td valign="top">
+      <div style="padding: 3px 3px 3px 3px"><b>{{item.author.name}}</b>: {{item.text}}</div>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" width="30">
+      <app-user imageonly="true" uid="{{uid}}"></app-user>
+    </td>
+    <td valign="top">
+      <div style="padding: 3px 3px 3px 3px">
+        <textarea [(ngModel)]="newfeedback" style="height: 100px; width: 100%"
+                  placeholder="Schrijf een reactie..."></textarea>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td></td>
+    <td align="right">
+      <button md-raised-button (click)="addReaction()">post</button>
+    </td>
+  </tr>
+</table>

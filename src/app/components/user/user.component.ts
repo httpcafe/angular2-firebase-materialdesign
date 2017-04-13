@@ -8,13 +8,24 @@ import {UserService} from '../../services/user.service';
   styleUrls: ['user.component.css']
 })
 export class UserComponent implements OnInit {
+
+
   publicUserdataStream: FirebaseObjectObservable<any[]>;
+  imageOnly: boolean;
 
   @Input()
   uid: string;
+  @Input()
+  imageonly: string;
 
 
   ngOnInit() {
+    if (this.imageonly) {
+      this.imageOnly = true;
+    } else {
+      this.imageOnly = false;
+    }
+    //console.log(this.imageonly, this.imageOnly, this.uid);
     this.publicUserdataStream = this.userService.getPublicUserdata(this.uid);
   }
 

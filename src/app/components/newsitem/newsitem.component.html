@@ -10,11 +10,13 @@
 
     <img md-card-image src="../../../assets/images/placeholder.png">
 
+
     <md-card-header>
       <md-card-title>
         {{(newsItem | async)?.title}}
       </md-card-title>
     </md-card-header>
+
 
     <md-card-content>
       <p [innerHTML]="(newsItem | async)?.content"></p>
@@ -22,12 +24,9 @@
 
 
     <md-card-content>
-      <app-urls [urls]="(newsItem | async)?.urls"></app-urls>
+      <app-sources sources="{{(newsItem | async)?.$key}}"></app-sources>
     </md-card-content>
 
-    <md-card-content>
-      <app-sources id="{{(newsItem | async)?.$key}}"></app-sources>
-    </md-card-content>
 
     <md-card-content>
       <a target='_blank' class="share"
@@ -39,7 +38,10 @@
         <img src="../../../assets/images/twitter-logo.png" style='height: 20px; width: 20px;'> Please share</a>
 
     </md-card-content>
+  </md-card>
 
+
+  <md-card *ngIf="(newsItem | async)?.published" class="graybackground">
     <md-card-content>
       <app-feedback feedback="{{(newsItem | async)?.$key}}"></app-feedback>
     </md-card-content>

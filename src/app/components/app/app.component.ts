@@ -10,7 +10,7 @@ import {FeedbackService} from "../../services/feedback.service";
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.css'],
-  providers: [AuthService, UserService, MessagingService, FeedbackService]
+  providers: [AuthService, UserService, MessagingService]
 })
 export class AppComponent implements OnInit, OnDestroy {
   privateUserdata: FirebaseObjectObservable<any[]>;

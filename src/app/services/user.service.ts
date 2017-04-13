@@ -37,9 +37,9 @@ export class UserService {
     }
   }
 
-  getPublicDataAsObject(publicUserdataStream) {
+  getPublicDataAsObject(uid) {
     let publicData;
-    publicUserdataStream.take(1).subscribe(snapshot => {
+    this.af.database.object('/users/public/' + uid).take(1).subscribe(snapshot => {
       publicData = snapshot;
     });
     return publicData;

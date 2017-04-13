@@ -11,4 +11,8 @@ export class FeedbackService {
     return this.af.database.list('/feedback/' + id);
   }
 
+  addFeedback(id, feedback) {
+    this.af.database.list('/feedback/' + id).push(feedback);
+  }
+
 }

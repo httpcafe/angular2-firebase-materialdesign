@@ -9,12 +9,12 @@
       </a>
 -->
       <a *ngIf="url.url.includes('http')" href="{{url.url}}" target="_blank">
-        <md-icon>attachment</md-icon>
+        <md-icon>open_in_new</md-icon>
         {{url.name}}
       </a>
 
       <a *ngIf="!url.url.includes('http')" href="#" routerLink="{{url.url}}">
-        <md-icon>attachment</md-icon>
+        <md-icon>open_in_new</md-icon>
         {{url.name}}
       </a>
 
