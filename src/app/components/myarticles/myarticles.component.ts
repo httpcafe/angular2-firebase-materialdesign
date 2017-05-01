@@ -27,7 +27,7 @@ export class MyArticlesComponent implements OnInit {
         this.authService.isAuthenticated().subscribe(authData => {
             if (authData) {
 
-                console.log('userid: ', self.uid);
+                // console.log('userid: ', self.uid);
 
 
                 if (self.uid) {
@@ -37,7 +37,7 @@ export class MyArticlesComponent implements OnInit {
                 }
 
 
-                console.log(self.uid, self.userid);
+                // console.log(self.uid, self.userid);
                 this.articleStream = self.db.list('/sandbox/news/' + self.userid, {
                     query: {
                         orderByChild: 'timestamp',
@@ -69,7 +69,7 @@ export class MyArticlesComponent implements OnInit {
             'Links en bronnen apart invoeren onder deze editor.</p>',
             type: 'blog'
         }).then(result => {
-            console.log(result);
+            // console.log(result);
             this.parentRouter.navigate(['/mijn-artikelen/' + this.userid + '/' + result.key]);
         });
     }

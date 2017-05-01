@@ -23,6 +23,19 @@
       ".read": true,
       ".write": "auth != null"
     },
+    "messenger": {
+      "$receiver_id": {
+        ".read": "auth !== null && $receiver_id === auth.uid",
+        ".write": "auth !== null && $receiver_id === auth.uid",
+        "$sender_id": {
+          ".read": "auth !== null && $receiver_id === auth.uid",
+          ".write": "auth !== null && ($receiver_id === auth.uid || $sender_id === auth.uid)",
+          ".indexOn": [
+            "m"
+          ]
+        }
+      }
+    },
     "messaging": {
       ".read": true,
       ".write": "auth != null"

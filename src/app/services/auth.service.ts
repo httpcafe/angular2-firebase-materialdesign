@@ -21,7 +21,7 @@ export class AuthService {
                         if (auth.hasOwnProperty('google')) {
                             publicUserdataStream.update({avatar: auth.google.photoURL});
                         } else if (auth.hasOwnProperty('twitter')) {
-                            console.log(auth);
+                            // console.log(auth);
                             publicUserdataStream.update({avatar: auth.twitter.photoURL.replace('_normal', '')});
                         } else if (auth.hasOwnProperty('facebook')) {
                             publicUserdataStream.update({avatar: auth.facebook.photoURL});
@@ -62,48 +62,47 @@ export class AuthService {
 
     loginWithPassword(email: string, password: string): void {
         const creds: any = {email: email, password: password};
-        console.log(creds);
+        // console.log(creds);
 
         this.af.auth.login({
-                email: email,
-                password: password
-            });
+            email: email,
+            password: password
+        });
     }
 
     login(provider: string) {
 
-         switch (provider) {
-         case 'twitter':
-         this.af.auth.login({
-         provider: AuthProviders.Twitter,
-         method: AuthMethods.Popup
-         });
-         break;
-         case 'github':
-         this.af.auth.login({
-         provider: AuthProviders.Github,
-         method: AuthMethods.Popup
-         });
-         break;
-         case 'facebook':
-         this.af.auth.login({
-         provider: AuthProviders.Facebook,
-         method: AuthMethods.Popup
-         });
-         break;
-         case 'google':
-         this.af.auth.login({
-         provider: AuthProviders.Google,
-         method: AuthMethods.Popup
-         });
-         break;
-         default:
-         this.af.auth.login({
-         provider: AuthProviders.Google,
-         method: AuthMethods.Password
-         });
-
-         }
+        switch (provider) {
+            case 'twitter':
+                this.af.auth.login({
+                    provider: AuthProviders.Twitter,
+                    method: AuthMethods.Popup
+                });
+                break;
+            case 'github':
+                this.af.auth.login({
+                    provider: AuthProviders.Github,
+                    method: AuthMethods.Popup
+                });
+                break;
+            case 'facebook':
+                this.af.auth.login({
+                    provider: AuthProviders.Facebook,
+                    method: AuthMethods.Popup
+                });
+                break;
+            case 'google':
+                this.af.auth.login({
+                    provider: AuthProviders.Google,
+                    method: AuthMethods.Popup
+                });
+                break;
+            default:
+                this.af.auth.login({
+                    provider: AuthProviders.Google,
+                    method: AuthMethods.Password
+                });
+        }
 
     }
 

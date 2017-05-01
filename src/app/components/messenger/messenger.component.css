@@ -1,0 +1,43 @@
+.me {
+    width: 90%;
+    float: right;
+}
+
+.you {
+    width: 90%;
+    float: left;
+    border: solid 1px #cccccc;
+}
+
+.chatyou {
+    background: #05ADC7;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px;
+    line-height: 20px;
+    display: inline-block;
+    font-size: 0.8em;
+    font-family: Roboto,"Helvetica Neue",sans-serif;
+}
+
+.chatme {
+    background: #25c7ad;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px;
+    line-height: 20px;
+    display: inline-block;
+    font-size: 0.8em;
+    font-family: Roboto,"Helvetica Neue",sans-serif;
+}
+
+.datetime {
+    font-size: 0.7em;
+    color: #666666;
+}
+
+input {
+    border: none;
+    outline: none;
+    padding-left: 20px
+}

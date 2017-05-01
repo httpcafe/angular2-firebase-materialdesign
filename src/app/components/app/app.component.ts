@@ -3,7 +3,7 @@ import {AuthService} from '../../services/auth.service';
 import {UserService} from '../../services/user.service';
 import {MessagingService} from '../../services/messaging.service';
 import {Subscription} from 'rxjs/Subscription';
-import {FirebaseObjectObservable} from 'angularfire2';
+import {AngularFire, FirebaseObjectObservable, FirebaseListObservable} from 'angularfire2';
 import {PodcastService} from '../../services/podcast.service';
 
 enableProdMode();
@@ -15,9 +15,11 @@ enableProdMode();
   providers: [AuthService, UserService, MessagingService, PodcastService]
 })
 export class AppComponent implements OnInit, OnDestroy {
-  privateUserdata: FirebaseObjectObservable<any[]>;
-  publicUserdata: FirebaseObjectObservable<any[]>;
+  privateUserdata: FirebaseObjectObservable<any>;
+  publicUserdata: FirebaseObjectObservable<any>;
+  chatsStream: FirebaseListObservable<any>;
   public uid: string;
+  public newMessages: number;
   private sub: Subscription;
   public currentPodcast;
   public podcastVisibility = true;
@@ -31,7 +33,8 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
 
-  constructor(private authService: AuthService,
+  constructor(private af: AngularFire,
+              private authService: AuthService,
               private userService: UserService,
               private messagingService: MessagingService,
               private podcastService: PodcastService) {
@@ -43,6 +46,18 @@ export class AppComponent implements OnInit, OnDestroy {
       } else {
         this.privateUserdata = this.userService.getPrivateUserdata('');
       }
+
+      this.privateUserdata.subscribe(snapshot => {
+
+        af.database.list('/messenger/' + authData.uid + '/overview', {
+          query: {
+            orderByChild: 'm',
+            startAt: snapshot.messengerLastSeen
+          }
+        }).subscribe(subsnapshot => {
+          this.newMessages = subsnapshot.length - 1;
+        });
+      });
     });
 
     this.currentPodcast = this.podcastService.currentPodcast;

@@ -33,7 +33,7 @@ export class SubscriptionComponent {
 
     this.authService.isAuthenticated().subscribe(authData => {
       if (authData) {
-        console.log(authData.uid);
+        // console.log(authData.uid);
         self.uid = authData.uid;
         self.privateUserdataStream = this.userService.getPrivateUserdata(self.uid);
         self.publicUserdataStream = this.userService.getPublicUserdata(self.uid);

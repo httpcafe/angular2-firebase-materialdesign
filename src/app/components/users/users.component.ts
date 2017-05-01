@@ -15,7 +15,7 @@ export class UsersComponent {
 
     self.af.auth.subscribe(auth => {
       if (auth) {
-        console.log('You are authenticated');
+        // console.log('You are authenticated');
 
         af.database.list('/users/public/', {
           query: {
@@ -31,7 +31,7 @@ export class UsersComponent {
           });
         });
       } else {
-        console.log('You are not authenticated');
+        // console.log('You are not authenticated');
       }
     });
   }

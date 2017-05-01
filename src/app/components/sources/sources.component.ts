@@ -17,7 +17,7 @@ export class SourcesComponent implements OnInit, OnChanges {
   sources: string;
 
   ngOnInit() {
-    console.log(this.sources);
+    // console.log(this.sources);
     this.items = this.sourcesService.getSources(this.sources);
   }
 

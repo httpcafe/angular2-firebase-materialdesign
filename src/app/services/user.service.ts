@@ -91,7 +91,7 @@ export class UserService {
           if (!snapshot.hasOwnProperty('email')) {
             stream.update({email: ''});
           }
-        })
+        });
         return stream;
       } catch (err) {
         return new FirebaseObjectObservable;
@@ -128,7 +128,7 @@ export class UserService {
   updatePrivateUserdata(privateUserdataStream, key, value) {
     const privateData = this.getPrivateDataAsObject(privateUserdataStream);
     privateData[key] = value;
-    console.log(key, value);
+    // console.log(key, value);
     privateUserdataStream.update(key, value);
   }
 
@@ -137,9 +137,17 @@ export class UserService {
     privateUserdataStream.update({'email': value});
   }
 
+  updateMessengerLastSeen(privateUserdataStream) {
+    // console.log({'messengerLastSeen': new Date().getTime()});
+    privateUserdataStream.update({'messengerLastSeen': new Date().getTime()});
+  }
+  getMessengerLastSeen(privateUserdataStream) {
+    return privateUserdataStream.once('value');
+  }
+
 
   updateAddress(privateUserdataStream, street, number, zip, city, country) {
-    console.log(privateUserdataStream, street, number, zip, city, country);
+    // console.log(privateUserdataStream, street, number, zip, city, country);
     privateUserdataStream.update({
       'address': {
         street: street,
@@ -154,7 +162,7 @@ export class UserService {
 
   updateJob(privateUserdataStream, key, value) {
     const privateData = this.getPrivateDataAsObject(privateUserdataStream);
-    console.log(privateData);
+    // console.log(privateData);
     privateData['job'][key] = value;
     privateUserdataStream.update({'job': privateData['job']});
   }

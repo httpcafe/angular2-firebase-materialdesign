@@ -1,0 +1,37 @@
+<table>
+    <tr *ngFor="let chat of (chatsStream | async)" routerLink="/messenger/{{chat.$key}}" style="cursor: pointer">
+        <td valign="top" width="30" *ngIf="chat.$key !== 'overview'">
+            <app-user [uid]="chat.$key"></app-user>
+        </td>
+        <td valign="top" *ngIf="chat.$key !== 'overview'">{{since(chat.m)}}</td>
+        <td valign="top" *ngIf="chat.$key !== 'overview'">{{chat.t}}</td>
+    </tr>
+
+</table>
+
+
+<table width="100%">
+    <tr *ngFor="let chat of (chatStream | async)">
+        <td valign="top" width="30">
+            <app-user [imageonly]="true" [uid]="you" *ngIf="chat.a === 'you'"></app-user>
+        </td>
+        <td valign="top" *ngIf="chat.a === 'you'">
+            <span class="datetime">{{since(chat.m)}}</span>
+            <span class="chatyou">{{chat.t}}</span>
+        </td>
+        <td valign="top" *ngIf="chat.a === 'me'" style="text-align: right">
+            <span class="chatme">{{chat.t}}</span>
+            <span class="datetime">{{since(chat.m)}}</span>
+        </td>
+        <td valign="top" width="30">
+            <app-user [imageonly]="true" [uid]="uid" *ngIf="chat.a === 'me'"></app-user>
+        </td>
+    </tr>
+</table>
+
+
+<div *ngIf="(chatStream | async)" style="position: fixed; bottom: 0; width: 100vw; background: #ffffff; border-top: solid 1px #cccccc">
+    <input [(ngModel)]="newText" style="width: 80%" placeholder="schrijf een reactie" (keyup.enter)="postMessage()">
+    <button (click)="postMessage()" style="float: right; border: solid 1px #eeeeee; padding: 5px 16px 5px 16px">send
+    </button>
+</div>

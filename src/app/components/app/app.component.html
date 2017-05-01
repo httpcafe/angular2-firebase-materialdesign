@@ -1,111 +1,114 @@
 <md-sidenav-container class="container">
-  <md-toolbar color="accent">
-    <button md-icon-button (click)="sidenav.open()">
-      <md-icon>menu</md-icon>
-    </button>
-    <span class="spacer">
+    <md-toolbar color="accent">
+        <button md-icon-button (click)="sidenav.open()">
+            <md-icon>menu</md-icon>
+        </button>
+        <span class="spacer">
             HTTP Café
         </span>
 
-    <button md-icon-button routerLink="/news">
-      <md-icon>home</md-icon>
-    </button>
-    <button md-icon-button routerLink="/podcasts" routerLinkActive="active" (click)="showPodcast()">
-      <md-icon>record_voice_over</md-icon>
-    </button>
-    <button md-icon-button routerLink="/video">
-      <md-icon>live_tv</md-icon>
-    </button>
-    <button md-icon-button>
-      <md-icon>inbox</md-icon>
-    </button>
+        <button md-icon-button routerLink="/news">
+            <md-icon>home</md-icon>
+        </button>
+        <button md-icon-button routerLink="/podcasts" routerLinkActive="active" (click)="showPodcast()">
+            <md-icon>record_voice_over</md-icon>
+        </button>
+        <button md-icon-button routerLink="/video">
+            <md-icon>live_tv</md-icon>
+        </button>
+        <button *ngIf="newMessages < 1" md-icon-button routerLink="/messenger">
+            <md-icon>inbox</md-icon>
+        </button>
+        <button *ngIf="newMessages > 0" md-icon-button routerLink="/messenger" style="color: darkorange">
+            <md-icon>inbox</md-icon>
+            <span style="color: white; margin-left: -20px"> {{newMessages}}</span>
+        </button>
 
-  </md-toolbar>
-  <md-toolbar color="accent" *ngIf="currentPodcast.podcast.audio" [hidden]="!podcastVisibility">
+    </md-toolbar>
+    <md-toolbar color="accent" *ngIf="currentPodcast.podcast.audio" [hidden]="!podcastVisibility">
 
-    <span></span>
-    <audio md-card-image controls autoplay preload="none" style="width: 70%">
-      <source src="{{currentPodcast.podcast.audio}}" type="audio/mpeg">
-      Your browser does not support the audio element.
-    </audio>
+        <span></span>
+        <audio md-card-image controls autoplay preload="none" style="width: 70%">
+            <source src="{{currentPodcast.podcast.audio}}" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
 
-    <span class="spacer"></span>
-
-
-
-    <button md-icon-button (click)="hidePodcast()">
-      <md-icon>indeterminate_check_box</md-icon>
-    </button>
-    <button md-icon-button (click)="closePodcast()">
-      <md-icon>close</md-icon>
-    </button>
-
-  </md-toolbar>
-
-  <md-sidenav #sidenav class="sidenav" opened="false">
+        <span class="spacer"></span>
 
 
-    <img *ngIf="(publicUserdata | async)?.avatar" [src]="(publicUserdata | async)?.avatar"
-         style="width: 100%; float: left">
-    <div *ngIf="(publicUserdata | async)?.voornaam" class="imageoverlay">
-      <strong>{{ (publicUserdata | async)?.voornaam }} {{ (publicUserdata | async)?.familienaam }} </strong><br>
-      <span>{{ (privateUserdata | async)?.email }}</span>
+        <button md-icon-button (click)="hidePodcast()">
+            <md-icon>indeterminate_check_box</md-icon>
+        </button>
+        <button md-icon-button (click)="closePodcast()">
+            <md-icon>close</md-icon>
+        </button>
+
+    </md-toolbar>
+
+    <md-sidenav #sidenav class="sidenav" opened="false">
+
+
+        <img *ngIf="(publicUserdata | async)?.avatar" [src]="(publicUserdata | async)?.avatar"
+             style="width: 100%; float: left">
+        <div *ngIf="(publicUserdata | async)?.voornaam" class="imageoverlay">
+            <strong>{{ (publicUserdata | async)?.voornaam }} {{ (publicUserdata | async)?.familienaam }} </strong><br>
+            <span>{{ (privateUserdata | async)?.email }}</span>
+        </div>
+
+
+        <img *ngIf="!(publicUserdata | async)?.avatar" src="../../../assets/images/httpcafe.png"
+             style="width: 100%; float: left">
+
+        <div *ngIf="!(publicUserdata | async)?.avatar" class="imageoverlay">
+            <strong>HTTP Café</strong>
+        </div>
+
+
+        <div *ngIf="!(privateUserdata | async)">
+            <a routerLink="user" (click)="sidenav.close()">Inloggen</a>
+        </div>
+
+        <div *ngIf="!(privateUserdata | async)">
+            <a routerLink="registreer" (click)="sidenav.close()">Registreren</a>
+        </div>
+
+        <div *ngIf="(privateUserdata | async)">
+            <a routerLink="user" (click)="sidenav.close()">Mijn account</a>
+        </div>
+
+        <div>
+            <a routerLink="abonnement" (click)="sidenav.close()">Mijn Abonnement</a>
+        </div>
+
+        <div>
+            <a routerLink="mijn-artikelen" (click)="sidenav.close()">Mijn artikelen / drafts.</a>
+        </div>
+
+        <div *ngIf="(privateUserdata | async)">
+            <a routerLink="home" (click)="logout()">Uitloggen</a>
+        </div>
+
+
+        <div style="margin-top: 50px">
+            <a href="https://itunes.apple.com/be/podcast/http-cafe/id968751687?mt=2e" target="_blank">iTunes</a>
+        </div>
+
+        <div>
+            <a href="https://www.youtube.com/channel/UCkotSZ35q-gcDIFOZfbw62w?sub_confirmation=1" target="_blank">Youtube</a>
+        </div>
+
+        <div>
+            <a href="https://facebook.com/httpcafe" target="_blank">Facebook</a>
+        </div>
+
+        <div>
+            <a href="https://twitter.com/httpcafepodcast" target="_blank">Twitter</a>
+        </div>
+
+    </md-sidenav>
+
+    <div class="page-content" flex="">
+        <router-outlet></router-outlet>
     </div>
-
-
-    <img *ngIf="!(publicUserdata | async)?.avatar" src="../../../assets/images/httpcafe.png"
-         style="width: 100%; float: left">
-
-    <div *ngIf="!(publicUserdata | async)?.avatar" class="imageoverlay">
-      <strong>HTTP Café</strong>
-    </div>
-
-
-    <div *ngIf="!(privateUserdata | async)">
-      <a routerLink="user" (click)="sidenav.close()">Inloggen</a>
-    </div>
-
-    <div *ngIf="!(privateUserdata | async)">
-      <a routerLink="registreer" (click)="sidenav.close()">Registreren</a>
-    </div>
-
-    <div *ngIf="(privateUserdata | async)">
-      <a routerLink="user" (click)="sidenav.close()">Mijn account</a>
-    </div>
-
-    <div>
-      <a routerLink="abonnement" (click)="sidenav.close()">Mijn Abonnement</a>
-    </div>
-
-    <div>
-      <a routerLink="mijn-artikelen" (click)="sidenav.close()">Mijn artikelen / drafts.</a>
-    </div>
-
-    <div *ngIf="(privateUserdata | async)">
-      <a routerLink="home" (click)="logout()">Uitloggen</a>
-    </div>
-
-
-    <div style="margin-top: 50px">
-      <a href="https://itunes.apple.com/be/podcast/http-cafe/id968751687?mt=2e" target="_blank">iTunes</a>
-    </div>
-
-    <div>
-      <a href="https://www.youtube.com/channel/UCkotSZ35q-gcDIFOZfbw62w?sub_confirmation=1" target="_blank">Youtube</a>
-    </div>
-
-    <div>
-      <a href="https://facebook.com/httpcafe" target="_blank">Facebook</a>
-    </div>
-
-    <div>
-      <a href="https://twitter.com/httpcafepodcast" target="_blank">Twitter</a>
-    </div>
-
-  </md-sidenav>
-
-  <div class="page-content" flex="">
-    <router-outlet></router-outlet>
-  </div>
 
 </md-sidenav-container>

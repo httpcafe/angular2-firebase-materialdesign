@@ -37,10 +37,10 @@ export class EditorComponent {
                 self.activatedRoute.params.subscribe(params => {
                     self.key = params['id'];
                     self.userid = params['uid'];
-                    console.log(params);
+                    // console.log(params);
                     self.articleStream = af.database.object('/sandbox/news/' + params['uid'] + '/' + params['id']);
                     self.articleStream.take(1).subscribe(snapshot => {
-                        console.log(snapshot);
+                        // console.log(snapshot);
                     }).unsubscribe();
                 });
             } else {
@@ -84,7 +84,7 @@ export class EditorComponent {
             }
             newArticle[snapshot.$key]['author'] = {};
             newArticle[snapshot.$key]['author']['uid'] = self.userid;
-            console.log(newArticle);
+            // console.log(newArticle);
 
             self.db.object('/news/').update(newArticle).then(_ => {
                 self.db.object('/feedback/sandbox_' + this.key).remove().then(__ => {

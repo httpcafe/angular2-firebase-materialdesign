@@ -45,15 +45,17 @@ export class RegisterComponent {
             password: this.password
         })
             .then((authState: FirebaseAuthState) => {
-                this.userService.updatePublicUserdata(this.userService.getPublicUserdata(authState.uid), 'voornaam', this.firstname);
-                this.userService.updatePublicUserdata(this.userService.getPublicUserdata(authState.uid), 'familienaam', this.lastname);
-                this.userService.updateEmail(this.userService.getPrivateUserdata(authState.uid), this.email);
+
+                const self = this;
+                self.userService.updatePublicUserdata(self.userService.getPublicUserdata(authState.uid), 'voornaam', self.firstname);
+                self.userService.updatePublicUserdata(self.userService.getPublicUserdata(authState.uid), 'familienaam', self.lastname);
+                self.userService.updateEmail(self.userService.getPrivateUserdata(authState.uid), self.email);
 
 
-                this.parentRouter.navigate(['/user/']);
+                self.parentRouter.navigate(['/user/']);
             })
             .catch((error) => {
-                console.log(error);
+                console.error(error);
                 this.error = error.message;
                 throw error;
             });

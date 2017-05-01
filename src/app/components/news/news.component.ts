@@ -39,7 +39,7 @@ export class NewsComponent {
   }
 
   gototop(): void {
-    console.log('should have scrolled to top');
+    // console.log('should have scrolled to top');
     this._window.scrollTo(0, 0);
   }
 }

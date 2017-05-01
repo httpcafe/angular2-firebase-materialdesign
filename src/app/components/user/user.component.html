@@ -1,16 +1,26 @@
 <table *ngIf="!imageOnly">
-  <tr>
-    <td>
-      <div *ngIf="(publicUserdataStream | async)?.avatar">
-        <a routerLink="/user/{{(publicUserdataStream | async)?.key}}"><img [src]="(publicUserdataStream | async)?.avatar" class="profile"></a>
-      </div>
-    </td>
-    <td>
-      <a routerLink="/user/{{(publicUserdataStream | async)?.key}}">{{ (publicUserdataStream | async)?.voornaam }} {{ (publicUserdataStream | async)?.familienaam }}</a><br>
-    </td>
-  </tr>
+    <tr>
+        <td>
+            <div *ngIf="(publicUserdataStream | async)?.avatar">
+                <img [src]="(publicUserdataStream | async)?.avatar" class="profile">
+            </div>
+            <div *ngIf="!(publicUserdataStream | async)?.avatar">
+                <img src="assets/images/profile.png" class="profile">
+            </div>
+        </td>
+        <td style="white-space: nowrap">
+            {{ (publicUserdataStream | async)?.voornaam }} {{ (publicUserdataStream | async)?.familienaam }}
+        </td>
+    </tr>
 </table>
 
-<img *ngIf="imageOnly" [src]="(publicUserdataStream | async)?.avatar" class="profile">
+<img *ngIf="imageOnly && (publicUserdataStream | async)?.avatar" [src]="(publicUserdataStream | async)?.avatar"
+     class="profile"
+     alt="{{ (publicUserdataStream | async)?.voornaam }} {{ (publicUserdataStream | async)?.familienaam }}"
+     title="{{ (publicUserdataStream | async)?.voornaam }} {{ (publicUserdataStream | async)?.familienaam }}">
+<img *ngIf="imageOnly && !(publicUserdataStream | async)?.avatar" src="assets/images/profile.png" class="profile"
+     alt="{{ (publicUserdataStream | async)?.voornaam }} {{ (publicUserdataStream | async)?.familienaam }}"
+     title="{{ (publicUserdataStream | async)?.voornaam }} {{ (publicUserdataStream | async)?.familienaam }}">
 
 
+<!-- <a routerLink="/user/{{(publicUserdataStream | async)?.key}}">link</a> -->

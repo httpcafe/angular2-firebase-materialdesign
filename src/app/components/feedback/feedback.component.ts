@@ -21,7 +21,7 @@ export class FeedbackComponent implements OnInit, OnChanges {
     feedback: string;
 
     ngOnInit() {
-        console.log(this.feedback);
+        // console.log(this.feedback);
         this.items = this.feedbackService.getFeedback(this.feedback);
 
     }
@@ -55,7 +55,7 @@ export class FeedbackComponent implements OnInit, OnChanges {
                     },
                     datetime: new Date().getTime()
                 };
-                console.log(newfeedback);
+                // console.log(newfeedback);
                 this.feedbackService.addFeedback(this.feedback, newfeedback);
                 this.newfeedback = '';
                 this.editprofile = false;

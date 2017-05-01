@@ -41,6 +41,7 @@ import {SourcesComponent} from './components/sources/sources.component';
 import {MyArticlesComponent} from './components/myarticles/myarticles.component';
 import {ArticleManagerComponent} from './components/article-manager/article-manager.component';
 import {RegisterComponent} from './components/register/register.component';
+import {MessengerComponent} from './components/messenger/messenger.component';
 
 /*
  Configs
@@ -49,10 +50,11 @@ import {firebaseConfig} from './configs/firebaseConfig';
 import {myFirebaseAuthConfig} from './configs/firebaseAuthConfig';
 
 
-
 export const appRoutes: Routes = [
     {path: 'podcasts', component: PodcastsComponent},
     {path: 'video', component: VideoCastsComponent},
+    {path: 'messenger', component: MessengerComponent},
+    {path: 'messenger/:uid', component: MessengerComponent},
     {path: 'users', component: UsersComponent},
     {path: 'user/:uid', component: ProfileComponent},
     {path: 'user', component: ProfileComponent},
@@ -95,7 +97,8 @@ export const appRoutes: Routes = [
         VideoCastsComponent,
         MyArticlesComponent,
         ArticleManagerComponent,
-        RegisterComponent
+        RegisterComponent,
+        MessengerComponent
     ],
     imports: [
         BrowserModule,
