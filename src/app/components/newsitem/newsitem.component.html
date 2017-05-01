@@ -8,8 +8,11 @@
       <div class="datetime">{{ (0 - (newsItem | async)?.published) | date }}</div>
     </md-card-content>
 
-    <img md-card-image src="../../../assets/images/placeholder.png">
 
+    <img style="cursor: pointer" md-card-image src="../../../assets/images/placeholder.png"
+         *ngIf="!(newsItem | async)?.banner">
+    <img style="cursor: pointer" md-card-image [src]="(newsItem | async)?.banner"
+         *ngIf="(newsItem | async)?.banner">
 
     <md-card-header>
       <md-card-title>
@@ -28,15 +31,19 @@
     </md-card-content>
 
 
+
+    <md-card-content *ngIf="(newsItem | async)?.urls">
+      <app-urls [urls]="(newsItem | async)?.urls"></app-urls>
+    </md-card-content>
+
     <md-card-content>
       <a target='_blank' class="share"
-         href="https://www.facebook.com/sharer/sharer.php?u=httpcafemagazine.firebaseapp.com/news/{{urlify((newsItem | async)?.title)}}/{{(newsItem | async)?.$key}}&caption={{(newsItem | async)?.title}}&description={{(newsItem | async)?.content}}&picture=https://httpcafemagazine.firebaseapp.com/assets/images/placeholder.png">
+         href="https://www.facebook.com/sharer/sharer.php?u=httpcafemagazine.firebaseapp.com/news/{{urlify((newsItem | async)?.title)}}/{{(newsItem | async)?.$key}}&caption={{(newsItem | async)?.title}}&description={{(newsItem | async)?.content}}&picture={{(newsItem | async)?.banner}}">
         <img src="../../../assets/images/facebook-logo.png" style='height: 20px; width: 20px;'> Please share</a>
 
       <a class="share" target='_blank'
          href="https://twitter.com/home?status={{(newsItem | async)?.title}} %23httpcafe https%3A//httpcafemagazine.firebaseapp.com/news/{{urlify((newsItem | async)?.title)}}/{{(newsItem | async)?.$key}}">
         <img src="../../../assets/images/twitter-logo.png" style='height: 20px; width: 20px;'> Please share</a>
-
     </md-card-content>
   </md-card>
 

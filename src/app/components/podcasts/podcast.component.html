@@ -3,19 +3,35 @@
 <h1>
   {{ title }}
 </h1>
-<md-card class="podcast" class="text" *ngFor="let item of items | async">
-  <md-card-header>
-    <md-card-title>{{item.title}}
-      <span class="datetime">{{ (0 - item.datetime) | date }}</span>
-    </md-card-title>
-  </md-card-header>
+<div class="podcastitem" *ngFor="let item of items | async">
 
-  <md-card-content>
-    <p>{{item.content }}</p>
-  </md-card-content>
 
-  <audio md-card-image controls preload="none">
-    <source src="{{item.audio}}" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
-</md-card>
+  <md-card class="podcast" class="text">
+
+    <md-card-header>
+
+      <button md-card-avatar md-icon-button
+              (click)="playPodcast(item)">
+        <md-icon>play_arrow</md-icon>
+      </button>
+
+      <md-card-title>{{item.title}}</md-card-title>
+      <md-card-subtitle class="datetimee">{{ (0 - item.datetime) | date }}</md-card-subtitle>
+
+    </md-card-header>
+
+
+    <md-card-content>
+      <p>{{item.content }}</p>
+    </md-card-content>
+    <app-sources [sources]="item.$key"></app-sources>
+    <app-feedback [feedback]="item.$key"></app-feedback>
+
+  </md-card>
+
+
+  <button class="outside" md-card-avatar md-icon-button
+          (click)="playPodcast(item)">
+    <md-icon>play_arrow</md-icon>
+  </button>
+</div>

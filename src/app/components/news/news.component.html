@@ -1,36 +1,43 @@
+<md-progress-bar mode="indeterminate" *ngIf="showProgressBar"></md-progress-bar>
+
 <app-magazine></app-magazine>
 
 <nav>
-  <div *ngFor="let item of items | async ">
-    <div  *ngIf="item.published && listOnly">
-      <span>{{ (0 - item.published) | date:'dd.MM.yy' }} &nbsp;&nbsp;</span>
-      <a (click)="gototop()" routerLink="/news/{{urlify(item.title)}}/{{item.$key}}" class="list"> {{item.title}}</a>
+    <div *ngFor="let item of items | async ">
+        <div *ngIf="item.published && listOnly">
+            <span>{{ (0 - item.published) | date:'dd.MM.yy' }} &nbsp;&nbsp;</span>
+            <a (click)="gototop()" routerLink="/news/{{urlify(item.title)}}/{{item.$key}}" class="list">
+                {{item.title}}</a>
+        </div>
     </div>
-  </div>
 </nav>
 
 <div *ngFor="let item of items | async " class="newsitem">
-  <md-card *ngIf="item.published && !listOnly">
-
-    <img style="cursor: pointer" (click)="gototop()" routerLink="/news/{{urlify(item.title)}}/{{item.$key}}"
-         md-card-image src="../../../assets/images/placeholder.png">
-    <div class="datetime">{{ (0 - item.published) | date }}</div>
-
-      <md-card-content>
-        <a routerLink="/news/{{urlify(item.title)}}/{{item.$key}}">{{item.title}}</a>
-      </md-card-content>
-
-    <md-card-content>
-      <p [innerHTML]="item.content"></p>
-    </md-card-content>
+    <md-card *ngIf="item.published && !listOnly" routerLink="/news/{{urlify(item.title)}}/{{item.$key}}">
 
 
-    <md-card-content *ngIf="item.urls">
-      <app-urls [(urls)]="item.urls"></app-urls>
-    </md-card-content>
+        <md-card-content style="padding-top: 0; padding-bottom: 0; margin-bottom: 0">
+            <!--<app-user uid="{{item.author.uid}}"></app-user>-->
+            <div class="datetime">{{ (0 - item.published) | date }}</div>
+        </md-card-content>
 
-    <md-card-content>
-      <app-user uid="{{item.author.uid}}"></app-user>
-    </md-card-content>
-  </md-card>
+        <img style="cursor: pointer" (click)="gototop()"
+             md-card-image src="../../../assets/images/placeholder.png" *ngIf="!item.banner">
+
+        <img style="cursor: pointer" (click)="gototop()"
+             md-card-image [src]="item.banner" *ngIf="item.banner">
+
+        <md-card-content style="height: 40px; overflow: hidden">
+            <h1>{{item.title}}</h1>
+        </md-card-content>
+
+        <md-card-content style="height: 150px; overflow: hidden">
+            <div [innerHTML]="item.content.substring(0, 300) + '... [lees verder]'"></div>
+        </md-card-content>
+
+
+
+
+        <a (click)="gototop()" routerLink="/news/{{urlify(item.title)}}/{{item.$key}}" class="right">Reageer</a>
+    </md-card>
 </div>

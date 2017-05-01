@@ -4,11 +4,11 @@
   border: 1px solid rgba(0, 0, 0, 0.5);
 }
 
-.sidenav-content {
+.page-content {
   display: flex;
   align-items: center;
-  width: 94vw;
-  margin: 0 3vw 20px 3vw;
+  width: 100vw;
+  margin: 0 0 20px 0;
 }
 
 .sidenav {
@@ -60,6 +60,15 @@ html {
 }
 
 md-toolbar {
-  background: #DD0050 !important;
+  background: #04788A !important;
   color: #ffffff !important;
+}
+
+audio {
+  margin: 3vw;
+  background: #04788A !important;
+}
+
+[hidden] {
+  display: none !important;
 }

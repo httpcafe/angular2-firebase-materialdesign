@@ -1,0 +1,16 @@
+input {
+    font-size: 20px;
+    border: none;
+    border-bottom: solid 1px #cccccc;
+    background: transparent;
+    color: #04788A;
+    margin-left: 30px;
+}
+
+.error {
+    color: red;
+}
+
+p {
+    margin-top: 25px;
+}

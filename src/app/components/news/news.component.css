@@ -1,86 +1,102 @@
 .newsitem {
-  width: 28vw !important;
-  max-width: 400px !important;
-  float: left;
-  margin-right: 3vw;
+    width: 24vw;
+    float: left;
+    margin: 0 0.5vw 0 0.5vw;
 }
 
 md-card {
-  overflow: auto;
-  width: 90%;
-  float: left;
-  margin-bottom: 10px;
-  margin-top: 10px;
+    float: left;
+    margin-top: 15px;
+    padding-top: 10px;
 }
 
 md-card-title {
-  font-weight: bold;
+    font-weight: bold;
+}
+
+md-card-content {
+    float: left;
+    width: 100%;
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 28px;
 }
 
 .datetime {
-  color: #bbbbbb !important;
-  text-align: right;
-  font-weight: normal;
-  height: 25px;
-  font-size: 0.8em;
+    color: #bbbbbb !important;
+    text-align: right;
+    font-weight: normal;
+    height: 25px;
+    font-size: 0.8em;
 }
 
 app-urls {
-  margin-top: 30px;
-  padding-top: 5px;
-  float: left;
-  width: 100%;
-  border-top: solid 1px #cccccc;
+    margin-top: 30px;
+    padding-top: 5px;
+    float: left;
+    width: 100%;
+    border-top: solid 1px #cccccc;
 }
 
-@media only screen and (max-width: 960px) {
+img {
+    margin-top: 0 !important;
+}
 
-  .newsitem {
-    width: 43vw !important;
-    max-width: 480px !important;
-    float: left;
-    margin-right: 4vw;
-  }
+.datetime {
+    color: #bbbbbb !important;
+    text-align: right;
+    font-weight: normal;
+    height: 25px;
+    font-size: 0.8em;
+    display: inline-block;
+    width: 100px;
+    float: right;
+}
 
-  md-card {
-    overflow: auto;
-    width: 90%;
-    float: left;
-    margin-bottom: 20px;
-  }
+@media only screen and (max-width: 1200px) {
+
+    .newsitem {
+        width: 32vw !important;
+        float: left;
+        margin: 0 0.5vw 0 0.5vw;
+    }
+}
+
+@media only screen and (max-width: 1100px) {
+
+    .newsitem {
+        width: 48vw !important;
+        float: left;
+        margin: 0 1vw 0 1vw;
+    }
 }
 
 @media only screen and (max-width: 750px) {
 
-  .newsitem {
-    width: 94vw !important;
-    float: left;
-    margin-right: 2vw;
-  }
-
-  md-card {
-    overflow: auto;
-    width: 90%;
-    float: left;
-    margin-bottom: 20px;
-  }
+    .newsitem {
+        width: 100vw !important;
+        float: left;
+        margin: 0;
+    }
 }
 
 div.link {
-  color: #444444;
-  text-decoration: none;
+    color: #444444;
+    text-decoration: none;
 }
 
 a.list {
-  display: inline-block;
-  width: calc(100% - 100px);
+    display: inline-block;
+    width: calc(100% - 100px);
 }
 
 div.link:hover {
-  color: #222222;
-  text-decoration: underline;
+    color: #222222;
+    text-decoration: underline;
 }
 
 nav {
-  width: 100%
+    width: 100%
 }

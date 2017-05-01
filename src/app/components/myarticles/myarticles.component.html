@@ -1,0 +1,39 @@
+<div class="menu" *ngIf="(articleStream | async)?.length">
+  <md-list>
+    <md-list-item *ngFor="let article of (articleStream | async)">
+      <table>
+        <tr>
+          <td colspan="2"><a routerLink="/mijn-artikelen/{{userid}}/{{article.$key}}">{{article.title}}</a></td>
+        </tr>
+        <tr>
+          <td class="meta"></td>
+          <td class="meta" align="right">{{ since(article.timestamp) }}</td>
+        </tr>
+      </table>
+    </md-list-item>
+    <md-list-item style="margin-left: 0; margin-right: 0" *ngIf="!uid">
+      <button class="right" md-raised-button (click)="createItem()">
+        <md-icon>add_circle</md-icon>
+        nieuw artikel
+      </button>
+
+    </md-list-item>
+  </md-list>
+</div>
+
+
+<div class="editorcontent" *ngIf="!uid">
+
+  <h1>Werk mee aan HTTP Café.</h1>
+  <br><br>
+  HTTP Café is voor en door webdevelopers.<br><br>
+  Ben je in een bepaald onderwerp een beetje tot heel erg onderlegd, schrijf er een artikel over. Anderen kunnen
+  van jouw kennis bijleren, net zoals jij bijleert van andermans kennis.
+
+  <br><br>Geen paniek, elk artikel wordt nagelezen op taal én inhoud voor het gepubliceerd wordt.
+  <br><br>
+
+  <button md-raised-button (click)="createItem()" *ngIf="articleStream && !(articleStream | async)?.length">
+    Schrijf je een nieuw artikel
+  </button>
+</div>

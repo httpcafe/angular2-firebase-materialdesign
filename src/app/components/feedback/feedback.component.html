@@ -8,21 +8,30 @@
       <div style="padding: 3px 3px 3px 3px"><b>{{item.author.name}}</b>: {{item.text}}</div>
     </td>
   </tr>
-  <tr>
+  <tr *ngIf="uid">
     <td valign="top" width="30">
       <app-user imageonly="true" uid="{{uid}}"></app-user>
     </td>
     <td valign="top">
-      <div style="padding: 3px 3px 3px 3px">
-        <textarea [(ngModel)]="newfeedback" style="height: 100px; width: 100%"
+      <div style="padding: 0px 0px 0px 3px">
+        <textarea [(ngModel)]="newfeedback" style="height: 50px; width: 70%; border: solid 1px #eeeeee"
                   placeholder="Schrijf een reactie..."></textarea>
+
+        <button md-raised-button class="right" style="width: 20%" (click)="addReaction()">post</button>
       </div>
     </td>
   </tr>
-  <tr>
+  <tr *ngIf="editprofile">
+    <td></td>
+    <td>
+      <h2>Profiel niet compleet.</h2>
+      <app-profile short="true"></app-profile>
+    </td>
+  </tr>
+  <tr *ngIf="!uid">
     <td></td>
     <td align="right">
-      <button md-raised-button (click)="addReaction()">post</button>
+      <a routerLink="/user">Voeg reactie toe</a>
     </td>
   </tr>
 </table>

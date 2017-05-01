@@ -1,8 +1,43 @@
 md-card {
-  margin: auto;
-  margin-top: 30px;
-  width: 50%;
+    margin: auto;
+    margin-top: 30px;
+    width: 70%;
+    vertical-align: top;
 }
+
 button {
-  margin-top: 10px;
+    margin-top: 10px;
+}
+
+.icon {
+    height: 60px;
+    width: 20%;
+    max-width: 150px;
+    display: inline-block;
+}
+
+.content {
+    display: inline-block;
+    width: 75%;
+}
+
+.loginbutton {
+    float: right;
+    margin-right: 30px;
+}
+
+@media only screen and (max-width: 600px) {
+    .icon {
+        display: none;
+    }
+
+    .content {
+        width: 100%;
+    }
+
+    md-card {
+        padding: 10px;
+        margin: 50px 0;
+        width: calc(100% - 20px);
+    }
 }

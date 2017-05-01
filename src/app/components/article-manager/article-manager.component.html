@@ -1,0 +1,8 @@
+<div class="menu">
+    <md-card class="menuitem" *ngFor="let author of (authorStream | async)">
+
+        <app-user [uid]="author.$key"></app-user>
+        <app-myarticles [uid]="author.$key"></app-myarticles>
+
+    </md-card>
+</div>

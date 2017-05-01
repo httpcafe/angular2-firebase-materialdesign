@@ -13,6 +13,8 @@ export class NewsComponent {
   windowRef: WindowRefService;
   _window;
 
+  showProgressBar = false;
+
   @Input()
   listOnly: boolean;
   limit: number;

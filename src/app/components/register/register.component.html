@@ -1,0 +1,24 @@
+
+<br><br>
+<h1>Hey, welkom bij HTTP Café!</h1>
+<p>Wat is je voornaam?<br>
+<input [(ngModel)]="firstname"></p>
+
+
+<p *ngIf="firstname">Wat is je familienaam?<br>
+<input [(ngModel)]="lastname">
+</p>
+
+<p *ngIf="lastname">Wat is je e-mailadres?<br>
+<input [(ngModel)]="email" (keyup)="checkEmail()">
+</p>
+
+<p *ngIf="validemail">Kies een goed wachtwoord:<br>
+<input type="password" [(ngModel)]="password">
+</p>
+
+
+<p class="error" *ngIf="error">{{error}}</p>
+
+<p *ngIf="validemail && password">Je bent klaar om officieel HTTP-tooghanger te worden!</p>
+<button *ngIf="validemail && password" md-raised-button (click)="register()">ja, registreer me!</button>

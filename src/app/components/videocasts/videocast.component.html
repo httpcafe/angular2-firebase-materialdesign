@@ -1,0 +1,18 @@
+<h1> {{ title }}</h1>
+
+
+<md-card class="podcast" class="text" *ngFor="let item of items">
+  <md-card-header>
+    <md-card-title>{{item.title}}</md-card-title>
+    <md-card-subtitle>{{ (0 - item.datetime) | date }}</md-card-subtitle>
+  </md-card-header>
+
+  <md-card-content>
+    <iframe frameborder="0" allowfullscreen
+            [src]="item.safeurl">
+    </iframe>
+  </md-card-content>
+  <app-sources [sources]="item.$key"></app-sources>
+  <app-feedback [feedback]="item.$key"></app-feedback>
+
+</md-card>

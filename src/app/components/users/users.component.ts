@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {AngularFire, FirebaseListObservable} from 'angularfire2';
 
 @Component({
-  selector: 'app-profile',
+  selector: 'app-users',
   templateUrl: 'users.component.html',
   styleUrls: ['users.component.css']
 })

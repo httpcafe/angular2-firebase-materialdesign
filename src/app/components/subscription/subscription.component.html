@@ -1,244 +1,273 @@
 <div *ngIf="!(privateUserdataStream | async)">
-  <app-login></app-login>
+    <app-login></app-login>
 </div>
 <div *ngIf="(privateUserdataStream | async)">
-  <md-card *ngIf="!(subscriptionStream | async)?.datetime">
+    <md-card *ngIf="!(subscriptionStream | async)?.datetime">
 
-    <h1>HTTP Café Magazine</h1>
-    <p>
-      Ons magazine wordt 4 keer per jaar gedrukt en verstuurd.<br>
-      Door een jaarabonnement te nemen, steun je ons:
-    </p>
-    <ul>
-      <li>in het maken van de podcast,</li>
-      <li>in het maken van online tutorials (youtube),</li>
-      <li>in het maken en onderhouden van onze website/app met webdev-nieuws,</li>
-      <li>...</li>
-    </ul>
-  </md-card>
+        <h1>HTTP Café Magazine</h1>
+        <p>
+            Ons magazine wordt 4 keer per jaar gedrukt en verstuurd.<br>
+            Door een jaarabonnement te nemen, steun je ons:
+        </p>
+        <ul>
+            <li>in het maken van de podcast,</li>
+            <li>in het maken van online tutorials (youtube),</li>
+            <li>in het maken en onderhouden van onze website/app met webdev-nieuws,</li>
+            <li>...</li>
+        </ul>
+    </md-card>
 
-  <md-card *ngIf="(subscriptionStream | async)?.datetime && !(subscriptionStream | async)?.price">
-    <h1>Dank voor uw interesse!</h1>
-    Dank om een gratis exemplaar van ons tijdschrift te hebben besteld.
-    <span class="public">Steun ons met een jaarabonnement!</span> Een jaarabonnement is niet alleen een investering in
-    ons, waardoor we podcasts, tutorials, nieuws,... kunnen
-    maken.<br><br>
+    <md-card *ngIf="(subscriptionStream | async)?.datetime && !(subscriptionStream | async)?.price">
+        <h1>Dank voor uw interesse!</h1>
+        Dank om een gratis exemplaar van ons tijdschrift te hebben besteld.
+        <span class="public">Steun ons met een jaarabonnement!</span> Een jaarabonnement is niet alleen een investering
+        in
+        ons, waardoor we podcasts, tutorials, nieuws,... kunnen
+        maken.<br><br>
 
-    <span class="public">Het is ook een investering in jezelf.</span> In onze wereld van snelle verandering
-    is het heel belangrijk om steeds up to date te blijven. Via onze kanalen loopt dat een stuk makkelijker en meer
-    ontspannend. Dat is ons inziens zeker die kleine kost van het jaarabonnement waard.
-  </md-card>
+        <span class="public">Het is ook een investering in jezelf.</span> In onze wereld van snelle verandering
+        is het heel belangrijk om steeds up to date te blijven. Via onze kanalen loopt dat een stuk makkelijker en meer
+        ontspannend. Dat is ons inziens zeker die kleine kost van het jaarabonnement waard.
+    </md-card>
 
 
-  <md-card *ngIf="(subscriptionStream | async)?.datetime && (subscriptionStream | async)?.price"
-           style="margin-top: 20px">
+    <md-card *ngIf="(subscriptionStream | async)?.datetime && (subscriptionStream | async)?.price"
+             style="margin-top: 20px">
 
-    <h1>Bedankt voor de aanschaf van het abonnement.</h1>
-    <br><br>
-    <p class="confirmation" *ngIf="(subscriptionStream | async)?.price">
-      Gelieve <span class="error">€ {{(subscriptionStream | async)?.price}}</span> te storten op rekening <b>BE84 0689
-      0147 2759</b> van
-      Aerypton bvba met als referentie: "<b>jaarabonnement HTTP Café {{(publicUserdataStream | async)?.voornaam}}
-      {{(publicUserdataStream | async)?.familienaam}}</b>".
-    </p>
-    <br><br>
-    Jouw magazine wordt gestuurd naar:
-    <br><br>
-    <b>
-      {{ (publicUserdataStream | async)?.voornaam }}
-      {{ (publicUserdataStream | async)?.familienaam }}<br>
+        <h1>Bedankt voor de aanschaf van het abonnement.</h1>
+        <br><br>
+        <p class="confirmation" *ngIf="(subscriptionStream | async)?.price">
+            Gelieve <span class="error">€ {{(subscriptionStream | async)?.price}}</span> te storten op rekening <b>BE84
+            0689
+            0147 2759</b> van
+            Aerypton bvba met als referentie: "<b>jaarabonnement HTTP Café {{(publicUserdataStream | async)?.voornaam}}
+            {{(publicUserdataStream | async)?.familienaam}}</b>".
 
-      {{ (privateUserdataStream | async)?.address.street }}
-      {{ (privateUserdataStream | async)?.address.number }}<br>
+        </p>
 
-      {{ (privateUserdataStream | async)?.address.zip }}
-      {{ (privateUserdataStream | async)?.address.city }}<br>
 
-      {{ (privateUserdataStream | async)?.address.country }}
-    </b>
-    <br>
-    (<a routerLink="/user">wijzigen</a>)
-    <br><br><br><br>
-    Binnenkort kun je hier de factuur downloaden.
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" *ngIf="(subscriptionStream | async)?.price">
+            <input type="hidden" name="cmd" value="_s-xclick">
+            <input type="hidden" name="hosted_button_id" value="FKFRJ6ENT4RYE">
+            <table>
+                <tr>
+                    <td><input type="hidden" name="on0" value=""></td>
+                </tr>
+                <tr>
+                    <td><select name="os0">
+                        <option value="steunlid" *ngIf="(subscriptionStream | async)?.price === 60">steunlid : €60,00 EUR - yearly</option>
+                        <option value="met kortingscode" *ngIf="(subscriptionStream | async)?.price === 50">met kortingscode : €50,00 EUR - yearly</option>
+                    </select></td>
+                </tr>
+            </table>
+            <input type="hidden" name="currency_code" value="EUR">
+            <input type="image" src="https://www.paypalobjects.com/en_US/BE/i/btn/btn_subscribeCC_LG.gif" border="0"
+                   name="submit" alt="PayPal - The safer, easier way to pay online!">
+            <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+        </form>
 
-    <div *ngIf="">
-      <table class="profile-full-width" cellspacing="0">
-        <tr>
-          <td>
-            <md-input-container class="profile-full-width">
-              <input mdInput placeholder="straat" #street
-                     [value]="(privateUserdataStream | async)?.address.street"
-                     (blur)="updateAddress(street.value, number.value, zip.value, city.value, country.value)">
+
+        <br><br>
+        Jouw magazine wordt gestuurd naar:
+        <br><br>
+        <b>
+            {{ (publicUserdataStream | async)?.voornaam }}
+            {{ (publicUserdataStream | async)?.familienaam }}<br>
+
+            {{ (privateUserdataStream | async)?.address.street }}
+            {{ (privateUserdataStream | async)?.address.number }}<br>
+
+            {{ (privateUserdataStream | async)?.address.zip }}
+            {{ (privateUserdataStream | async)?.address.city }}<br>
+
+            {{ (privateUserdataStream | async)?.address.country }}
+        </b>
+        <br>
+        (<a routerLink="/user">wijzigen</a>)
+        <br><br><br><br>
+        Binnenkort kun je hier de factuur downloaden.
+
+        <div *ngIf="">
+            <table class="profile-full-width" cellspacing="0">
+                <tr>
+                    <td>
+                        <md-input-container class="profile-full-width">
+                            <input mdInput placeholder="straat" #street
+                                   [value]="(privateUserdataStream | async)?.address.street"
+                                   (blur)="updateAddress(street.value, number.value, zip.value, city.value, country.value)">
+                        </md-input-container>
+                    </td>
+                    <td>
+                        <md-input-container class="profile-full-width">
+                            <input mdInput placeholder="huisnummer" #number
+                                   [value]="(privateUserdataStream | async)?.address.number"
+                                   (blur)="updateAddress(street.value, number.value, zip.value, city.value, country.value)">
+                        </md-input-container>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <md-input-container class="profile-full-width">
+                            <input mdInput placeholder="postcode" #zip
+                                   [value]="(privateUserdataStream | async)?.address.zip"
+                                   (blur)="updateAddress(street.value, number.value, zip.value, city.value, country.value)">
+                        </md-input-container>
+                    </td>
+                    <td>
+                        <md-input-container class="profile-full-width">
+                            <input mdInput placeholder="gemeente" #city
+                                   [value]="(privateUserdataStream | async)?.address.city"
+                                   (blur)="updateAddress(street.value, number.value, zip.value, city.value, country.value)">
+                        </md-input-container>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <md-input-container class="profile-full-width">
+                            <input mdInput placeholder="land" #country
+                                   [value]="(privateUserdataStream | async)?.address.country"
+                                   (blur)="updateAddress(street.value, number.value, zip.value, city.value, country.value)">
+                        </md-input-container>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <md-input-container class="profile-full-width">
+                            <input mdInput placeholder="bedrijfsnaam" #bedrijfsnaam
+                                   [value]="(privateUserdataStream | async)?.company.name"
+                                   (blur)="updateCompanyName(bedrijfsnaam.value)">
+                        </md-input-container>
+                    </td>
+                    <td>
+                        <md-input-container class="profile-full-width">
+                            <input mdInput placeholder="ondernemingsnummer" #ondernemingsnummer
+                                   [value]="(privateUserdataStream | async)?.company.id"
+                                   (blur)="updateCompanyId(ondernemingsnummer.value)">
+                        </md-input-container>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    </md-card>
+
+
+    <md-card *ngIf="!(subscriptionStream | async)?.price">
+        <md-radio-group class="example-radio-group">
+            <md-radio-button class="example-radio-button" value="jaarabonnement" (click)="getPrice('default')">
+                Ik steun HTTP Café en neem een jaarabonnement: €60
+            </md-radio-button>
+            <md-radio-button class="example-radio-button" value="jaarabonnement-reduction" #reduction
+                             (click)="unsetPrice()">
+                Ik heb een kortingscode voor een jaarabonnement.
+            </md-radio-button>
+            <md-radio-button *ngIf="!(subscriptionStream | async)?.datetime" class="example-radio-button" value="proef"
+                             (click)="getPrice('free')">
+                Ik zou graag éénmalig een gratis exemplaar ontvangen.
+            </md-radio-button>
+        </md-radio-group>
+
+        <p *ngIf="reduction.checked" style="padding-left: 40px; margin-top: 0">
+            <md-input-container class="full-width">
+                <input mdInput placeholder="kortingscode" [(ngModel)]="kortingscode">
             </md-input-container>
-          </td>
-          <td>
-            <md-input-container class="profile-full-width">
-              <input mdInput placeholder="huisnummer" #number
-                     [value]="(privateUserdataStream | async)?.address.number"
-                     (blur)="updateAddress(street.value, number.value, zip.value, city.value, country.value)">
-            </md-input-container>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <md-input-container class="profile-full-width">
-              <input mdInput placeholder="postcode" #zip
-                     [value]="(privateUserdataStream | async)?.address.zip"
-                     (blur)="updateAddress(street.value, number.value, zip.value, city.value, country.value)">
-            </md-input-container>
-          </td>
-          <td>
-            <md-input-container class="profile-full-width">
-              <input mdInput placeholder="gemeente" #city
-                     [value]="(privateUserdataStream | async)?.address.city"
-                     (blur)="updateAddress(street.value, number.value, zip.value, city.value, country.value)">
-            </md-input-container>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <md-input-container class="profile-full-width">
-              <input mdInput placeholder="land" #country
-                     [value]="(privateUserdataStream | async)?.address.country"
-                     (blur)="updateAddress(street.value, number.value, zip.value, city.value, country.value)">
-            </md-input-container>
-          </td>
-          <td>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <md-input-container class="profile-full-width">
-              <input mdInput placeholder="bedrijfsnaam" #bedrijfsnaam
-                     [value]="(privateUserdataStream | async)?.company.name"
-                     (blur)="updateCompanyName(bedrijfsnaam.value)">
-            </md-input-container>
-          </td>
-          <td>
-            <md-input-container class="profile-full-width">
-              <input mdInput placeholder="ondernemingsnummer" #ondernemingsnummer
-                     [value]="(privateUserdataStream | async)?.company.id"
-                     (blur)="updateCompanyId(ondernemingsnummer.value)">
-            </md-input-container>
-          </td>
-        </tr>
-      </table>
-    </div>
+            <button md-raised-button (click)="getPrice('reduction'); reduction.checked = true">controleer</button>
+            <br>
+            <span *ngIf="betaalplan.error" class="error"> {{betaalplan.error}} </span>
+        </p>
 
-  </md-card>
+        <div *ngIf="betaalplan.price > -1" class="result">
+            <table class="profile-full-width" cellspacing="0">
+                <tr>
+                    <td>
+                        <md-input-container class="profile-full-width">
+                            <input mdInput placeholder="straat" #street
+                                   [value]="(privateUserdataStream | async)?.address.street"
+                                   (blur)="updateAddress(street.value, number.value, zip.value, city.value, country.value)">
+                        </md-input-container>
+                    </td>
+                    <td>
+                        <md-input-container class="profile-full-width">
+                            <input mdInput placeholder="huisnummer" #number
+                                   [value]="(privateUserdataStream | async)?.address.number"
+                                   (blur)="updateAddress(street.value, number.value, zip.value, city.value, country.value)">
+                        </md-input-container>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <md-input-container class="profile-full-width">
+                            <input mdInput placeholder="postcode" #zip
+                                   [value]="(privateUserdataStream | async)?.address.zip"
+                                   (blur)="updateAddress(street.value, number.value, zip.value, city.value, country.value)">
+                        </md-input-container>
+                    </td>
+                    <td>
+                        <md-input-container class="profile-full-width">
+                            <input mdInput placeholder="gemeente" #city
+                                   [value]="(privateUserdataStream | async)?.address.city"
+                                   (blur)="updateAddress(street.value, number.value, zip.value, city.value, country.value)">
+                        </md-input-container>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <md-input-container class="profile-full-width">
+                            <input mdInput placeholder="land" #country
+                                   [value]="(privateUserdataStream | async)?.address.country"
+                                   (blur)="updateAddress(street.value, number.value, zip.value, city.value, country.value)">
+                        </md-input-container>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <md-input-container class="profile-full-width">
+                            <input mdInput placeholder="bedrijfsnaam" #bedrijfsnaam
+                                   [value]="(privateUserdataStream | async)?.company.name"
+                                   (blur)="updateCompanyName(bedrijfsnaam.value)">
+                        </md-input-container>
+                    </td>
+                    <td>
+                        <md-input-container class="profile-full-width">
+                            <input mdInput placeholder="ondernemingsnummer" #ondernemingsnummer
+                                   [value]="(privateUserdataStream | async)?.company.id"
+                                   (blur)="updateCompanyId(ondernemingsnummer.value)">
+                        </md-input-container>
+                    </td>
+                </tr>
+            </table>
 
+            <p class="confirmation" *ngIf="betaalplan.price">
+                Ik stort <span class="error">€ {{betaalplan.price}}</span> op rekening <b>BE84 0689 0147 2759</b> van
+                Aerypton bvba met als referentie: "<b>jaarabonnement HTTP Café {{(publicUserdataStream |
+                async)?.voornaam}}
+                {{(publicUserdataStream | async)?.familienaam}}</b>".
+            </p>
+            <div *ngIf="betaalplan.price">
+                <button class="right" md-raised-button (click)="subscribe()">Bevestigen</button>
+            </div>
 
-  <md-card *ngIf="!(subscriptionStream | async)?.price">
-    <md-radio-group class="example-radio-group">
-      <md-radio-button class="example-radio-button" value="jaarabonnement" (click)="getPrice('default')">
-        Ik steun HTTP Café en neem een jaarabonnement: €60
-      </md-radio-button>
-      <md-radio-button class="example-radio-button" value="jaarabonnement-reduction" #reduction (click)="unsetPrice()">
-        Ik heb een kortingscode voor een jaarabonnement.
-      </md-radio-button>
-      <md-radio-button *ngIf="!(subscriptionStream | async)?.datetime" class="example-radio-button" value="proef"
-                       (click)="getPrice('free')">
-        Ik zou graag éénmalig een gratis exemplaar ontvangen.
-      </md-radio-button>
-    </md-radio-group>
-
-    <p *ngIf="reduction.checked" style="padding-left: 40px; margin-top: 0">
-      <md-input-container class="full-width">
-        <input mdInput placeholder="kortingscode" [(ngModel)]="kortingscode">
-      </md-input-container>
-      <button md-raised-button (click)="getPrice('reduction'); reduction.checked = true">controleer</button>
-      <br>
-      <span *ngIf="betaalplan.error" class="error"> {{betaalplan.error}} </span>
-    </p>
-
-    <div *ngIf="betaalplan.price > -1" class="result">
-      <table class="profile-full-width" cellspacing="0">
-        <tr>
-          <td>
-            <md-input-container class="profile-full-width">
-              <input mdInput placeholder="straat" #street
-                     [value]="(privateUserdataStream | async)?.address.street"
-                     (blur)="updateAddress(street.value, number.value, zip.value, city.value, country.value)">
-            </md-input-container>
-          </td>
-          <td>
-            <md-input-container class="profile-full-width">
-              <input mdInput placeholder="huisnummer" #number
-                     [value]="(privateUserdataStream | async)?.address.number"
-                     (blur)="updateAddress(street.value, number.value, zip.value, city.value, country.value)">
-            </md-input-container>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <md-input-container class="profile-full-width">
-              <input mdInput placeholder="postcode" #zip
-                     [value]="(privateUserdataStream | async)?.address.zip"
-                     (blur)="updateAddress(street.value, number.value, zip.value, city.value, country.value)">
-            </md-input-container>
-          </td>
-          <td>
-            <md-input-container class="profile-full-width">
-              <input mdInput placeholder="gemeente" #city
-                     [value]="(privateUserdataStream | async)?.address.city"
-                     (blur)="updateAddress(street.value, number.value, zip.value, city.value, country.value)">
-            </md-input-container>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <md-input-container class="profile-full-width">
-              <input mdInput placeholder="land" #country [value]="(privateUserdataStream | async)?.address.country"
-                     (blur)="updateAddress(street.value, number.value, zip.value, city.value, country.value)">
-            </md-input-container>
-          </td>
-          <td>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <md-input-container class="profile-full-width">
-              <input mdInput placeholder="bedrijfsnaam" #bedrijfsnaam
-                     [value]="(privateUserdataStream | async)?.company.name"
-                     (blur)="updateCompanyName(bedrijfsnaam.value)">
-            </md-input-container>
-          </td>
-          <td>
-            <md-input-container class="profile-full-width">
-              <input mdInput placeholder="ondernemingsnummer" #ondernemingsnummer
-                     [value]="(privateUserdataStream | async)?.company.id"
-                     (blur)="updateCompanyId(ondernemingsnummer.value)">
-            </md-input-container>
-          </td>
-        </tr>
-      </table>
-
-      <p class="confirmation" *ngIf="betaalplan.price">
-        Ik stort <span class="error">€ {{betaalplan.price}}</span> op rekening <b>BE84 0689 0147 2759</b> van
-        Aerypton bvba met als referentie: "<b>jaarabonnement HTTP Café {{(publicUserdataStream | async)?.voornaam}}
-        {{(publicUserdataStream | async)?.familienaam}}</b>".
-      </p>
-      <div *ngIf="betaalplan.price">
-        <button class="right" md-raised-button (click)="subscribe()">Bevestigen</button>
-      </div>
-
-      <p *ngIf="!betaalplan.price">
-        Ik betaal niet voor het exemplaar dat mij zal toegestuurd worden. Ik besef dat er veel tijd en liefde in
-        gekropen
-        is, en ik beloof dat ik het met evenveel liefde lees. Ik overweeg om nadien een jaarabonnement te nemen.
-      </p>
-      <div *ngIf="!betaalplan.price">
-        <button class="right" md-raised-button (click)="subscribe()">Bevestigen</button>
-      </div>
+            <p *ngIf="!betaalplan.price">
+                Ik betaal niet voor het exemplaar dat mij zal toegestuurd worden. Ik besef dat er veel tijd en liefde in
+                gekropen
+                is, en ik beloof dat ik het met evenveel liefde lees. Ik overweeg om nadien een jaarabonnement te nemen.
+            </p>
+            <div *ngIf="!betaalplan.price">
+                <button class="right" md-raised-button (click)="subscribe()">Bevestigen</button>
+            </div>
 
 
-    </div>
+        </div>
 
-    <p>
-      <span class="public">Wij respecteren jullie privacy en vertrouwen. </span>
-      Aerypton bvba, eigenaar van HTTP Café, deelt jouw data op geen enkele wijze met derden.
-    </p>
+        <p>
+            <span class="public">Wij respecteren jullie privacy en vertrouwen. </span>
+            Aerypton bvba, eigenaar van HTTP Café, deelt jouw data op geen enkele wijze met derden.
+        </p>
 
-  </md-card>
+    </md-card>
 
 </div>

@@ -20,9 +20,6 @@
   <script src="https://cdn.ckeditor.com/4.5.11/full/ckeditor.js"></script>
 
 
-  <!-- Web Application Manifest -->
-  <link rel="manifest" href="manifest.json">
-
 
   <!-- Add to homescreen for Chrome on Android -->
   <meta name="mobile-web-app-capable" content="yes">
@@ -37,24 +34,28 @@
 
   <!-- Tile icon for Win8 (144x144 + tile color) -->
   <meta name="msapplication-TileImage" content="assets/images/httpcafe.png">
-  <meta name="msapplication-TileColor" content="#EE0060">
+  <meta name="msapplication-TileColor" content="#04788A">
 
   <!-- Color the status bar on mobile devices -->
-  <meta name="theme-color" content="#EE0060">
+  <meta name="theme-color" content="#04788A">
 
 
-  <!-- Color the status bar on mobile devices -->
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js', {scope: '/'}).then(function (r) {
-        console.debug('service worker started!');
-      });
-    }
-
-  </script>
+  <!-- Web Application Manifest -->
+  <link rel="manifest" href="manifest.json">
 
 </head>
 <body>
 <app-root>Loading...</app-root>
+
+<!-- Service-Worker -->
+<script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
+            console.log('Service Worker registered');
+        }).catch(function(err) {
+            console.log('Service Worker registration failed: ', err);
+        });
+    }
+</script>
 </body>
 </html>

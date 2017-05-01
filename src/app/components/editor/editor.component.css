@@ -1,76 +1,96 @@
 md-list {
-  margin-top: 10px;
-  padding: 0;
-  width: 100%;
-  float: left;
+    margin-top: 10px;
+    padding: 0;
+    width: 100%;
+    float: left;
 }
 
 md-list-item {
-  border-bottom: solid 1px #eeeeee;
-  overflow: hidden;
-  margin: 0;
+    border-bottom: solid 1px #eeeeee;
+    overflow: hidden;
+    margin: 0;
 }
 
 .mat-list-item-content {
-  height: 32px;
+    height: 32px;
 }
 
 md-list-item:last-of-type {
-  padding-top: 30px;
-  border-bottom: none;
+    padding-top: 30px;
+    border-bottom: none;
 }
 
 div.editorcontent {
-  margin-top: 10px;
-  width: 60%;
-  float: right;
+    margin-top: 10px;
+    width: 55%;
+    float: left;
+}
+
+md-card.delete, .publish {
+    float: left;
+    margin-top: 24px;
+    width: calc(55% - 48px);
+}
+
+.appfeedback {
+    margin-top: 10px;
+    width: 40%;
+    float: right;
 }
 
 .full-width {
-  width: 100%;
+    width: 100%;
 }
 
 table {
-  width: 100%;
+    width: 100%;
 }
 
 table.linktable {
-  margin: 20px 0 0 0;
-  width: 100%;
-  border-left: 3px solid #cccccc;
+    margin: 20px 0 0 0;
+    width: 100%;
+    border-left: 3px solid #cccccc;
 }
 
 td.meta {
-  font-size: 0.7em;
-  color: #999999;
+    font-size: 0.7em;
+    color: #999999;
 }
 
 .alert {
-  background: red;
-  color: #ffffff;
+    background: red;
+    color: #ffffff;
 }
 
 a {
-  text-decoration: none;
-  cursor: pointer;
+    text-decoration: none;
+    cursor: pointer;
 }
+
 a:hover {
-  text-decoration: underline;
+    text-decoration: underline;
 }
 
 md-card.menu {
-  float: left;
-  width: 30%;
-  padding: 20px 0 20px 0;
-  margin-left: -20px;
-  min-width: 350px;
+    float: left;
+    width: 30%;
+    padding: 20px 0 20px 0;
+    margin-left: -20px;
+    min-width: 350px;
 }
 
-
 @media only screen and (max-width: 900px) {
-  div.editorcontent {
-    margin-top: 10px;
-    width: 100%;
-    float: right;
-  }
+    app-feedback, md-card.delete, .publish {
+        margin: 10px 0 0 0;
+        padding: 20px 10px 20px 10px;
+        width: calc(100% - 48px);
+        float: left;
+    }
+
+    div.editorcontent {
+        margin: 10px 0 0 0;
+        padding: 20px 0 0 0;
+        width: calc(100% - 28px);
+        float: left;
+    }
 }

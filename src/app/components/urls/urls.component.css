@@ -1,9 +1,9 @@
 a {
-  font-size: 1em;
   color: #666666;
   padding-right: 40px;
   text-decoration: none;
   white-space: nowrap;
+  font-size: 0.8em;
 }
 md-icon {
   vertical-align: middle;

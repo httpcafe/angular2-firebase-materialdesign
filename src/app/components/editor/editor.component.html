@@ -1,105 +1,65 @@
-<md-card class="menu" *ngIf="(articleStream | async)?.length">
-  <md-list>
-    <md-list-item *ngFor="let article of (articleStream | async)">
-      <table>
-        <tr>
-          <td colspan="2"><a (click)="selectItem(article)">{{article.title}}</a></td>
-        </tr>
-        <tr>
-          <td class="meta"><a (click)="selectDeleteItem(article)">verwijderen</a></td>
-          <td class="meta" align="right">{{ since(article.timestamp) }}</td>
-        </tr>
-      </table>
-    </md-list-item>
-    <md-list-item style="margin-left: 0; margin-right: 0">
-      <button class="right" md-raised-button (click)="createItem()">
-        <md-icon>add_circle</md-icon>
-        nieuw artikel
-      </button>
+<div class="editorcontent" *ngIf="articleStream">
+    <md-card>
+        <label for="file-input">
+            <img style="cursor: pointer" md-card-image src="../../../assets/images/banner_for_editor.png"
+                 *ngIf="!(articleStream | async)?.banner">
+            <img style="cursor: pointer" md-card-image [src]="(articleStream | async)?.banner"
+                 *ngIf="(articleStream | async)?.banner">
+        </label>
 
-    </md-list-item>
-  </md-list>
+        <md-card-content>
+            <md-input-container class="full-width">
+                <input mdInput #title placeholder="title" [value]="(articleStream | async)?.title"
+                       (change)="saveArticle(title.value, content.value, 'blog')">
+            </md-input-container>
+
+            <ckeditor
+                    #content
+                    [ngModel]="(articleStream | async)?.content"
+                    [config]="config"
+                    (change)="saveArticle(title.value, content.value, 'blog')"
+                    debounce="2000">
+            </ckeditor>
+        </md-card-content>
+    </md-card>
+    <input type="file" style="display: none" id="file-input" (change)="uploadImage($event)" placeholder="Upload file"
+           accept="image/png">
+</div>
+
+<div class="appfeedback">
+    <h1>Feedback</h1>
+    Heb je vragen over het schrijven van artikelen of over jouw artikel specifiek, schrijf je vraag hieronder.
+    <app-feedback [feedback]="'sandbox_' + (articleStream | async)?.$key"></app-feedback>
+</div>
+
+<md-card class="delete">
+    <md-checkbox [(ngModel)]="confirmdeletion">Ik ben zeker dat dit item<br> definitief verwijderd mag worden.
+    </md-checkbox>
+    <button class="alert" style="float: right" md-raised-button (click)="deleteArticle()">
+        Verwijder.
+    </button>
+</md-card>
+
+<div>
+<span class="publish" *ngIf="(articleStream | async)?.askforpublish">
+        <p><strong>Er is een aanvraag tot publiceren ingediend.</strong></p>
+        Zeer binnenkort wordt je artikel gepubliceerd. <br>
+        Zoniet wordt hierboven in de reacties verklaard waarom.
+    </span>
+</div>
+
+<md-card *ngIf="!(articleStream | async)?.askforpublish" class="publish">
+    <p><strong>Eens je artikel klaar is, publiceer het. </strong></p>
+    Wanneer wij het nagelezen hebben, publiceren we het.<br>
+    Zoniet wordt hierboven in de reacties verklaard waarom.
+    <button class="alert" style="float: right" md-raised-button
+            (click)="publishArticle(article)">
+        Publiceer.
+    </button>
 </md-card>
 
 
-<div class="editorcontent" *ngIf="selecteditem">
-
-  <md-input-container class="full-width">
-    <input mdInput #title placeholder="title" [(ngModel)]="selecteditem.title" (change)="saveItem(selecteditem)">
-  </md-input-container>
-
-
-  <ckeditor
-    [(ngModel)]="selecteditem.content"
-    [config]="{uiColor: '#bbbbbb'}"
-    (change)="saveItem(selecteditem)"
-    (ready)="onReady($event)"
-    (focus)="onFocus($event)"
-    debounce="2000">
-  </ckeditor>
-
-  <table class="linktable" *ngIf="selecteditem.urlArray">
-    <tr>
-      <td colspan="3" align="right">
-        <button md-raised-button (click)="addUrl(selecteditem, '', 'http://')">
-          <md-icon>add_circle</md-icon>
-          voeg bron / link toe
-        </button>
-      </td>
-    </tr>
-    <tr *ngFor="let url of selecteditem.urlArray">
-      <td>
-        <md-input-container class="full-width">
-          <input mdInput placeholder="naam" [(ngModel)]="url.name" (change)="saveItem(selecteditem)">
-        </md-input-container>
-      </td>
-      <td>
-        <md-input-container class="full-width">
-          <input mdInput placeholder="url" [(ngModel)]="url.url" (change)="saveItem(selecteditem)">
-        </md-input-container>
-      </td>
-      <td align="right">
-        <a href="{{url.url}}" target="_blank">
-          <button md-mini-fab>
-            <md-icon>launch</md-icon>
-          </button>
-        </a>
-        <button md-mini-fab (click)="removeUrl(selecteditem, url.key)">
-          <md-icon>delete</md-icon>
-        </button>
-      </td>
-    </tr>
-  </table>
-
-
-</div>
-
-<div class="editorcontent" *ngIf="deleteItem">
-  <md-card *ngIf="deleteItem.title">
-    <h1>{{deleteItem.title}}</h1>
-    <div [innerHTML]="deleteItem.content"></div>
-    <app-urls *ngIf="deleteItem.urls" [(urls)]="deleteItem.urls"></app-urls>
-  </md-card>
-  <br><br>
-  <button class="alert" style="float: right" md-raised-button (click)="delete(deleteItem)">Verwijder dit artikel
-    definitief
-  </button>
-
-</div>
-
-
-<div class="editorcontent" *ngIf="!deleteItem && !selecteditem">
-
-  <h1>Werk mee aan HTTP Café.</h1>
-  <br><br>
-  HTTP Café is voor en door webdevelopers.<br><br>
-  Ben je in een bepaald onderwerp een beetje tot heel erg onderlegd, schrijf er een artikel over. Anderen kunnen
-  van jouw kennis bijleren, net zoals jij bijleert van andermans kennis.
-
-  <br><br>Geen paniek, elk artikel wordt nagelezen op taal én inhoud voor het gepubliceerd wordt.
-  <br><br>
-
-  <button md-raised-button (click)="createItem()" *ngIf="articleStream && !(articleStream | async)?.length">
-    Schrijf je eerste artikel
-  </button>
-</div>
+<a class="right" style="color: #ffffff"
+   (click)="publishArticle(article)">
+    Publiceer.
+</a>

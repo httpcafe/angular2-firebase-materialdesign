@@ -1,6 +1,7 @@
 {
   "rules": {
     "users": {
+      ".read": true,
       "private": {
         "$user_id": {
           ".read": "auth !== null && ($user_id === auth.uid || auth.uid === 'skfLy7Uhifgjg9rDEI1DJyvSKhM2')",
@@ -22,9 +23,13 @@
       ".read": true,
       ".write": "auth != null"
     },
+    "messaging": {
+      ".read": true,
+      ".write": "auth != null"
+    },
     "news": {
       ".read": true,
-      ".write": "auth != null",
+      ".write": "auth !== null && auth.uid === 'skfLy7Uhifgjg9rDEI1DJyvSKhM2'",
       ".indexOn": [
         "published",
         "type",
@@ -51,7 +56,14 @@
         "datetime"
       ]
     },
-    "podcast": {
+    "podcasts": {
+      ".read": true,
+      ".write": "auth != null",
+      ".indexOn": [
+        "datetime"
+      ]
+    },
+    "videocasts": {
       ".read": true,
       ".write": "auth != null",
       ".indexOn": [

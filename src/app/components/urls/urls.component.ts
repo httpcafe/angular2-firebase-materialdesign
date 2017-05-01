@@ -17,7 +17,6 @@ export class UrlsComponent implements OnInit {
     const self = this;
 
     if (self.urls) {
-      console.log(self.urls);
       Object.keys(self.urls).forEach(function (key) {
         self.urlArray.push(self.urls[key]);
         // console.log(key, self.urls[key]);

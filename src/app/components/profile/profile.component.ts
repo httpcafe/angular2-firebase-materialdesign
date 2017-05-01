@@ -1,8 +1,8 @@
-import {Component} from '@angular/core';
+import {Component, Input, Inject} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {UserService} from '../../services/user.service';
 import {ActivatedRoute} from '@angular/router';
-import {AngularFire, FirebaseObjectObservable} from 'angularfire2';
+import {AngularFire, FirebaseObjectObservable, FirebaseApp} from 'angularfire2';
 
 
 @Component({
@@ -18,14 +18,19 @@ export class ProfileComponent {
   privateUserdataStream: FirebaseObjectObservable<any>;
   publicUserdataStream: FirebaseObjectObservable<any>;
   subscriptionStream: FirebaseObjectObservable<any>;
+  _storage_;
 
+  @Input()
+  short: boolean;
 
-  constructor(private authService: AuthService,
+  constructor(@Inject(FirebaseApp) firebaseApp: any,
+              private authService: AuthService,
               private userService: UserService,
               private activatedRoute: ActivatedRoute,
               private af: AngularFire) {
 
     const self = this;
+    this._storage_ = firebaseApp.storage();
     self.activatedRoute.params.subscribe(params => {
       self.uid = params['uid'];
     });
@@ -99,6 +104,23 @@ export class ProfileComponent {
         break;
     }
     this.userService.updateJob(this.privateUserdataStream, key, value);
+  }
+
+
+
+  uploadImage(event) {
+    const self = this;
+    const fileList: FileList = event.target.files;
+    if (fileList.length > 0) {
+      const file: File = fileList[0];
+      const ref = this._storage_.ref().child('users/' + this.uid + '/' + file.name);
+
+      ref.put(file).then(snapshot => {
+        ref.getDownloadURL().then(url => {
+          self.publicUserdataStream.update({'avatar': snapshot.downloadURL});
+        });
+      });
+    }
   }
 }
 

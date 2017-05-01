@@ -1,15 +1,15 @@
-<table>
+<table cellpadding="5" cellspacing="0">
   <tr *ngFor="let user of users">
-    <td>
+    <td style="border-bottom: solid 1px #eeeeee">
       <div *ngIf="user.avatar">
         <a routerLink="/user/{{user.key}}"><img [src]="user.avatar" class="profile"></a>
       </div>
     </td>
-    <td>
+    <td style="border-bottom: solid 1px #eeeeee">
       <a routerLink="/user/{{user.$key}}">{{ user.voornaam }} {{ user.familienaam }}</a><br>
       {{user.twitter}}
     </td>
-    <td>
+    <td style="border-bottom: solid 1px #eeeeee">
       <app-user uid="{{user.$key}}"></app-user>
     </td>
   </tr>

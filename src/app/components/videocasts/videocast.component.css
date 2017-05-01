@@ -1,0 +1,67 @@
+.podcastitem {
+  margin-bottom: 40px;
+}
+
+md-card {
+  margin-bottom: 20px;
+  overflow: hidden;
+  width: 80%;
+  max-width: 400px;
+  padding-bottom: 30px;
+}
+
+md-card-title {
+  font-size: 1.2em !important;
+}
+
+md-card-header {
+  height: 100px
+}
+
+button {
+  height: 60px;
+  width: 60px;
+  border: solid 1px #DD0050;
+  background: #FFFFFF;
+  position: fixed;
+  z-index: 1000;
+  margin-top: -50px;
+  margin-left: 365px;
+}
+
+md-icon {
+  color: #DD0050;
+}
+
+button:hover {
+  background: #DD0050;
+}
+
+button:hover md-icon {
+  color: #ffffff
+}
+
+@media only screen and (max-width: 500px) {
+
+  md-card {
+    margin: 0 0 20px 0;
+    padding: 20px 0 0 0;
+    border: none;
+    box-shadow: none;
+    background: transparent;
+    border-bottom: solid 1px #cccccc;
+    padding-bottom: 30px;
+    width: auto;
+  }
+
+  button {
+    margin-top: -50px;
+    right: 30px;
+    position: fixed;
+  }
+
+  iframe {
+    width: 94vw;
+    height: 200px;
+  }
+}

@@ -6,9 +6,9 @@ body {
 }/* You can add global styles to this file, and also import other style files */
 
 
-app-profile, app-editor, app-subscription {
+app-profile, app-editor, app-subscription, app-podcasts, app-videocasts, app-news {
   float: left;
-  width: 100%;
+  width: 100vw;
 }
 app-user {
   display: inline-block;
@@ -26,6 +26,7 @@ app-user {
 
 h1 {
   font-size: 1.4em;
+  font-family: Roboto,"Helvetica Neue",sans-serif;
 }
 
 a {
@@ -35,4 +36,13 @@ a {
 a:hover {
   color: #FF0090;
   text-decoration: underline;
+}
+
+h1 {
+  color: #BB0050;
+  font-size: 1.2em;
+}
+
+p {
+  font-family: Roboto,"Helvetica Neue",sans-serif !important;
 }
